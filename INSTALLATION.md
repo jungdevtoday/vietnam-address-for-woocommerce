@@ -1,4 +1,4 @@
-# VN Address for WooCommerce - Hướng dẫn cài đặt
+# Vietnam Address for WooCommerce - Hướng dẫn cài đặt
 
 ## Yêu cầu hệ thống
 
@@ -23,21 +23,21 @@ Không cần API key hay tài khoản bên ngoài — toàn bộ dữ liệu đ�
 1. Upload folder `vn-address-woocommerce` vào `/wp-content/plugins/`
 2. Đăng nhập WordPress Admin
 3. Vào **Plugins**
-4. Tìm **VN Address for WooCommerce** và nhấn **Activate**
+4. Tìm **Vietnam Address for WooCommerce** và nhấn **Activate**
 
 ## Cấu hình
 
 ### Bước 1: Chọn cấu trúc địa chỉ
 
-1. Trong WordPress Admin, vào **WooCommerce > VN Address**
+1. Trong WordPress Admin, vào **WooCommerce > Vietnam Address**
 2. Chọn **Default Address Structure**:
    - **New Structure**: Dành cho cấu trúc mới (34 tỉnh thành, sau 1/7/2025)
    - **Old Structure**: Dành cho cấu trúc cũ (63 tỉnh thành, trước 1/7/2025)
 3. Nhấn **Save Changes**
 
-### Bước 2 (Tùy chọn): Trỏ tới server dữ liệu trung tâm
+### Bước 2: API Server
 
-Nếu bạn vận hành server dữ liệu riêng (xem dự án `vn-address-api-server` đi kèm), dán URL server vào ô **Central Data Server URL**, nhấn **Test Connection** để kiểm tra, rồi **Save Changes**. Bỏ trống ô này thì plugin dùng dữ liệu đóng gói sẵn — mọi thứ vẫn hoạt động bình thường, đây chỉ là tuỳ chọn nâng cao để cập nhật dữ liệu tập trung cho nhiều store.
+Ô **API Server** mặc định đã điền sẵn `https://api.jungdev.com` — nên giữ nguyên để nhận cập nhật dữ liệu hành chính (đổi tên tỉnh/xã, sáp nhập...) sớm nhất ngay khi có, không cần chờ cập nhật plugin. Bỏ trống ô này vẫn dùng được bình thường với dữ liệu đóng gói sẵn trong plugin, và nếu server không phản hồi được thì plugin tự động quay lại dùng dữ liệu đóng gói sẵn ngay lập tức. Muốn tự host server riêng thay vì dùng server mặc định, xem dự án mã nguồn mở `vn-address-api-server` (https://github.com/jungdevtoday/vn-address-api-server).
 
 ### Bước 3: Chuyển đổi đơn hàng cũ (Tùy chọn)
 
@@ -76,13 +76,14 @@ Toàn bộ danh sách Tỉnh/Thành phố, Quận/Huyện, Phường/Xã (cả 2
 - Không cần đăng ký tài khoản hay API key
 - Tốc độ tra cứu tức thời
 
-### 2. Chuyển đổi địa chỉ
+### 2. Chuyển đổi địa chỉ cũ sang mới
 
 Công cụ chuyển đổi giúp:
-- Tự động tra bảng chuyển đổi cũ → mới đóng gói sẵn trong plugin
+- Tra bảng chuyển đổi cũ → mới đóng gói sẵn trong plugin (dựa trên dữ liệu ánh xạ chính thức do VietMap công bố) — **không gọi API qua mạng ở bước này**, kể cả khi đã cấu hình API Server ở trên; toàn bộ xử lý diễn ra cục bộ trên server của bạn nên không phụ thuộc tốc độ/tình trạng của bất kỳ dịch vụ ngoài nào
 - Xử lý hàng loạt nhiều đơn hàng cùng lúc
 - Đánh dấu riêng các trường hợp phường/xã bị tách thành nhiều phường/xã mới (~3% tổng số), để bạn xác nhận thủ công thay vì đoán sai
 - Báo cáo chi tiết kết quả: đã chuyển đổi / cần xem xét / lỗi
+- Không ghi đè hay xóa dữ liệu địa chỉ gốc — kết quả chuyển đổi được lưu vào các trường riêng, địa chỉ khách hàng đã nhập ban đầu luôn còn nguyên trong đơn hàng
 
 ## Xử lý sự cố
 

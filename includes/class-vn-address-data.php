@@ -204,9 +204,37 @@ class VN_Address_Data {
      */
     public function get_ward_mapping($old_ward_code) {
         return $this->fetch('/api/v1/ward-mapping/' . rawurlencode($old_ward_code), function () use ($old_ward_code) {
-            $mapping = $this->load_json('ward-mapping-old-to-new.json');
-            return isset($mapping[$old_ward_code]) ? $mapping[$old_ward_code] : array();
+            return $this->get_ward_mapping_local($old_ward_code);
         });
+    }
+
+    /**
+     * Old-to-new ward mapping read directly from the bundled local file,
+     * never over the network. Used by the order converter: it's a bulk,
+     * one-shot batch job that may touch hundreds of distinct ward codes in
+     * a single run, so going through the server (and its per-key cache) for
+     * each one would be slow and puts avoidable load on the server for data
+     * that's a fixed historical snapshot anyway - it doesn't change after
+     * the fact the way current province/ward names occasionally might.
+     */
+    public function get_ward_mapping_local($old_ward_code) {
+        $mapping = $this->load_json('ward-mapping-old-to-new.json');
+        return isset($mapping[$old_ward_code]) ? $mapping[$old_ward_code] : array();
+    }
+
+    /**
+     * Pre-fetch and cache the data customers hit on every checkout load, so
+     * the first real visitor after activation (or after the server URL
+     * changes) doesn't pay the cold-cache round trip themselves.
+     */
+    public function warm_server_cache() {
+        if (empty($this->get_server_url())) {
+            return;
+        }
+
+        $this->get_provinces_new();
+        $this->get_wards_new_bulk();
+        $this->get_provinces_old();
     }
 
     /**

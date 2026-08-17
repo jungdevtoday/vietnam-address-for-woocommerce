@@ -3,11 +3,19 @@
  * Address Converter Class
  *
  * Converts order addresses from the old (pre 1/7/2025) 3-level structure to
- * the new (post 1/7/2025) 2-level structure using the bundled old-to-new ward
- * mapping table. About 97% of old wards map to exactly one new ward and are
- * converted automatically; the remaining ~3% were split across multiple new
- * wards during the merger and are flagged for manual review rather than
- * guessed at.
+ * the new (post 1/7/2025) 2-level structure by looking each ward up in the
+ * bundled old-to-new mapping table (assets/data/ward-mapping-old-to-new.json,
+ * built from VietMap's published mapping spreadsheet - not a live API call
+ * of any kind, and never goes over the network even if a central data
+ * server is configured, since this is a bulk batch job that may touch
+ * hundreds of distinct wards in a single run).
+ *
+ * About 97% of old wards map to exactly one new ward and are converted
+ * automatically; the remaining ~3% were split across multiple new wards
+ * during the merger and are flagged for manual review rather than guessed
+ * at. The original address fields are never modified or deleted - the
+ * converted result is written to separate "_new"-suffixed meta keys, so the
+ * source data a conversion was based on is always still there.
  */
 
 if (!defined('ABSPATH')) {
@@ -35,7 +43,9 @@ class VN_Address_Converter {
      * @return array{status: string, data?: array, candidates?: array}
      */
     private function resolve_new_ward($ward_code) {
-        $candidates = VN_Address_Data::get_instance()->get_ward_mapping($ward_code);
+        // Always local, never over the network - see get_ward_mapping_local()
+        // for why: this runs as a bulk batch job, not a single lookup.
+        $candidates = VN_Address_Data::get_instance()->get_ward_mapping_local($ward_code);
 
         if (empty($candidates)) {
             return array('status' => 'not_found');

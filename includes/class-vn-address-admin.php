@@ -74,8 +74,8 @@ class VN_Address_Admin {
     public function add_admin_menu() {
         add_submenu_page(
             'woocommerce',
-            __('VN Address for WooCommerce', 'vn-address-for-woocommerce'),
-            __('VN Address', 'vn-address-for-woocommerce'),
+            __('Vietnam Address for WooCommerce', 'vn-address-for-woocommerce'),
+            __('Vietnam Address', 'vn-address-for-woocommerce'),
             'manage_woocommerce',
             'vn-address-settings',
             array($this, 'render_settings_page')
@@ -185,14 +185,20 @@ class VN_Address_Admin {
                                             </option>
                                         </select>
                                         <p class="description">
-                                            <?php esc_html_e('Choose the default address structure for the checkout form. Customers can change it when placing an order.', 'vn-address-for-woocommerce'); ?>
+                                            <?php
+                                            printf(
+                                                /* translators: %s: "Learn more" link to the plugin homepage */
+                                                esc_html__('Choose the default address structure for the checkout form. Customers can change it when placing an order. %s', 'vn-address-for-woocommerce'),
+                                                '<a href="https://jungdev.com/plugins/vn-address-for-woocommerce" target="_blank" rel="noopener noreferrer">' . esc_html__('Learn more', 'vn-address-for-woocommerce') . '</a>'
+                                            );
+                                            ?>
                                         </p>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <th scope="row">
-                                        <label for="vn_address_wc_server_url"><?php esc_html_e('Central Data Server URL', 'vn-address-for-woocommerce'); ?></label>
+                                        <label for="vn_address_wc_server_url"><?php esc_html_e('API Server', 'vn-address-for-woocommerce'); ?></label>
                                     </th>
                                     <td>
                                         <input type="url"
@@ -200,7 +206,7 @@ class VN_Address_Admin {
                                                name="vn_address_wc_server_url"
                                                value="<?php echo esc_attr(get_option('vn_address_wc_server_url')); ?>"
                                                class="regular-text"
-                                               placeholder="https://api.example.com" />
+                                               placeholder="https://api.jungdev.com" />
                                         <button type="button" class="button button-secondary" id="test-server">
                                             <?php esc_html_e('Test Connection', 'vn-address-for-woocommerce'); ?>
                                         </button>
@@ -209,7 +215,25 @@ class VN_Address_Admin {
                                         </button>
                                         <span id="server-status"></span>
                                         <p class="description">
-                                            <?php esc_html_e('Optional. Point this at your own address data server to keep address data centrally updated across all your stores. Leave blank to use the data bundled with the plugin - checkout keeps working either way; this is only tried as an enhancement and the plugin falls back to its bundled data automatically if the server is unreachable.', 'vn-address-for-woocommerce'); ?>
+                                            <?php esc_html_e('Keep the default address filled in here to get administrative address changes (province/ward renames, boundary updates) as soon as they\'re published, without needing to update the plugin itself. Checkout still works even if this is left blank or the server is temporarily unreachable - the plugin automatically falls back to the data bundled with the plugin.', 'vn-address-for-woocommerce'); ?>
+                                        </p>
+                                        <p class="description">
+                                            <?php
+                                            printf(
+                                                /* translators: %s: link to the VietMap open data source */
+                                                esc_html__('Administrative data provided by VietMap: %s.', 'vn-address-for-woocommerce'),
+                                                '<a href="https://github.com/vietmap-company/vietnam_administrative_address" target="_blank" rel="noopener noreferrer">vietmap-company/vietnam_administrative_address</a>'
+                                            );
+                                            ?>
+                                        </p>
+                                        <p class="description">
+                                            <?php
+                                            printf(
+                                                /* translators: %s: link to the self-hostable API server source code on GitHub */
+                                                esc_html__('Prefer to run your own copy instead of relying on ours? The server is open source: %s.', 'vn-address-for-woocommerce'),
+                                                '<a href="https://github.com/jungdevtoday/vn-address-api-server" target="_blank" rel="noopener noreferrer">github.com/jungdevtoday/vn-address-api-server</a>'
+                                            );
+                                            ?>
                                         </p>
                                     </td>
                                 </tr>
@@ -217,7 +241,7 @@ class VN_Address_Admin {
                         </div>
 
                         <div class="vn-address-section">
-                            <h2><?php esc_html_e('Address Conversion Tool', 'vn-address-for-woocommerce'); ?></h2>
+                            <h2><?php esc_html_e('Old-to-new address conversion tool', 'vn-address-for-woocommerce'); ?></h2>
 
                             <table class="form-table">
                                 <tr>
@@ -234,7 +258,7 @@ class VN_Address_Admin {
                                             <?php esc_html_e('Enable converting addresses from the old structure to the new structure', 'vn-address-for-woocommerce'); ?>
                                         </label>
                                         <p class="description">
-                                            <?php esc_html_e('Converts existing orders from the old address structure to the new structure using the bundled conversion table. Most wards convert automatically; a small number that were split between multiple new wards during the merger are flagged for manual review instead of being guessed.', 'vn-address-for-woocommerce'); ?>
+                                            <?php esc_html_e('Converts existing orders from the old address structure to the new structure by matching each order against the bundled old-to-new conversion table (from VietMap\'s published administrative mapping data, not a live API call - this runs entirely on your server, with no network requests, even if an API Server is configured above). Most wards convert automatically; a small number that were split between multiple new wards during the merger are flagged for manual review instead of being guessed. Nothing is overwritten: the original address on every order stays exactly as submitted, and the converted result is saved alongside it.', 'vn-address-for-woocommerce'); ?>
                                         </p>
                                     </td>
                                 </tr>

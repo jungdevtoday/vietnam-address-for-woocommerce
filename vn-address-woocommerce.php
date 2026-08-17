@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: VN Address for WooCommerce
+ * Plugin Name: Vietnam Address for WooCommerce
  * Plugin URI: https://jungdev.com/plugins/vn-address-for-woocommerce
- * Description: Integrates Vietnamese administrative addresses into WooCommerce with a bundled Province/District/Ward dataset. Supports converting addresses from the old structure to the new one.
- * Version: 1.0.0
+ * Description: Integrates the latest Vietnamese administrative addresses into WooCommerce. Supports converting old addresses to new addresses.
+ * Version: 1.1.0
  * Author: jungdev
  * Author URI: https://jungdev.com
  * Text Domain: vn-address-for-woocommerce
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('VN_ADDRESS_WC_VERSION', '1.0.0');
+define('VN_ADDRESS_WC_VERSION', '1.1.0');
 define('VN_ADDRESS_WC_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('VN_ADDRESS_WC_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('VN_ADDRESS_WC_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -36,7 +36,7 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 function vn_address_wc_woocommerce_missing_notice() {
     ?>
     <div class="error">
-        <p><?php _e('VN Address for WooCommerce requires WooCommerce to be installed and activated.', 'vn-address-for-woocommerce'); ?></p>
+        <p><?php _e('Vietnam Address for WooCommerce requires WooCommerce to be installed and activated.', 'vn-address-for-woocommerce'); ?></p>
     </div>
     <?php
 }
@@ -76,18 +76,45 @@ class VN_Address_WooCommerce {
     private function init_hooks() {
         add_action('plugins_loaded', array($this, 'load_textdomain'));
         add_action('init', array($this, 'init'));
-        
+        add_filter('plugin_action_links_' . VN_ADDRESS_WC_PLUGIN_BASENAME, array($this, 'plugin_action_links'));
+        add_action('update_option_vn_address_wc_server_url', array($this, 'schedule_cache_warmup'));
+        add_action('vn_address_wc_warm_cache', array($this, 'warm_cache'));
+
         // Admin hooks
         if (is_admin()) {
             VN_Address_Admin::get_instance();
         }
-        
+
         // Frontend hooks
         VN_Address_Checkout::get_instance();
         VN_Address_Blocks::get_instance();
 
         // Converter
         VN_Address_Converter::get_instance();
+    }
+
+    /**
+     * Adds a "Settings" link to the plugin's row on the Plugins screen.
+     */
+    public function plugin_action_links($links) {
+        $settings_link = '<a href="' . esc_url(admin_url('admin.php?page=vn-address-settings')) . '">' . esc_html__('Settings', 'vn-address-for-woocommerce') . '</a>';
+        array_unshift($links, $settings_link);
+        return $links;
+    }
+
+    /**
+     * Defer the actual cache warm-up to a background cron tick rather than
+     * blocking whatever request changed the setting (activation, or saving
+     * the settings page).
+     */
+    public function schedule_cache_warmup() {
+        if (!wp_next_scheduled('vn_address_wc_warm_cache')) {
+            wp_schedule_single_event(time() + 10, 'vn_address_wc_warm_cache');
+        }
+    }
+
+    public function warm_cache() {
+        VN_Address_Data::get_instance()->warm_server_cache();
     }
     
     public function load_textdomain() {
@@ -179,6 +206,13 @@ function vn_address_wc_activate() {
     }
     if (!get_option('vn_address_wc_enable_converter')) {
         add_option('vn_address_wc_enable_converter', 'no');
+    }
+    if (!get_option('vn_address_wc_server_url')) {
+        add_option('vn_address_wc_server_url', 'https://api.jungdev.com');
+    }
+
+    if (!wp_next_scheduled('vn_address_wc_warm_cache')) {
+        wp_schedule_single_event(time() + 10, 'vn_address_wc_warm_cache');
     }
 }
 
