@@ -3,7 +3,7 @@
  * Plugin Name: Vietnam Address for WooCommerce
  * Plugin URI: https://jungdev.com/plugins/vn-address-for-woocommerce
  * Description: Integrates the latest Vietnamese administrative addresses into WooCommerce. Supports converting old addresses to new addresses.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: jungdev
  * Author URI: https://jungdev.com
  * Text Domain: vn-address-for-woocommerce
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('VN_ADDRESS_WC_VERSION', '1.1.0');
+define('VN_ADDRESS_WC_VERSION', '1.1.1');
 define('VN_ADDRESS_WC_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('VN_ADDRESS_WC_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('VN_ADDRESS_WC_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -204,15 +204,8 @@ function vn_address_wc_activate() {
     if (!get_option('vn_address_wc_structure')) {
         add_option('vn_address_wc_structure', 'new');
     }
-    if (!get_option('vn_address_wc_enable_converter')) {
-        add_option('vn_address_wc_enable_converter', 'no');
-    }
     if (!get_option('vn_address_wc_server_url')) {
         add_option('vn_address_wc_server_url', 'https://api.jungdev.com');
-    }
-
-    if (!wp_next_scheduled('vn_address_wc_warm_cache')) {
-        wp_schedule_single_event(time() + 10, 'vn_address_wc_warm_cache');
     }
 }
 

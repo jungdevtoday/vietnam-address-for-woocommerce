@@ -43,10 +43,9 @@ Không cần API key hay tài khoản bên ngoài — toàn bộ dữ liệu đ�
 
 Nếu bạn đã có đơn hàng với cấu trúc địa chỉ cũ và muốn chuyển sang cấu trúc mới:
 
-1. Bật **Enable Converter**
-2. Nhấn **Save Changes**
-3. Nhấn **Convert All Orders**
-4. Đợi quá trình chuyển đổi hoàn tất — hầu hết đơn hàng chuyển đổi tự động; một số ít trường hợp phường/xã bị tách sau sáp nhập sẽ được đánh dấu "cần xem xét thủ công" thay vì đoán sai
+1. Cuộn tới mục **Công cụ chuyển đổi địa chỉ cũ sang mới**
+2. Nhấn **Chuyển đổi ngay**
+3. Đợi quá trình chuyển đổi hoàn tất — hầu hết đơn hàng chuyển đổi tự động; một số ít trường hợp phường/xã bị tách sau sáp nhập sẽ được đánh dấu "cần xem xét thủ công" thay vì đoán sai
 
 ## Sử dụng
 

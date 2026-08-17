@@ -82,13 +82,6 @@ class VN_Address_Converter {
      * Convert all eligible orders (old structure, not yet converted).
      */
     public function convert_all_orders() {
-        if (get_option('vn_address_wc_enable_converter') !== 'yes') {
-            return array(
-                'success' => false,
-                'message' => __('Converter is not enabled', 'vn-address-for-woocommerce'),
-            );
-        }
-
         $args = array(
             'limit' => -1,
             'status' => array('any'),

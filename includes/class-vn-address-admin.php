@@ -84,7 +84,6 @@ class VN_Address_Admin {
     
     public function register_settings() {
         register_setting('vn_address_wc_settings', 'vn_address_wc_structure');
-        register_setting('vn_address_wc_settings', 'vn_address_wc_enable_converter');
         register_setting('vn_address_wc_settings', 'vn_address_wc_server_url', array(
             'sanitize_callback' => 'esc_url_raw',
         ));
@@ -122,7 +121,7 @@ class VN_Address_Admin {
                 'failed' => __('Failed:', 'vn-address-for-woocommerce'),
                 'errors' => __('Errors:', 'vn-address-for-woocommerce'),
                 'conversion_failed' => __('Conversion failed. Please try again.', 'vn-address-for-woocommerce'),
-                'convert_all_orders' => __('Convert All Orders', 'vn-address-for-woocommerce'),
+                'convert_now' => __('Convert Now', 'vn-address-for-woocommerce'),
                 'testing' => __('Testing...', 'vn-address-for-woocommerce'),
                 'test_server' => __('Test Connection', 'vn-address-for-woocommerce'),
                 'connection_error' => __('Connection error', 'vn-address-for-woocommerce'),
@@ -204,9 +203,8 @@ class VN_Address_Admin {
                                         <input type="url"
                                                id="vn_address_wc_server_url"
                                                name="vn_address_wc_server_url"
-                                               value="<?php echo esc_attr(get_option('vn_address_wc_server_url')); ?>"
-                                               class="regular-text"
-                                               placeholder="https://api.jungdev.com" />
+                                               value="<?php echo esc_attr(VN_Address_Data::get_instance()->get_server_url()); ?>"
+                                               class="regular-text" />
                                         <button type="button" class="button button-secondary" id="test-server">
                                             <?php esc_html_e('Test Connection', 'vn-address-for-woocommerce'); ?>
                                         </button>
@@ -240,43 +238,19 @@ class VN_Address_Admin {
                             </table>
                         </div>
 
-                        <div class="vn-address-section">
-                            <h2><?php esc_html_e('Old-to-new address conversion tool', 'vn-address-for-woocommerce'); ?></h2>
-
-                            <table class="form-table">
-                                <tr>
-                                    <th scope="row">
-                                        <label for="vn_address_wc_enable_converter"><?php esc_html_e('Enable Conversion', 'vn-address-for-woocommerce'); ?></label>
-                                    </th>
-                                    <td>
-                                        <input type="checkbox"
-                                               id="vn_address_wc_enable_converter"
-                                               name="vn_address_wc_enable_converter"
-                                               value="yes"
-                                               <?php checked(get_option('vn_address_wc_enable_converter'), 'yes'); ?> />
-                                        <label for="vn_address_wc_enable_converter">
-                                            <?php esc_html_e('Enable converting addresses from the old structure to the new structure', 'vn-address-for-woocommerce'); ?>
-                                        </label>
-                                        <p class="description">
-                                            <?php esc_html_e('Converts existing orders from the old address structure to the new structure by matching each order against the bundled old-to-new conversion table (from VietMap\'s published administrative mapping data, not a live API call - this runs entirely on your server, with no network requests, even if an API Server is configured above). Most wards convert automatically; a small number that were split between multiple new wards during the merger are flagged for manual review instead of being guessed. Nothing is overwritten: the original address on every order stays exactly as submitted, and the converted result is saved alongside it.', 'vn-address-for-woocommerce'); ?>
-                                        </p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-
                         <?php submit_button(__('Save Settings', 'vn-address-for-woocommerce')); ?>
                     </form>
 
-                    <?php if (get_option('vn_address_wc_enable_converter') === 'yes'): ?>
                     <div class="vn-address-section">
-                        <h2><?php esc_html_e('Convert Existing Orders', 'vn-address-for-woocommerce'); ?></h2>
-                        <p><?php esc_html_e('Convert addresses in existing orders from the old structure to the new structure.', 'vn-address-for-woocommerce'); ?></p>
+                        <h2><?php esc_html_e('Old-to-new address conversion tool', 'vn-address-for-woocommerce'); ?></h2>
+                        <p class="description">
+                            <?php esc_html_e('Converts existing orders from the old address structure to the new structure by matching each order against the bundled old-to-new conversion table (from VietMap\'s published administrative mapping data, not a live API call - this runs entirely on your server, with no network requests, even if an API Server is configured above). Most wards convert automatically; a small number that were split between multiple new wards during the merger are flagged for manual review instead of being guessed. Nothing is overwritten: the original address on every order stays exactly as submitted, and the converted result is saved alongside it.', 'vn-address-for-woocommerce'); ?>
+                        </p>
 
                         <div id="converter-status"></div>
 
                         <button type="button" class="button button-primary" id="convert-orders">
-                            <?php esc_html_e('Convert All Orders', 'vn-address-for-woocommerce'); ?>
+                            <?php esc_html_e('Convert Now', 'vn-address-for-woocommerce'); ?>
                         </button>
 
                         <div id="conversion-progress" style="display: none; margin-top: 15px;">
@@ -288,7 +262,6 @@ class VN_Address_Admin {
 
                         <div id="conversion-results" style="margin-top: 15px;"></div>
                     </div>
-                    <?php endif; ?>
                 </div>
 
                 <div class="vn-address-sidebar">
@@ -349,17 +322,13 @@ class VN_Address_Admin {
             ?>
         </p>
         <p>
-            <?php if (!empty($server_url)) : ?>
-                <?php
-                printf(
-                    /* translators: %s: configured server URL */
-                    esc_html__('Central server configured: %s (falls back to bundled data automatically if unreachable).', 'vn-address-for-woocommerce'),
-                    '<code>' . esc_html($server_url) . '</code>'
-                );
-                ?>
-            <?php else : ?>
-                <?php esc_html_e('No central server configured - using the data bundled with the plugin.', 'vn-address-for-woocommerce'); ?>
-            <?php endif; ?>
+            <?php
+            printf(
+                /* translators: %s: configured server URL */
+                esc_html__('API Server: %s (falls back to bundled data automatically if unreachable).', 'vn-address-for-woocommerce'),
+                '<code>' . esc_html($server_url) . '</code>'
+            );
+            ?>
         </p>
         <?php
     }
@@ -374,7 +343,7 @@ class VN_Address_Admin {
         $url = isset($_POST['url']) ? esc_url_raw(wp_unslash($_POST['url'])) : '';
 
         if (empty($url)) {
-            wp_send_json_error(array('message' => __('Enter a server URL first', 'vn-address-for-woocommerce')));
+            $url = VN_Address_Data::DEFAULT_SERVER_URL;
         }
 
         $response = wp_remote_get(rtrim($url, '/') . '/api/v1/provinces?structure=new', array('timeout' => 8));

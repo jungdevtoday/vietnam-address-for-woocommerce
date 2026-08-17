@@ -4,7 +4,7 @@ Tags: woocommerce, vietnam, address, checkout, provinces
 Requires at least: 5.8
 Tested up to: 7.0.4
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,7 @@ Plugin Vietnam Address for WooCommerce giúp tích hợp hệ thống địa ch�
   - Cấu trúc mới (sau 1/7/2025): 34 tỉnh thành với 2 cấp (Tỉnh - Phường/Xã)
 * **Hỗ trợ cả Classic Checkout và Block Checkout**: xem mục "Hỗ trợ Block Checkout" bên dưới
 * **Dữ liệu đóng gói sẵn**: Toàn bộ danh sách Tỉnh/Thành phố, Quận/Huyện, Phường/Xã (cả 2 cấu trúc) nằm sẵn trong plugin — hoạt động ngay sau khi cài đặt, không gọi API ngoài, không cần internet, không cần API key
-* **Server dữ liệu trung tâm (tuỳ chọn)**: Có thể trỏ plugin tới server dữ liệu riêng của bạn để cập nhật dữ liệu tập trung cho nhiều store cùng lúc mà không cần cập nhật plugin từng nơi. Hoàn toàn tuỳ chọn — bỏ trống thì plugin tự dùng dữ liệu đóng gói sẵn, và tự động quay lại dùng dữ liệu đóng gói sẵn nếu server không phản hồi được
+* **Server dữ liệu trung tâm**: Mặc định trỏ tới `https://api.jungdev.com` để nhận thông tin thay đổi hành chính sớm nhất mà không cần cập nhật plugin. Có thể đổi sang server tự host riêng, hoặc bỏ trống để chỉ dùng dữ liệu đóng gói sẵn trong plugin — dù cấu hình thế nào, plugin luôn tự động quay lại dùng dữ liệu đóng gói sẵn nếu server không phản hồi được, checkout không bao giờ bị gián đoạn
 * **Chuyển đổi tự động**: Chuyển đổi địa chỉ từ cấu trúc cũ sang cấu trúc mới cho các đơn hàng hiện có, dùng bảng chuyển đổi đóng gói sẵn
 * **Giao diện thân thiện**: Trang cài đặt đầy đủ và dễ sử dụng trong WooCommerce Admin
 * **Hiển thị trong Admin**: Xem thông tin địa chỉ chi tiết trong trang quản lý đơn hàng
@@ -51,7 +51,7 @@ Plugin hỗ trợ: Tiếng Việt (mặc định), English, Français, Deutsch, 
 1. Cài đặt và kích hoạt plugin
 2. Vào WooCommerce > Vietnam Address
 3. Chọn cấu trúc địa chỉ mặc định (mới hoặc cũ)
-4. Nếu cần chuyển đổi đơn hàng cũ, bật "Enable Converter" và nhấn "Convert All Orders"
+4. Nếu cần chuyển đổi đơn hàng cũ, cuộn tới mục "Công cụ chuyển đổi địa chỉ cũ sang mới" và nhấn "Chuyển đổi ngay"
 
 == Installation ==
 
@@ -89,7 +89,7 @@ Không, bạn chỉ có thể chọn 1 trong 2 cấu trúc (cũ hoặc mới) t�
 
 = Chuyển đổi địa chỉ cũ sang mới hoạt động như thế nào? Có đáng tin cậy không? =
 
-Khi bạn bật tính năng Converter và nhấn "Convert All Orders", plugin tra từng đơn hàng vào bảng ánh xạ cũ → mới đóng gói sẵn trong plugin (xây dựng từ dữ liệu ánh xạ hành chính do VietMap công bố chính thức, không phải một API sống). Việc tra cứu diễn ra hoàn toàn cục bộ trên server của bạn — **không có request mạng nào trong bước chuyển đổi**, kể cả khi bạn đã cấu hình API Server, nên tốc độ và độ tin cậy không phụ thuộc vào bất kỳ dịch vụ bên ngoài nào tại thời điểm chuyển đổi.
+Khi bạn nhấn nút "Chuyển đổi ngay" trong phần Công cụ chuyển đổi địa chỉ cũ sang mới ở trang cài đặt, plugin tra từng đơn hàng vào bảng ánh xạ cũ → mới đóng gói sẵn trong plugin (xây dựng từ dữ liệu ánh xạ hành chính do VietMap công bố chính thức, không phải một API sống). Việc tra cứu diễn ra hoàn toàn cục bộ trên server của bạn — **không có request mạng nào trong bước chuyển đổi**, kể cả khi bạn đã cấu hình API Server, nên tốc độ và độ tin cậy không phụ thuộc vào bất kỳ dịch vụ bên ngoài nào tại thời điểm chuyển đổi.
 
 Khoảng 97% số phường/xã cũ chuyển đổi tự động, chính xác 1-1. Một số ít (~3%) bị tách thành nhiều phường/xã mới sau sáp nhập — các trường hợp này được đánh dấu "cần xem xét thủ công" thay vì đoán, để bạn tự xác nhận địa chỉ chính xác cho từng đơn hàng đó. Địa chỉ gốc khách hàng đã nhập không bao giờ bị ghi đè hay xóa — kết quả chuyển đổi được lưu vào các trường dữ liệu riêng, tách biệt hoàn toàn với dữ liệu gốc, nên luôn có thể đối chiếu lại nếu cần.
 
@@ -103,6 +103,18 @@ Plugin được thiết kế để tương thích với hầu hết các theme W
 
 Đây không phải yêu cầu bắt buộc: bỏ trống ô này, plugin vẫn hoạt động đầy đủ với dữ liệu đóng gói sẵn ngay trong plugin, và nếu server không phản hồi được vì bất kỳ lý do gì thì plugin tự động quay lại dùng dữ liệu đóng gói sẵn ngay lập tức — checkout không bao giờ bị gián đoạn vì lý do này. Nếu muốn tự chủ hoàn toàn, bạn có thể tự host server riêng dựa trên mã nguồn mở tại https://github.com/jungdevtoday/vn-address-api-server và trỏ về server của chính mình.
 
+== External services ==
+
+This plugin can optionally connect to a central data server, `https://api.jungdev.com`, operated by the plugin author (jungdev, https://jungdev.com), to fetch up-to-date Vietnamese administrative address data (provinces, wards, and old-to-new mapping tables) without requiring a plugin update whenever administrative boundaries change (renames, mergers, new codes).
+
+What is sent: only administrative lookup codes (e.g. a province or ward code) as GET request query parameters. No personal data, customer information, or order data is ever sent to this service.
+
+When it is used: when a customer loads the checkout page (to look up province/ward lists for the address autocomplete), when a site administrator clicks "Test Connection" on the plugin's settings page, and via a background cache-warming job that runs shortly after the API Server setting is saved or the plugin is activated.
+
+This connection is entirely optional. Leaving the "API Server" field blank, or if the server is temporarily unreachable, the plugin automatically and transparently falls back to the Vietnamese administrative address data bundled inside the plugin itself - checkout is never interrupted by this.
+
+Site owners who prefer not to connect to this service at all may run their own copy instead: the server is open source at https://github.com/jungdevtoday/vn-address-api-server.
+
 == Screenshots ==
 
 1. Trang cài đặt plugin
@@ -111,6 +123,15 @@ Plugin được thiết kế để tương thích với hầu hết các theme W
 4. Công cụ chuyển đổi địa chỉ hàng loạt
 
 == Changelog ==
+
+= 1.1.1 =
+* Sửa lỗi ô "API Server" hiển thị trống với một số khách hàng (do dùng placeholder thay vì giá trị thật) khiến nút "Kiểm tra kết nối" báo lỗi gây bối rối; giờ luôn hiển thị giá trị đang dùng, mặc định là server của plugin
+* Bỏ checkbox "Bật tính năng Converter" và bước Lưu cài đặt riêng — công cụ chuyển đổi địa chỉ giờ luôn sẵn sàng với nút "Chuyển đổi ngay"
+* Không còn tự động kết nối API Server ngay khi kích hoạt plugin; chỉ kết nối khi quản trị viên chủ động lưu cài đặt, bấm "Kiểm tra kết nối", hoặc khi khách hàng thực sự vào trang checkout
+* Thêm mục "External services" trong readme mô tả rõ dữ liệu nào được gửi đi và khi nào
+* Thêm uninstall.php để dọn dẹp tùy chọn, cache và cron khi gỡ cài đặt plugin
+* Xoá các dòng console.log/console.error còn sót lại trong script checkout
+* Cập nhật văn bản tiếng Việt trên trang cài đặt theo yêu cầu
 
 = 1.1.0 =
 * Đổi tên plugin thành "Vietnam Address for WooCommerce"
@@ -131,6 +152,9 @@ Plugin được thiết kế để tương thích với hầu hết các theme W
 * Tương thích HPOS (High-Performance Order Storage)
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Sửa lỗi ô API Server hiển thị trống gây bối rối, đơn giản hoá công cụ chuyển đổi địa chỉ (bỏ checkbox, thêm nút Chuyển đổi ngay), và không còn tự động kết nối server khi kích hoạt plugin.
 
 = 1.1.0 =
 Đổi tên plugin, thêm API Server mặc định để cập nhật dữ liệu tự động, sửa converter để không phụ thuộc mạng khi chuyển đổi hàng loạt.

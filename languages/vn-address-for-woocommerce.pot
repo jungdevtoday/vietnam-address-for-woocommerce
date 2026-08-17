@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Vietnam Address for WooCommerce 1.0.0\n"
+"Project-Id-Version: Vietnam Address for WooCommerce 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/vn-address-woocommerce-plugin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-17T16:45:25+00:00\n"
+"POT-Creation-Date: 2026-08-17T17:27:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: vn-address-for-woocommerce\n"
@@ -51,7 +51,7 @@ msgid "Your Checkout page uses the WooCommerce block-based checkout, and your Wo
 msgstr ""
 
 #: includes/class-vn-address-admin.php:66
-#: includes/class-vn-address-admin.php:149
+#: includes/class-vn-address-admin.php:148
 msgid "WooCommerce > Settings > Advanced > Features"
 msgstr ""
 
@@ -59,248 +59,224 @@ msgstr ""
 msgid "Vietnam Address"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:117
+#: includes/class-vn-address-admin.php:116
 msgid "This will convert all orders with old address structure. Continue?"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:118
+#: includes/class-vn-address-admin.php:117
 msgid "Converting..."
 msgstr ""
 
-#: includes/class-vn-address-admin.php:119
+#: includes/class-vn-address-admin.php:118
 msgid "Conversion Results:"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:120
+#: includes/class-vn-address-admin.php:119
 msgid "Converted:"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:121
+#: includes/class-vn-address-admin.php:120
 msgid "Needs review:"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:122
+#: includes/class-vn-address-admin.php:121
 msgid "Failed:"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:123
+#: includes/class-vn-address-admin.php:122
 msgid "Errors:"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:124
+#: includes/class-vn-address-admin.php:123
 msgid "Conversion failed. Please try again."
 msgstr ""
 
-#: includes/class-vn-address-admin.php:125
-#: includes/class-vn-address-admin.php:279
-msgid "Convert All Orders"
+#: includes/class-vn-address-admin.php:124
+#: includes/class-vn-address-admin.php:253
+msgid "Convert Now"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:126
+#: includes/class-vn-address-admin.php:125
 msgid "Testing..."
 msgstr ""
 
-#: includes/class-vn-address-admin.php:127
-#: includes/class-vn-address-admin.php:211
+#: includes/class-vn-address-admin.php:126
+#: includes/class-vn-address-admin.php:209
 msgid "Test Connection"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:128
+#: includes/class-vn-address-admin.php:127
 msgid "Connection error"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:129
+#: includes/class-vn-address-admin.php:128
 msgid "Are you sure you want to clear the cached server data?"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:130
+#: includes/class-vn-address-admin.php:129
 msgid "Clearing..."
 msgstr ""
 
-#: includes/class-vn-address-admin.php:131
-#: includes/class-vn-address-admin.php:214
+#: includes/class-vn-address-admin.php:130
+#: includes/class-vn-address-admin.php:212
 msgid "Clear Cache"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:132
+#: includes/class-vn-address-admin.php:131
 msgid "Error clearing cache"
 msgstr ""
 
 #. translators: %s: link to WooCommerce Settings > Advanced > Features
-#: includes/class-vn-address-admin.php:148
+#: includes/class-vn-address-admin.php:147
 #, php-format
 msgid "Your Checkout page uses the WooCommerce block-based checkout, and your WooCommerce version is too old for this plugin's block checkout support. Update WooCommerce to 8.9+, or enable \"Cart and checkout shortcodes\" under %s."
 msgstr ""
 
-#: includes/class-vn-address-admin.php:157
+#: includes/class-vn-address-admin.php:156
 msgid "Your Checkout page uses the WooCommerce block-based checkout. Customers will see Province/City and Ward/Commune fields for the current (post 1/7/2025) address structure. The legacy structure with District is only available on the Classic Checkout."
 msgstr ""
 
-#: includes/class-vn-address-admin.php:171
+#: includes/class-vn-address-admin.php:170
 msgid "Address Settings"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:176
+#: includes/class-vn-address-admin.php:175
 msgid "Default Address Structure"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:181
+#: includes/class-vn-address-admin.php:180
 msgid "New structure (After 1/7/2025) - 34 provinces"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:184
+#: includes/class-vn-address-admin.php:183
 msgid "Old structure (Before 1/7/2025) - 63 provinces"
 msgstr ""
 
 #. translators: %s: "Learn more" link to the plugin homepage
-#: includes/class-vn-address-admin.php:191
+#: includes/class-vn-address-admin.php:190
 #, php-format
 msgid "Choose the default address structure for the checkout form. Customers can change it when placing an order. %s"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:192
+#: includes/class-vn-address-admin.php:191
 msgid "Learn more"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:201
+#: includes/class-vn-address-admin.php:200
 msgid "API Server"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:218
+#: includes/class-vn-address-admin.php:216
 msgid "Keep the default address filled in here to get administrative address changes (province/ward renames, boundary updates) as soon as they're published, without needing to update the plugin itself. Checkout still works even if this is left blank or the server is temporarily unreachable - the plugin automatically falls back to the data bundled with the plugin."
 msgstr ""
 
 #. translators: %s: link to the VietMap open data source
-#: includes/class-vn-address-admin.php:224
+#: includes/class-vn-address-admin.php:222
 #, php-format
 msgid "Administrative data provided by VietMap: %s."
 msgstr ""
 
 #. translators: %s: link to the self-hostable API server source code on GitHub
-#: includes/class-vn-address-admin.php:233
+#: includes/class-vn-address-admin.php:231
 #, php-format
 msgid "Prefer to run your own copy instead of relying on ours? The server is open source: %s."
 msgstr ""
 
-#: includes/class-vn-address-admin.php:244
-msgid "Old-to-new address conversion tool"
-msgstr ""
-
-#: includes/class-vn-address-admin.php:249
-msgid "Enable Conversion"
-msgstr ""
-
-#: includes/class-vn-address-admin.php:258
-msgid "Enable converting addresses from the old structure to the new structure"
-msgstr ""
-
-#: includes/class-vn-address-admin.php:261
-msgid "Converts existing orders from the old address structure to the new structure by matching each order against the bundled old-to-new conversion table (from VietMap's published administrative mapping data, not a live API call - this runs entirely on your server, with no network requests, even if an API Server is configured above). Most wards convert automatically; a small number that were split between multiple new wards during the merger are flagged for manual review instead of being guessed. Nothing is overwritten: the original address on every order stays exactly as submitted, and the converted result is saved alongside it."
-msgstr ""
-
-#: includes/class-vn-address-admin.php:268
+#: includes/class-vn-address-admin.php:241
 msgid "Save Settings"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:273
-msgid "Convert Existing Orders"
+#: includes/class-vn-address-admin.php:245
+msgid "Old-to-new address conversion tool"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:274
-msgid "Convert addresses in existing orders from the old structure to the new structure."
+#: includes/class-vn-address-admin.php:247
+msgid "Converts existing orders from the old address structure to the new structure by matching each order against the bundled old-to-new conversion table (from VietMap's published administrative mapping data, not a live API call - this runs entirely on your server, with no network requests, even if an API Server is configured above). Most wards convert automatically; a small number that were split between multiple new wards during the merger are flagged for manual review instead of being guessed. Nothing is overwritten: the original address on every order stays exactly as submitted, and the converted result is saved alongside it."
 msgstr ""
 
-#: includes/class-vn-address-admin.php:296
+#: includes/class-vn-address-admin.php:269
 msgid "Address Data"
 msgstr ""
 
 #. translators: %s: link to the VietMap data source
-#: includes/class-vn-address-admin.php:302
+#: includes/class-vn-address-admin.php:275
 #, php-format
 msgid "Bundled with the plugin, no external API required. Source: %s."
 msgstr ""
 
-#: includes/class-vn-address-admin.php:310
+#: includes/class-vn-address-admin.php:283
 msgid "Support"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:311
+#: includes/class-vn-address-admin.php:284
 msgid "Need help? Contact us."
 msgstr ""
 
-#: includes/class-vn-address-admin.php:313
+#: includes/class-vn-address-admin.php:286
 msgid "Contact Support"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:318
+#: includes/class-vn-address-admin.php:291
 msgid "Plugin Information"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:320
+#: includes/class-vn-address-admin.php:293
 msgid "Version:"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:321
+#: includes/class-vn-address-admin.php:294
 msgid "Structure:"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:321
+#: includes/class-vn-address-admin.php:294
 msgid "New (34 provinces)"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:321
+#: includes/class-vn-address-admin.php:294
 msgid "Old (63 provinces)"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:322
+#: includes/class-vn-address-admin.php:295
 msgid "Author:"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:323
+#: includes/class-vn-address-admin.php:296
 msgid "Website:"
 msgstr ""
 
 #. translators: 1: number of provinces, 2: number of wards
-#: includes/class-vn-address-admin.php:345
+#: includes/class-vn-address-admin.php:318
 #, php-format
 msgid "%1$d provinces, %2$d wards loaded (new structure)."
 msgstr ""
 
 #. translators: %s: configured server URL
-#: includes/class-vn-address-admin.php:356
+#: includes/class-vn-address-admin.php:328
 #, php-format
-msgid "Central server configured: %s (falls back to bundled data automatically if unreachable)."
+msgid "API Server: %s (falls back to bundled data automatically if unreachable)."
 msgstr ""
 
-#: includes/class-vn-address-admin.php:361
-msgid "No central server configured - using the data bundled with the plugin."
-msgstr ""
-
-#: includes/class-vn-address-admin.php:371
-#: includes/class-vn-address-admin.php:409
-#: includes/class-vn-address-admin.php:423
+#: includes/class-vn-address-admin.php:340
+#: includes/class-vn-address-admin.php:378
+#: includes/class-vn-address-admin.php:392
 msgid "Permission denied"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:377
-msgid "Enter a server URL first"
-msgstr ""
-
 #. translators: %d: HTTP status code
-#: includes/class-vn-address-admin.php:389
+#: includes/class-vn-address-admin.php:358
 #, php-format
 msgid "Server responded with HTTP %d"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:396
+#: includes/class-vn-address-admin.php:365
 msgid "Server responded, but not in the expected format"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:400
+#: includes/class-vn-address-admin.php:369
 msgid "Connection successful!"
 msgstr ""
 
-#: includes/class-vn-address-admin.php:415
+#: includes/class-vn-address-admin.php:384
 msgid "Cache cleared successfully!"
 msgstr ""
 
@@ -443,53 +419,49 @@ msgstr ""
 msgid "Shipping Address"
 msgstr ""
 
-#: includes/class-vn-address-converter.php:88
-msgid "Converter is not enabled"
-msgstr ""
-
-#: includes/class-vn-address-converter.php:116
+#: includes/class-vn-address-converter.php:109
 msgid "No orders to convert"
 msgstr ""
 
 #. translators: %d: order ID.
-#: includes/class-vn-address-converter.php:148
+#: includes/class-vn-address-converter.php:141
 #, php-format
 msgid "Order #%d: multiple possible new wards, needs manual review"
 msgstr ""
 
 #. translators: %d: order ID.
-#: includes/class-vn-address-converter.php:155
+#: includes/class-vn-address-converter.php:148
 #, php-format
 msgid "Order #%d: no matching ward found in the conversion table"
 msgstr ""
 
 #. translators: 1: number converted, 2: number needing manual review, 3: number failed.
-#: includes/class-vn-address-converter.php:165
+#: includes/class-vn-address-converter.php:158
 #, php-format
 msgid "Conversion completed. Converted: %1$d, Needs review: %2$d, Failed: %3$d"
 msgstr ""
 
-#: includes/class-vn-address-converter.php:186
+#: includes/class-vn-address-converter.php:179
 msgid "Order not found"
 msgstr ""
 
-#: includes/class-vn-address-converter.php:195
+#: includes/class-vn-address-converter.php:188
 msgid "Missing address data"
 msgstr ""
 
-#: includes/class-vn-address-converter.php:205
+#: includes/class-vn-address-converter.php:198
 msgid "No matching ward found in the conversion table"
 msgstr ""
 
-#: includes/class-vn-address-converter.php:215
+#: includes/class-vn-address-converter.php:208
 msgid "Multiple possible new wards found; needs manual review"
 msgstr ""
 
-#: includes/class-vn-address-converter.php:223
+#: includes/class-vn-address-converter.php:216
 msgid "Order converted successfully"
 msgstr ""
 
-#: includes/class-vn-address-converter.php:267
+#: includes/class-vn-address-converter.php:260
 msgid "No valid orders to convert"
 msgstr ""
 

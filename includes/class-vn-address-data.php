@@ -24,6 +24,7 @@ class VN_Address_Data {
 
     const UNREACHABLE_CACHE_SECONDS = 300;
     const SUCCESS_CACHE_SECONDS = 86400; // 1 day
+    const DEFAULT_SERVER_URL = 'https://api.jungdev.com';
 
     public static function get_instance() {
         if (null === self::$instance) {
@@ -50,8 +51,17 @@ class VN_Address_Data {
         return $data;
     }
 
+    /**
+     * The configured API Server, falling back to the plugin's own default
+     * whenever nothing has been saved yet - this keeps the settings field
+     * from ever appearing empty (which otherwise reads as "not connected"
+     * to anyone who hasn't customized it, and makes "Test Connection"
+     * confusingly fail with nothing to test against).
+     */
     public function get_server_url() {
-        return trim(get_option('vn_address_wc_server_url', ''));
+        $url = trim(get_option('vn_address_wc_server_url', ''));
+
+        return $url !== '' ? $url : self::DEFAULT_SERVER_URL;
     }
 
     /**

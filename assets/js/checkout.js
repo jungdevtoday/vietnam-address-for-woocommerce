@@ -15,8 +15,6 @@ jQuery(document).ready(function($) {
                 this.structure = vnAddress.structure;
             }
             
-            console.log('Init - Structure:', this.structure);
-            
             // Update display BEFORE loading data
             this.updateStructureDisplay();
             
@@ -34,7 +32,6 @@ jQuery(document).ready(function($) {
             $('body').on('change', '#address_structure', function(e) {
                 e.preventDefault();
                 self.structure = $(this).val();
-                console.log('Structure changed to:', self.structure);
                 
                 // Update display
                 self.updateStructureDisplay();
@@ -49,7 +46,6 @@ jQuery(document).ready(function($) {
             // Billing province change
             $('body').on('change', '#billing_province', function(e) {
                 const provinceCode = $(this).val();
-                console.log('Billing province changed:', provinceCode, 'Structure:', self.structure);
                 
                 if (!provinceCode) return;
                 
@@ -72,7 +68,6 @@ jQuery(document).ready(function($) {
             
             $('body').on('change', '#billing_district', function(e) {
                 const districtCode = $(this).val();
-                console.log('Billing district changed:', districtCode);
                 
                 if (!districtCode) return;
                 
@@ -101,7 +96,6 @@ jQuery(document).ready(function($) {
             // Shipping province change
             $('body').on('change', '#shipping_province', function(e) {
                 const provinceCode = $(this).val();
-                console.log('Shipping province changed:', provinceCode, 'Structure:', self.structure);
                 
                 if (!provinceCode) return;
                 
@@ -124,7 +118,6 @@ jQuery(document).ready(function($) {
             
             $('body').on('change', '#shipping_district', function(e) {
                 const districtCode = $(this).val();
-                console.log('Shipping district changed:', districtCode);
                 
                 if (!districtCode) return;
                 
@@ -152,11 +145,9 @@ jQuery(document).ready(function($) {
         },
         
         updateStructureDisplay: function() {
-            console.log('Updating structure display to:', this.structure);
             
             if (this.structure === 'old') {
                 // Show district fields
-                console.log('Showing district fields');
                 $('#billing_district_field, #shipping_district_field').show();
                 $('#billing_district, #shipping_district').prop('disabled', false).prop('required', true);
                 $('.vn-address-old-only').addClass('show');
@@ -187,7 +178,6 @@ jQuery(document).ready(function($) {
                 
             } else {
                 // Hide district fields
-                console.log('Hiding district fields');
                 $('#billing_district_field, #shipping_district_field').hide();
                 $('#billing_district, #shipping_district').prop('disabled', true).prop('required', false).val('');
                 $('.vn-address-old-only').removeClass('show');
@@ -209,7 +199,6 @@ jQuery(document).ready(function($) {
         },
         
         resetDependentFields: function() {
-            console.log('Resetting dependent fields');
             
             // Reset province, district and ward
             $('#billing_province, #shipping_province').val('');
@@ -228,8 +217,6 @@ jQuery(document).ready(function($) {
             const $billingProvince = $('#billing_province');
             const $shippingProvince = $('#shipping_province');
             
-            console.log('Reloading provinces with structure:', self.structure);
-            
             $.ajax({
                 url: vnAddress.ajax_url,
                 type: 'POST',
@@ -243,7 +230,6 @@ jQuery(document).ready(function($) {
                     self.setLoading($shippingProvince, true);
                 },
                 success: function(response) {
-                    console.log('Provinces reloaded:', response);
                     
                     if (response.success && response.data && response.data.length > 0) {
                         const options = '<option value="">' + escapeHtml(vnAddress.i18n.select_province) + '</option>';
@@ -251,16 +237,12 @@ jQuery(document).ready(function($) {
                             return '<option value="' + escapeHtml(province.code) + '">' + escapeHtml(province.type) + ' ' + escapeHtml(province.name) + '</option>';
                         }).join('');
 
-                        console.log('Setting', response.data.length, 'provinces for structure:', self.structure);
-                        
                         $billingProvince.html(options + provinceOptions);
                         $shippingProvince.html(options + provinceOptions);
                     } else {
-                        console.error('No province data received');
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error reloading provinces:', error, xhr.responseText);
                 },
                 complete: function() {
                     self.setLoading($billingProvince, false);
@@ -275,17 +257,13 @@ jQuery(document).ready(function($) {
             const $shippingProvince = $('#shipping_province');
             
             if ($billingProvince.length === 0 && $shippingProvince.length === 0) {
-                console.log('No province fields found');
                 return;
             }
             
             // Check if already loaded
             if ($billingProvince.find('option').length > 1) {
-                console.log('Provinces already loaded');
                 return;
             }
-            
-            console.log('Loading provinces from API with structure:', self.structure);
             
             $.ajax({
                 url: vnAddress.ajax_url,
@@ -300,7 +278,6 @@ jQuery(document).ready(function($) {
                     self.setLoading($shippingProvince, true);
                 },
                 success: function(response) {
-                    console.log('Provinces API response:', response);
                     
                     if (response.success && response.data && response.data.length > 0) {
                         const options = '<option value="">' + escapeHtml(vnAddress.i18n.select_province) + '</option>';
@@ -308,16 +285,12 @@ jQuery(document).ready(function($) {
                             return '<option value="' + escapeHtml(province.code) + '">' + escapeHtml(province.type) + ' ' + escapeHtml(province.name) + '</option>';
                         }).join('');
 
-                        console.log('Setting', response.data.length, 'provinces');
-                        
                         $billingProvince.html(options + provinceOptions);
                         $shippingProvince.html(options + provinceOptions);
                     } else {
-                        console.error('No province data received');
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error loading provinces:', error, xhr.responseText);
                 },
                 complete: function() {
                     self.setLoading($billingProvince, false);
@@ -330,8 +303,6 @@ jQuery(document).ready(function($) {
             const self = this;
             const $district = $('#' + type + '_district');
             const $ward = $('#' + type + '_ward');
-            
-            console.log('Loading districts for province:', provinceCode);
             
             $.ajax({
                 url: vnAddress.ajax_url,
@@ -349,7 +320,6 @@ jQuery(document).ready(function($) {
                         .prop('disabled', true);
                 },
                 success: function(response) {
-                    console.log('Districts API response:', response);
 
                     if (response.success && response.data && response.data.length > 0) {
                         const options = '<option value="">' + escapeHtml(vnAddress.i18n.select_district) + '</option>';
@@ -361,7 +331,6 @@ jQuery(document).ready(function($) {
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error loading districts:', error);
                 },
                 complete: function() {
                     self.setLoading($district, false);
@@ -372,8 +341,6 @@ jQuery(document).ready(function($) {
         loadWards: function(parentCode, type) {
             const self = this;
             const $ward = $('#' + type + '_ward');
-            
-            console.log('Loading wards for parent:', parentCode, 'structure:', self.structure);
             
             $.ajax({
                 url: vnAddress.ajax_url,
@@ -388,7 +355,6 @@ jQuery(document).ready(function($) {
                     self.setLoading($ward, true);
                 },
                 success: function(response) {
-                    console.log('Wards API response:', response);
                     
                     if (response.success && response.data && response.data.length > 0) {
                         const options = '<option value="">' + escapeHtml(vnAddress.i18n.select_ward) + '</option>';
@@ -400,7 +366,6 @@ jQuery(document).ready(function($) {
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error loading wards:', error);
                 },
                 complete: function() {
                     self.setLoading($ward, false);
@@ -426,7 +391,6 @@ jQuery(document).ready(function($) {
     
     // Reinitialize on checkout update
     $(document.body).on('updated_checkout', function() {
-        console.log('Checkout updated, reinitializing...');
         setTimeout(function() {
             VNAddress.init();
         }, 500);

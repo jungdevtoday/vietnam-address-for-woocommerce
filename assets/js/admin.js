@@ -144,7 +144,7 @@ jQuery(document).ready(function($) {
                 $status.html('<div class="notice notice-error"><p>' + escapeHtml(vnAddressAdmin.i18n.conversion_failed) + '</p></div>');
             },
             complete: function() {
-                $button.prop('disabled', false).text(vnAddressAdmin.i18n.convert_all_orders);
+                $button.prop('disabled', false).text(vnAddressAdmin.i18n.convert_now);
                 setTimeout(function() {
                     $progress.fadeOut();
                 }, 2000);
