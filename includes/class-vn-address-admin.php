@@ -1,0 +1,411 @@
+<?php
+/**
+ * Admin Settings Class
+ */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+class VN_Address_Admin {
+    
+    private static $instance = null;
+    
+    public static function get_instance() {
+        if (null === self::$instance) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+    
+    private function __construct() {
+        add_action('admin_menu', array($this, 'add_admin_menu'));
+        add_action('admin_init', array($this, 'register_settings'));
+        add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
+        add_action('admin_notices', array($this, 'maybe_show_block_checkout_notice'));
+        add_action('wp_ajax_vn_address_convert_orders', array($this, 'ajax_convert_orders'));
+        add_action('wp_ajax_vn_address_test_server', array($this, 'ajax_test_server'));
+        add_action('wp_ajax_vn_address_clear_server_cache', array($this, 'ajax_clear_server_cache'));
+    }
+
+    /**
+     * The plugin's address fields are added via the classic (shortcode) checkout
+     * field filters and only work on the Classic Checkout. WooCommerce's block-based
+     * Checkout (the default for new stores) does not use those filters, so the
+     * custom province/district/ward fields never appear there.
+     */
+    public function is_using_block_checkout() {
+        if (!function_exists('wc_get_page_id') || !function_exists('has_block')) {
+            return false;
+        }
+
+        $checkout_page_id = wc_get_page_id('checkout');
+
+        return $checkout_page_id > 0 && has_block('woocommerce/checkout', $checkout_page_id);
+    }
+
+    public function maybe_show_block_checkout_notice() {
+        if (!current_user_can('manage_woocommerce') || !$this->is_using_block_checkout()) {
+            return;
+        }
+
+        if (class_exists('VN_Address_Blocks') && VN_Address_Blocks::get_instance()->is_supported()) {
+            // Block Checkout is supported (WooCommerce 8.9+); no warning needed,
+            // but the address fields there only cover the new (post 1/7/2025) structure.
+            return;
+        }
+
+        ?>
+        <div class="notice notice-warning">
+            <p>
+                <strong><?php esc_html_e('VN Address for WooCommerce', 'vn-address-for-woocommerce'); ?>:</strong>
+                <?php
+                printf(
+                    /* translators: %s: link to WooCommerce Settings > Advanced > Features */
+                    esc_html__('Your Checkout page uses the WooCommerce block-based checkout, and your WooCommerce version is too old for this plugin\'s block checkout support. Update WooCommerce to 8.9+, or enable "Cart and checkout shortcodes" under %s to use the Classic Checkout instead.', 'vn-address-for-woocommerce'),
+                    '<a href="' . esc_url(admin_url('admin.php?page=wc-settings&tab=advanced&section=features')) . '">' . esc_html__('WooCommerce > Settings > Advanced > Features', 'vn-address-for-woocommerce') . '</a>'
+                );
+                ?>
+            </p>
+        </div>
+        <?php
+    }
+    
+    public function add_admin_menu() {
+        add_submenu_page(
+            'woocommerce',
+            __('VN Address for WooCommerce', 'vn-address-for-woocommerce'),
+            __('VN Address', 'vn-address-for-woocommerce'),
+            'manage_woocommerce',
+            'vn-address-settings',
+            array($this, 'render_settings_page')
+        );
+    }
+    
+    public function register_settings() {
+        register_setting('vn_address_wc_settings', 'vn_address_wc_structure');
+        register_setting('vn_address_wc_settings', 'vn_address_wc_enable_converter');
+        register_setting('vn_address_wc_settings', 'vn_address_wc_server_url', array(
+            'sanitize_callback' => 'esc_url_raw',
+        ));
+    }
+    
+    public function enqueue_admin_scripts($hook) {
+        if ('woocommerce_page_vn-address-settings' !== $hook) {
+            return;
+        }
+        
+        wp_enqueue_style(
+            'vn-address-admin-css',
+            VN_ADDRESS_WC_PLUGIN_URL . 'assets/css/admin.css',
+            array(),
+            VN_ADDRESS_WC_VERSION
+        );
+        
+        wp_enqueue_script(
+            'vn-address-admin-js',
+            VN_ADDRESS_WC_PLUGIN_URL . 'assets/js/admin.js',
+            array('jquery'),
+            VN_ADDRESS_WC_VERSION,
+            true
+        );
+        
+        wp_localize_script('vn-address-admin-js', 'vnAddressAdmin', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('vn_address_admin_nonce'),
+            'i18n' => array(
+                'convert_confirm' => __('This will convert all orders with old address structure. Continue?', 'vn-address-for-woocommerce'),
+                'converting' => __('Converting...', 'vn-address-for-woocommerce'),
+                'conversion_results' => __('Conversion Results:', 'vn-address-for-woocommerce'),
+                'converted' => __('Converted:', 'vn-address-for-woocommerce'),
+                'needs_review' => __('Needs review:', 'vn-address-for-woocommerce'),
+                'failed' => __('Failed:', 'vn-address-for-woocommerce'),
+                'errors' => __('Errors:', 'vn-address-for-woocommerce'),
+                'conversion_failed' => __('Conversion failed. Please try again.', 'vn-address-for-woocommerce'),
+                'convert_all_orders' => __('Convert All Orders', 'vn-address-for-woocommerce'),
+                'testing' => __('Testing...', 'vn-address-for-woocommerce'),
+                'test_server' => __('Test Connection', 'vn-address-for-woocommerce'),
+                'connection_error' => __('Connection error', 'vn-address-for-woocommerce'),
+                'clear_cache_confirm' => __('Are you sure you want to clear the cached server data?', 'vn-address-for-woocommerce'),
+                'clearing' => __('Clearing...', 'vn-address-for-woocommerce'),
+                'clear_cache' => __('Clear Cache', 'vn-address-for-woocommerce'),
+                'error_clearing_cache' => __('Error clearing cache', 'vn-address-for-woocommerce'),
+            ),
+        ));
+    }
+    
+    public function render_settings_page() {
+        ?>
+        <div class="wrap vn-address-settings">
+            <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+
+            <?php if ($this->is_using_block_checkout() && !(class_exists('VN_Address_Blocks') && VN_Address_Blocks::get_instance()->is_supported())) : ?>
+                <div class="notice notice-warning inline">
+                    <p>
+                        <?php
+                        printf(
+                            /* translators: %s: link to WooCommerce Settings > Advanced > Features */
+                            esc_html__('Your Checkout page uses the WooCommerce block-based checkout, and your WooCommerce version is too old for this plugin\'s block checkout support. Update WooCommerce to 8.9+, or enable "Cart and checkout shortcodes" under %s.', 'vn-address-for-woocommerce'),
+                            '<a href="' . esc_url(admin_url('admin.php?page=wc-settings&tab=advanced&section=features')) . '">' . esc_html__('WooCommerce > Settings > Advanced > Features', 'vn-address-for-woocommerce') . '</a>'
+                        );
+                        ?>
+                    </p>
+                </div>
+            <?php elseif ($this->is_using_block_checkout()) : ?>
+                <div class="notice notice-info inline">
+                    <p>
+                        <?php esc_html_e('Your Checkout page uses the WooCommerce block-based checkout. Customers will see Province/City and Ward/Commune fields for the current (post 1/7/2025) address structure. The legacy structure with District is only available on the Classic Checkout.', 'vn-address-for-woocommerce'); ?>
+                    </p>
+                </div>
+            <?php endif; ?>
+
+            <div class="vn-address-container">
+                <div class="vn-address-main">
+                    <form method="post" action="options.php">
+                        <?php
+                        settings_fields('vn_address_wc_settings');
+                        do_settings_sections('vn_address_wc_settings');
+                        ?>
+                        
+                        <div class="vn-address-section">
+                            <h2><?php esc_html_e('Address Settings', 'vn-address-for-woocommerce'); ?></h2>
+
+                            <table class="form-table">
+                                <tr>
+                                    <th scope="row">
+                                        <label for="vn_address_wc_structure"><?php esc_html_e('Default Address Structure', 'vn-address-for-woocommerce'); ?></label>
+                                    </th>
+                                    <td>
+                                        <select id="vn_address_wc_structure" name="vn_address_wc_structure">
+                                            <option value="new" <?php selected(get_option('vn_address_wc_structure'), 'new'); ?>>
+                                                <?php esc_html_e('New structure (After 1/7/2025) - 34 provinces', 'vn-address-for-woocommerce'); ?>
+                                            </option>
+                                            <option value="old" <?php selected(get_option('vn_address_wc_structure'), 'old'); ?>>
+                                                <?php esc_html_e('Old structure (Before 1/7/2025) - 63 provinces', 'vn-address-for-woocommerce'); ?>
+                                            </option>
+                                        </select>
+                                        <p class="description">
+                                            <?php esc_html_e('Choose the default address structure for the checkout form. Customers can change it when placing an order.', 'vn-address-for-woocommerce'); ?>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">
+                                        <label for="vn_address_wc_server_url"><?php esc_html_e('Central Data Server URL', 'vn-address-for-woocommerce'); ?></label>
+                                    </th>
+                                    <td>
+                                        <input type="url"
+                                               id="vn_address_wc_server_url"
+                                               name="vn_address_wc_server_url"
+                                               value="<?php echo esc_attr(get_option('vn_address_wc_server_url')); ?>"
+                                               class="regular-text"
+                                               placeholder="https://api.example.com" />
+                                        <button type="button" class="button button-secondary" id="test-server">
+                                            <?php esc_html_e('Test Connection', 'vn-address-for-woocommerce'); ?>
+                                        </button>
+                                        <button type="button" class="button button-secondary" id="clear-server-cache">
+                                            <?php esc_html_e('Clear Cache', 'vn-address-for-woocommerce'); ?>
+                                        </button>
+                                        <span id="server-status"></span>
+                                        <p class="description">
+                                            <?php esc_html_e('Optional. Point this at your own address data server to keep address data centrally updated across all your stores. Leave blank to use the data bundled with the plugin - checkout keeps working either way; this is only tried as an enhancement and the plugin falls back to its bundled data automatically if the server is unreachable.', 'vn-address-for-woocommerce'); ?>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="vn-address-section">
+                            <h2><?php esc_html_e('Address Conversion Tool', 'vn-address-for-woocommerce'); ?></h2>
+
+                            <table class="form-table">
+                                <tr>
+                                    <th scope="row">
+                                        <label for="vn_address_wc_enable_converter"><?php esc_html_e('Enable Conversion', 'vn-address-for-woocommerce'); ?></label>
+                                    </th>
+                                    <td>
+                                        <input type="checkbox"
+                                               id="vn_address_wc_enable_converter"
+                                               name="vn_address_wc_enable_converter"
+                                               value="yes"
+                                               <?php checked(get_option('vn_address_wc_enable_converter'), 'yes'); ?> />
+                                        <label for="vn_address_wc_enable_converter">
+                                            <?php esc_html_e('Enable converting addresses from the old structure to the new structure', 'vn-address-for-woocommerce'); ?>
+                                        </label>
+                                        <p class="description">
+                                            <?php esc_html_e('Converts existing orders from the old address structure to the new structure using the bundled conversion table. Most wards convert automatically; a small number that were split between multiple new wards during the merger are flagged for manual review instead of being guessed.', 'vn-address-for-woocommerce'); ?>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <?php submit_button(__('Save Settings', 'vn-address-for-woocommerce')); ?>
+                    </form>
+
+                    <?php if (get_option('vn_address_wc_enable_converter') === 'yes'): ?>
+                    <div class="vn-address-section">
+                        <h2><?php esc_html_e('Convert Existing Orders', 'vn-address-for-woocommerce'); ?></h2>
+                        <p><?php esc_html_e('Convert addresses in existing orders from the old structure to the new structure.', 'vn-address-for-woocommerce'); ?></p>
+
+                        <div id="converter-status"></div>
+
+                        <button type="button" class="button button-primary" id="convert-orders">
+                            <?php esc_html_e('Convert All Orders', 'vn-address-for-woocommerce'); ?>
+                        </button>
+
+                        <div id="conversion-progress" style="display: none; margin-top: 15px;">
+                            <div class="vn-progress-bar">
+                                <div class="vn-progress-fill" style="width: 0%;"></div>
+                            </div>
+                            <p class="vn-progress-text">0%</p>
+                        </div>
+
+                        <div id="conversion-results" style="margin-top: 15px;"></div>
+                    </div>
+                    <?php endif; ?>
+                </div>
+
+                <div class="vn-address-sidebar">
+                    <div class="vn-address-widget">
+                        <h3><?php esc_html_e('Address Data', 'vn-address-for-woocommerce'); ?></h3>
+                        <?php $this->render_data_status(); ?>
+                        <p class="description">
+                            <?php
+                            printf(
+                                /* translators: %s: link to the VietMap data source */
+                                esc_html__('Bundled with the plugin, no external API required. Source: %s.', 'vn-address-for-woocommerce'),
+                                '<a href="https://github.com/vietmap-company/vietnam_administrative_address" target="_blank" rel="noopener noreferrer">VietMap</a>'
+                            );
+                            ?>
+                        </p>
+                    </div>
+
+                    <div class="vn-address-widget">
+                        <h3><?php esc_html_e('Support', 'vn-address-for-woocommerce'); ?></h3>
+                        <p><?php esc_html_e('Need help? Contact us.', 'vn-address-for-woocommerce'); ?></p>
+                        <a href="https://jungdev.com" target="_blank" rel="noopener noreferrer" class="button button-secondary">
+                            <?php esc_html_e('Contact Support', 'vn-address-for-woocommerce'); ?>
+                        </a>
+                    </div>
+
+                    <div class="vn-address-widget">
+                        <h3><?php esc_html_e('Plugin Information', 'vn-address-for-woocommerce'); ?></h3>
+                        <p>
+                            <strong><?php esc_html_e('Version:', 'vn-address-for-woocommerce'); ?></strong> <?php echo esc_html(VN_ADDRESS_WC_VERSION); ?><br>
+                            <strong><?php esc_html_e('Structure:', 'vn-address-for-woocommerce'); ?></strong> <?php echo get_option('vn_address_wc_structure') === 'new' ? esc_html__('New (34 provinces)', 'vn-address-for-woocommerce') : esc_html__('Old (63 provinces)', 'vn-address-for-woocommerce'); ?><br>
+                            <strong><?php esc_html_e('Author:', 'vn-address-for-woocommerce'); ?></strong> jungdev<br>
+                            <strong><?php esc_html_e('Website:', 'vn-address-for-woocommerce'); ?></strong> <a href="https://jungdev.com" target="_blank" rel="noopener noreferrer">jungdev.com</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+
+    private function render_data_status() {
+        $data = VN_Address_Data::get_instance();
+        $province_count = count($data->get_provinces_new());
+        $ward_count = 0;
+        foreach ($data->get_provinces_new() as $province) {
+            $ward_count += count($data->get_wards_new($province['code']));
+        }
+        $server_url = $data->get_server_url();
+        ?>
+        <p>
+            <?php
+            printf(
+                /* translators: 1: number of provinces, 2: number of wards */
+                esc_html__('%1$d provinces, %2$d wards loaded (new structure).', 'vn-address-for-woocommerce'),
+                (int) $province_count,
+                (int) $ward_count
+            );
+            ?>
+        </p>
+        <p>
+            <?php if (!empty($server_url)) : ?>
+                <?php
+                printf(
+                    /* translators: %s: configured server URL */
+                    esc_html__('Central server configured: %s (falls back to bundled data automatically if unreachable).', 'vn-address-for-woocommerce'),
+                    '<code>' . esc_html($server_url) . '</code>'
+                );
+                ?>
+            <?php else : ?>
+                <?php esc_html_e('No central server configured - using the data bundled with the plugin.', 'vn-address-for-woocommerce'); ?>
+            <?php endif; ?>
+        </p>
+        <?php
+    }
+    
+    public function ajax_test_server() {
+        check_ajax_referer('vn_address_admin_nonce', 'nonce');
+
+        if (!current_user_can('manage_woocommerce')) {
+            wp_send_json_error(array('message' => __('Permission denied', 'vn-address-for-woocommerce')));
+        }
+
+        $url = isset($_POST['url']) ? esc_url_raw(wp_unslash($_POST['url'])) : '';
+
+        if (empty($url)) {
+            wp_send_json_error(array('message' => __('Enter a server URL first', 'vn-address-for-woocommerce')));
+        }
+
+        $response = wp_remote_get(rtrim($url, '/') . '/api/v1/provinces?structure=new', array('timeout' => 8));
+
+        if (is_wp_error($response)) {
+            wp_send_json_error(array('message' => $response->get_error_message()));
+        }
+
+        if (200 !== wp_remote_retrieve_response_code($response)) {
+            wp_send_json_error(array(
+                /* translators: %d: HTTP status code */
+                'message' => sprintf(__('Server responded with HTTP %d', 'vn-address-for-woocommerce'), wp_remote_retrieve_response_code($response)),
+            ));
+        }
+
+        $body = json_decode(wp_remote_retrieve_body($response), true);
+
+        if (!isset($body['success']) || !$body['success'] || empty($body['data']) || !is_array($body['data'])) {
+            wp_send_json_error(array('message' => __('Server responded, but not in the expected format', 'vn-address-for-woocommerce')));
+        }
+
+        wp_send_json_success(array(
+            'message' => __('Connection successful!', 'vn-address-for-woocommerce'),
+            'count' => count($body['data']),
+        ));
+    }
+
+    public function ajax_clear_server_cache() {
+        check_ajax_referer('vn_address_admin_nonce', 'nonce');
+
+        if (!current_user_can('manage_woocommerce')) {
+            wp_send_json_error(array('message' => __('Permission denied', 'vn-address-for-woocommerce')));
+        }
+
+        VN_Address_Data::get_instance()->clear_server_cache();
+
+        wp_send_json_success(array(
+            'message' => __('Cache cleared successfully!', 'vn-address-for-woocommerce'),
+        ));
+    }
+
+    public function ajax_convert_orders() {
+        check_ajax_referer('vn_address_admin_nonce', 'nonce');
+        
+        if (!current_user_can('manage_woocommerce')) {
+            wp_send_json_error(array('message' => __('Permission denied', 'vn-address-for-woocommerce')));
+        }
+        
+        $converter = VN_Address_Converter::get_instance();
+        $result = $converter->convert_all_orders();
+        
+        if ($result['success']) {
+            wp_send_json_success($result);
+        } else {
+            wp_send_json_error($result);
+        }
+    }
+}

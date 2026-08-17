@@ -1,0 +1,485 @@
+# Copyright (C) 2026 jungdev
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: VN Address for WooCommerce 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/vn-address-woocommerce-plugin\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-08-16T10:25:17+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: vn-address-for-woocommerce\n"
+
+#. Plugin Name of the plugin
+#: vn-address-woocommerce.php
+#: includes/class-vn-address-admin.php:61
+#: includes/class-vn-address-admin.php:77
+msgid "VN Address for WooCommerce"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: vn-address-woocommerce.php
+msgid "https://jungdev.com/plugins/vn-address-for-woocommerce"
+msgstr ""
+
+#. Description of the plugin
+#: vn-address-woocommerce.php
+msgid "Integrates Vietnamese administrative addresses into WooCommerce with a bundled Province/District/Ward dataset. Supports converting addresses from the old structure to the new one."
+msgstr ""
+
+#. Author of the plugin
+#: vn-address-woocommerce.php
+msgid "jungdev"
+msgstr ""
+
+#. Author URI of the plugin
+#: vn-address-woocommerce.php
+msgid "https://jungdev.com"
+msgstr ""
+
+#. translators: %s: link to WooCommerce Settings > Advanced > Features
+#: includes/class-vn-address-admin.php:65
+#, php-format
+msgid "Your Checkout page uses the WooCommerce block-based checkout, and your WooCommerce version is too old for this plugin's block checkout support. Update WooCommerce to 8.9+, or enable \"Cart and checkout shortcodes\" under %s to use the Classic Checkout instead."
+msgstr ""
+
+#: includes/class-vn-address-admin.php:66
+#: includes/class-vn-address-admin.php:149
+msgid "WooCommerce > Settings > Advanced > Features"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:78
+msgid "VN Address"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:117
+msgid "This will convert all orders with old address structure. Continue?"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:118
+msgid "Converting..."
+msgstr ""
+
+#: includes/class-vn-address-admin.php:119
+msgid "Conversion Results:"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:120
+msgid "Converted:"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:121
+msgid "Needs review:"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:122
+msgid "Failed:"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:123
+msgid "Errors:"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:124
+msgid "Conversion failed. Please try again."
+msgstr ""
+
+#: includes/class-vn-address-admin.php:125
+#: includes/class-vn-address-admin.php:255
+msgid "Convert All Orders"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:126
+msgid "Testing..."
+msgstr ""
+
+#: includes/class-vn-address-admin.php:127
+#: includes/class-vn-address-admin.php:205
+msgid "Test Connection"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:128
+msgid "Connection error"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:129
+msgid "Are you sure you want to clear the cached server data?"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:130
+msgid "Clearing..."
+msgstr ""
+
+#: includes/class-vn-address-admin.php:131
+#: includes/class-vn-address-admin.php:208
+msgid "Clear Cache"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:132
+msgid "Error clearing cache"
+msgstr ""
+
+#. translators: %s: link to WooCommerce Settings > Advanced > Features
+#: includes/class-vn-address-admin.php:148
+#, php-format
+msgid "Your Checkout page uses the WooCommerce block-based checkout, and your WooCommerce version is too old for this plugin's block checkout support. Update WooCommerce to 8.9+, or enable \"Cart and checkout shortcodes\" under %s."
+msgstr ""
+
+#: includes/class-vn-address-admin.php:157
+msgid "Your Checkout page uses the WooCommerce block-based checkout. Customers will see Province/City and Ward/Commune fields for the current (post 1/7/2025) address structure. The legacy structure with District is only available on the Classic Checkout."
+msgstr ""
+
+#: includes/class-vn-address-admin.php:171
+msgid "Address Settings"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:176
+msgid "Default Address Structure"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:181
+msgid "New structure (After 1/7/2025) - 34 provinces"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:184
+msgid "Old structure (Before 1/7/2025) - 63 provinces"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:188
+msgid "Choose the default address structure for the checkout form. Customers can change it when placing an order."
+msgstr ""
+
+#: includes/class-vn-address-admin.php:195
+msgid "Central Data Server URL"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:212
+msgid "Optional. Point this at your own address data server to keep address data centrally updated across all your stores. Leave blank to use the data bundled with the plugin - checkout keeps working either way; this is only tried as an enhancement and the plugin falls back to its bundled data automatically if the server is unreachable."
+msgstr ""
+
+#: includes/class-vn-address-admin.php:220
+msgid "Address Conversion Tool"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:225
+msgid "Enable Conversion"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:234
+msgid "Enable converting addresses from the old structure to the new structure"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:237
+msgid "Converts existing orders from the old address structure to the new structure using the bundled conversion table. Most wards convert automatically; a small number that were split between multiple new wards during the merger are flagged for manual review instead of being guessed."
+msgstr ""
+
+#: includes/class-vn-address-admin.php:244
+msgid "Save Settings"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:249
+msgid "Convert Existing Orders"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:250
+msgid "Convert addresses in existing orders from the old structure to the new structure."
+msgstr ""
+
+#: includes/class-vn-address-admin.php:272
+msgid "Address Data"
+msgstr ""
+
+#. translators: %s: link to the VietMap data source
+#: includes/class-vn-address-admin.php:278
+#, php-format
+msgid "Bundled with the plugin, no external API required. Source: %s."
+msgstr ""
+
+#: includes/class-vn-address-admin.php:286
+msgid "Support"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:287
+msgid "Need help? Contact us."
+msgstr ""
+
+#: includes/class-vn-address-admin.php:289
+msgid "Contact Support"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:294
+msgid "Plugin Information"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:296
+msgid "Version:"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:297
+msgid "Structure:"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:297
+msgid "New (34 provinces)"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:297
+msgid "Old (63 provinces)"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:298
+msgid "Author:"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:299
+msgid "Website:"
+msgstr ""
+
+#. translators: 1: number of provinces, 2: number of wards
+#: includes/class-vn-address-admin.php:321
+#, php-format
+msgid "%1$d provinces, %2$d wards loaded (new structure)."
+msgstr ""
+
+#. translators: %s: configured server URL
+#: includes/class-vn-address-admin.php:332
+#, php-format
+msgid "Central server configured: %s (falls back to bundled data automatically if unreachable)."
+msgstr ""
+
+#: includes/class-vn-address-admin.php:337
+msgid "No central server configured - using the data bundled with the plugin."
+msgstr ""
+
+#: includes/class-vn-address-admin.php:347
+#: includes/class-vn-address-admin.php:385
+#: includes/class-vn-address-admin.php:399
+msgid "Permission denied"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:353
+msgid "Enter a server URL first"
+msgstr ""
+
+#. translators: %d: HTTP status code
+#: includes/class-vn-address-admin.php:365
+#, php-format
+msgid "Server responded with HTTP %d"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:372
+msgid "Server responded, but not in the expected format"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:376
+msgid "Connection successful!"
+msgstr ""
+
+#: includes/class-vn-address-admin.php:391
+msgid "Cache cleared successfully!"
+msgstr ""
+
+#: includes/class-vn-address-blocks.php:98
+#: includes/class-vn-address-checkout.php:153
+#: includes/class-vn-address-checkout.php:199
+msgid "Province/City"
+msgstr ""
+
+#: includes/class-vn-address-blocks.php:107
+msgid "Ward/Commune"
+msgstr ""
+
+#: includes/class-vn-address-blocks.php:115
+msgid "Ward code"
+msgstr ""
+
+#: includes/class-vn-address-blocks.php:140
+msgid "Please select a valid Ward/Commune from the list for the chosen Province/City."
+msgstr ""
+
+#: includes/class-vn-address-blocks.php:174
+msgid "Type to search…"
+msgstr ""
+
+#: includes/class-vn-address-blocks.php:175
+msgid "Select a Province/City first"
+msgstr ""
+
+#: includes/class-vn-address-blocks.php:176
+msgid "No matches found"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:64
+#: includes/class-vn-address-checkout.php:157
+#: includes/class-vn-address-checkout.php:203
+msgid "Select Province/City"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:65
+#: includes/class-vn-address-checkout.php:167
+#: includes/class-vn-address-checkout.php:212
+msgid "Select District"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:66
+#: includes/class-vn-address-checkout.php:177
+#: includes/class-vn-address-checkout.php:221
+msgid "Select Ward"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:67
+msgid "required"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:109
+#: includes/class-vn-address-checkout.php:243
+msgid "Your Name"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:110
+msgid "Enter your full name"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:121
+msgid "Phone Number"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:122
+msgid "Enter your phone number"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:128
+msgid "Email"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:129
+msgid "Enter your email address"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:137
+msgid "Choose Address Entry Method"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:143
+msgid "New address (Province/City → Ward)"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:144
+msgid "Old address (Province/City → District → Ward)"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:163
+#: includes/class-vn-address-checkout.php:208
+msgid "District"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:173
+#: includes/class-vn-address-checkout.php:217
+msgid "Ward"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:182
+#: includes/class-vn-address-checkout.php:225
+msgid "Detailed Address"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:183
+#: includes/class-vn-address-checkout.php:226
+msgid "House number, street name..."
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:233
+msgid "Order Notes"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:234
+msgid "Notes about your order, e.g. delivery time or more detailed delivery instructions."
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:301
+msgid "Vietnamese Address Information"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:304
+msgid "Billing Address"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:307
+#: includes/class-vn-address-checkout.php:319
+msgid "Province/City:"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:310
+#: includes/class-vn-address-checkout.php:322
+msgid "Ward:"
+msgstr ""
+
+#: includes/class-vn-address-checkout.php:316
+msgid "Shipping Address"
+msgstr ""
+
+#: includes/class-vn-address-converter.php:78
+msgid "Converter is not enabled"
+msgstr ""
+
+#: includes/class-vn-address-converter.php:106
+msgid "No orders to convert"
+msgstr ""
+
+#. translators: %d: order ID.
+#: includes/class-vn-address-converter.php:138
+#, php-format
+msgid "Order #%d: multiple possible new wards, needs manual review"
+msgstr ""
+
+#. translators: %d: order ID.
+#: includes/class-vn-address-converter.php:145
+#, php-format
+msgid "Order #%d: no matching ward found in the conversion table"
+msgstr ""
+
+#. translators: 1: number converted, 2: number needing manual review, 3: number failed.
+#: includes/class-vn-address-converter.php:155
+#, php-format
+msgid "Conversion completed. Converted: %1$d, Needs review: %2$d, Failed: %3$d"
+msgstr ""
+
+#: includes/class-vn-address-converter.php:176
+msgid "Order not found"
+msgstr ""
+
+#: includes/class-vn-address-converter.php:185
+msgid "Missing address data"
+msgstr ""
+
+#: includes/class-vn-address-converter.php:195
+msgid "No matching ward found in the conversion table"
+msgstr ""
+
+#: includes/class-vn-address-converter.php:205
+msgid "Multiple possible new wards found; needs manual review"
+msgstr ""
+
+#: includes/class-vn-address-converter.php:213
+msgid "Order converted successfully"
+msgstr ""
+
+#: includes/class-vn-address-converter.php:257
+msgid "No valid orders to convert"
+msgstr ""
+
+#: vn-address-woocommerce.php:39
+msgid "VN Address for WooCommerce requires WooCommerce to be installed and activated."
+msgstr ""
+
+#: vn-address-woocommerce.php:124
+msgid "Province code is required"
+msgstr ""
+
+#: vn-address-woocommerce.php:139
+msgid "Parent code is required"
+msgstr ""

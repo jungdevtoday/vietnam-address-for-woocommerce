@@ -1,0 +1,249 @@
+.vn-address-hidden {
+    display: none !important;
+}
+
+/* Hide country field */
+#billing_country_field,
+#shipping_country_field {
+    display: none !important;
+}
+
+/* Hide district field by default (show only for old structure) */
+.vn-address-old-only {
+    display: none !important;
+}
+
+.vn-address-old-only.show {
+    display: block !important;
+}
+
+/* Province and Ward on same row for NEW structure (no district) */
+.vn-address-province.form-row-first {
+    width: 48% !important;
+    float: left !important;
+    clear: left !important;
+    margin-right: 4% !important;
+}
+
+.vn-address-ward.form-row-last {
+    width: 48% !important;
+    float: right !important;
+    clear: none !important;
+    margin-right: 0 !important;
+}
+
+/* When OLD structure is active, adjust layout */
+/* Province becomes full width when district is shown */
+.vn-address-old-only.show {
+    /* District on same row with Ward */
+    width: 48% !important;
+    float: left !important;
+    clear: left !important;
+    margin-right: 4% !important;
+}
+
+/* Adjust Province to full width when district is visible */
+body:has(.vn-address-old-only.show) .vn-address-province.form-row-first {
+    width: 100% !important;
+    float: none !important;
+    clear: both !important;
+    margin-right: 0 !important;
+}
+
+/* Ward stays on right when district is shown */
+body:has(.vn-address-old-only.show) .vn-address-ward.form-row-last {
+    width: 48% !important;
+    float: right !important;
+    clear: none !important;
+}
+
+/* Full-width name field */
+#billing_first_name_field,
+#shipping_first_name_field {
+    width: 100% !important;
+    float: none !important;
+    clear: both !important;
+}
+
+/* Phone and Email on same row */
+#billing_phone_field {
+    width: 48% !important;
+    float: left !important;
+    clear: left !important;
+    margin-right: 4% !important;
+}
+
+#billing_email_field {
+    width: 48% !important;
+    float: right !important;
+    clear: none !important;
+    margin-right: 0 !important;
+}
+
+/* Regular select styling */
+.vn-address-province select,
+.vn-address-district select,
+.vn-address-ward select,
+.vn-address-structure-selector select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.vn-address-province select:focus,
+.vn-address-district select:focus,
+.vn-address-ward select:focus,
+.vn-address-structure-selector select:focus {
+    outline: none;
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+.vn-address-province select:disabled,
+.vn-address-district select:disabled,
+.vn-address-ward select:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Loading indicator - fixed vertical centering */
+.vn-address-loading {
+    position: relative;
+}
+
+.vn-address-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 16px;
+    height: 16px;
+    margin-top: -8px; /* Half of height for perfect centering */
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #2271b1;
+    border-radius: 50%;
+    animation: vn-address-spin 1s linear infinite;
+    z-index: 10;
+}
+
+@keyframes vn-address-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.woocommerce-checkout .vn-address-province,
+.woocommerce-checkout .vn-address-district,
+.woocommerce-checkout .vn-address-ward,
+.woocommerce-checkout .vn-address-structure-selector {
+    margin-bottom: 20px;
+}
+
+.woocommerce-checkout .vn-address-province label,
+.woocommerce-checkout .vn-address-district label,
+.woocommerce-checkout .vn-address-ward label,
+.woocommerce-checkout .vn-address-structure-selector label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.woocommerce-address-fields .vn-address-province,
+.woocommerce-address-fields .vn-address-district,
+.woocommerce-address-fields .vn-address-ward,
+.woocommerce-address-fields .vn-address-structure-selector {
+    clear: both;
+}
+
+/* My Account Page */
+.woocommerce-MyAccount-content .vn-address-province,
+.woocommerce-MyAccount-content .vn-address-district,
+.woocommerce-MyAccount-content .vn-address-ward {
+    margin-bottom: 15px;
+}
+
+/* Order Details */
+.vn-address-province,
+.vn-address-district,
+.vn-address-ward {
+    margin: 5px 0;
+}
+
+/* Elementor Checkout Widget Support */
+.elementor-widget-woocommerce-checkout-page .vn-address-province,
+.elementor-widget-woocommerce-checkout-page .vn-address-district,
+.elementor-widget-woocommerce-checkout-page .vn-address-ward,
+.elementor-widget-woocommerce-checkout-page .vn-address-structure-selector {
+    margin-bottom: 20px;
+}
+
+.elementor-widget-woocommerce-checkout-page .form-row {
+    padding: 0 !important;
+}
+
+/* Ensure full width for all fields */
+.woocommerce form .form-row-wide {
+    width: 100% !important;
+}
+
+/* Block Checkout: ward autocomplete */
+.vn-address-autocomplete-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    margin: 2px 0 0;
+    padding: 4px 0;
+    list-style: none;
+    max-height: 260px;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.vn-address-autocomplete-list li {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.vn-address-autocomplete-list li:hover,
+.vn-address-autocomplete-list li:focus {
+    background-color: #f0f6fc;
+}
+
+.vn-address-autocomplete-list li.vn-address-autocomplete-empty {
+    color: #757575;
+    cursor: default;
+}
+
+.vn-address-autocomplete-list li.vn-address-autocomplete-empty:hover {
+    background-color: transparent;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .vn-address-province,
+    .vn-address-district,
+    .vn-address-ward,
+    .vn-address-structure-selector {
+        width: 100% !important;
+        float: none !important;
+    }
+    
+    /* Stack phone and email on mobile */
+    #billing_phone_field,
+    #billing_email_field {
+        width: 100% !important;
+        float: none !important;
+        margin-right: 0 !important;
+        clear: both !important;
+    }
+}
