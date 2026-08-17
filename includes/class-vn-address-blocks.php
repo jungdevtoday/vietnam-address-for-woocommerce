@@ -54,22 +54,26 @@ class VN_Address_Blocks {
     }
 
     /**
-     * Hide WooCommerce's native city/state/postcode fields for Vietnam:
-     * our Province/Ward fields replace them, same as the Classic Checkout does.
+     * Hide WooCommerce's native city/state/postcode fields: our Province/Ward
+     * fields replace them, same as the Classic Checkout does.
+     *
+     * Applied to every country's locale rules, not just 'VN'. This filter is
+     * keyed by whatever country happens to be selected in the Country/Region
+     * field, and this plugin has no way to guarantee that's actually 'VN'
+     * (a fresh WooCommerce store defaults to its own base country, e.g. the
+     * US) - scoping the override to 'VN' only meant these fields stayed
+     * fully visible, and visibly overlapped our own Province/Ward fields,
+     * on any store whose selected country locale wasn't Vietnam.
      */
     public function adjust_vn_locale_fields($locales) {
-        $locales['VN']['city'] = array_merge(
-            isset($locales['VN']['city']) ? $locales['VN']['city'] : array(),
-            array('required' => false, 'hidden' => true)
-        );
-        $locales['VN']['state'] = array_merge(
-            isset($locales['VN']['state']) ? $locales['VN']['state'] : array(),
-            array('required' => false, 'hidden' => true)
-        );
-        $locales['VN']['postcode'] = array_merge(
-            isset($locales['VN']['postcode']) ? $locales['VN']['postcode'] : array(),
-            array('required' => false, 'hidden' => true)
-        );
+        foreach (array_keys($locales) as $country_code) {
+            foreach (array('city', 'state', 'postcode') as $field) {
+                $locales[$country_code][$field] = array_merge(
+                    isset($locales[$country_code][$field]) ? $locales[$country_code][$field] : array(),
+                    array('required' => false, 'hidden' => true)
+                );
+            }
+        }
 
         return $locales;
     }
@@ -171,7 +175,6 @@ class VN_Address_Blocks {
                 'wardCode' => self::FIELD_WARD_CODE,
             ),
             'i18n' => array(
-                'searchPlaceholder' => __('Type to search…', 'vn-address-for-woocommerce'),
                 'selectProvinceFirst' => __('Select a Province/City first', 'vn-address-for-woocommerce'),
                 'noResults' => __('No matches found', 'vn-address-for-woocommerce'),
             ),

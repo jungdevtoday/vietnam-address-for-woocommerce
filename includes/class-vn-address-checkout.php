@@ -48,10 +48,15 @@ class VN_Address_Checkout {
                 VN_ADDRESS_WC_VERSION
             );
             
+            // 'selectWoo' is WooCommerce's own bundled fork of Select2 (renamed
+            // to avoid clashing with a theme's or another plugin's own Select2
+            // copy). WooCommerce already enqueues it unconditionally on cart,
+            // checkout, and account pages, so depending on it here adds no
+            // extra payload - it's already loading either way.
             wp_enqueue_script(
                 'vn-address-checkout-js',
                 VN_ADDRESS_WC_PLUGIN_URL . 'assets/js/checkout.js',
-                array('jquery'),
+                array('jquery', 'selectWoo'),
                 VN_ADDRESS_WC_VERSION,
                 true
             );
@@ -60,6 +65,7 @@ class VN_Address_Checkout {
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'nonce' => wp_create_nonce('vn_address_nonce'),
                 'structure' => get_option('vn_address_wc_structure', 'new'),
+                'enableSelect2' => 'yes' === get_option('vn_address_wc_enable_select2', 'yes'),
                 'i18n' => array(
                     'select_province' => __('Select Province/City', 'vn-address-for-woocommerce'),
                     'select_district' => __('Select District', 'vn-address-for-woocommerce'),

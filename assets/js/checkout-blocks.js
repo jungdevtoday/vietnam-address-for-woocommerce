@@ -61,7 +61,12 @@
         }
         wardInput.dataset.vnAddressEnhanced = '1';
         wardInput.setAttribute('autocomplete', 'off');
-        wardInput.setAttribute('placeholder', vnAddressBlocks.i18n.searchPlaceholder);
+        // No placeholder attribute here deliberately: this field uses
+        // WooCommerce Blocks' own floating-label text input component,
+        // where the <label> is positioned to overlap the empty input as
+        // its own built-in hint (the same pattern First Name/Last Name use
+        // correctly elsewhere on this form). Adding a placeholder on top of
+        // that renders both texts stacked in the same spot at once.
 
         var provinceId = group + '-' + fieldSelector(vnAddressBlocks.fieldIds.province);
         var wardCodeId = group + '-' + fieldSelector(vnAddressBlocks.fieldIds.wardCode);

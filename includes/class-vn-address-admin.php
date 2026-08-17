@@ -98,6 +98,10 @@ class VN_Address_Admin {
         register_setting('vn_address_wc_settings', 'vn_address_wc_server_url', array(
             'sanitize_callback' => 'esc_url_raw',
         ));
+        register_setting('vn_address_wc_settings', 'vn_address_wc_enable_select2', array(
+            'sanitize_callback' => array($this, 'sanitize_yes_no'),
+            'default' => 'yes',
+        ));
     }
 
     /**
@@ -106,6 +110,15 @@ class VN_Address_Admin {
      */
     public function sanitize_structure($value) {
         return in_array($value, array('new', 'old'), true) ? $value : 'new';
+    }
+
+    /**
+     * Checkbox settings are only ever posted as 'yes' when checked, and
+     * omitted entirely (not '') when unchecked - register_settings() handles
+     * the omitted case via its 'default', this only guards the posted value.
+     */
+    public function sanitize_yes_no($value) {
+        return 'yes' === $value ? 'yes' : 'no';
     }
     
     public function enqueue_admin_scripts($hook) {
@@ -211,6 +224,26 @@ class VN_Address_Admin {
                                                 '<a href="https://jungdev.com/plugins/vn-address-for-woocommerce" target="_blank" rel="noopener noreferrer">' . esc_html__('Learn more', 'vn-address-for-woocommerce') . '</a>'
                                             );
                                             ?>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">
+                                        <label for="vn_address_wc_enable_select2"><?php esc_html_e('Searchable Dropdowns', 'vn-address-for-woocommerce'); ?></label>
+                                    </th>
+                                    <td>
+                                        <input type="hidden" name="vn_address_wc_enable_select2" value="no" />
+                                        <label>
+                                            <input type="checkbox"
+                                                   id="vn_address_wc_enable_select2"
+                                                   name="vn_address_wc_enable_select2"
+                                                   value="yes"
+                                                   <?php checked(get_option('vn_address_wc_enable_select2', 'yes'), 'yes'); ?> />
+                                            <?php esc_html_e('Make the Province/City, District, and Ward fields searchable (type to filter) on Classic Checkout', 'vn-address-for-woocommerce'); ?>
+                                        </label>
+                                        <p class="description">
+                                            <?php esc_html_e('Uses the Select2 dropdown already bundled with WooCommerce, so it works alongside your theme without adding extra scripts. Turn this off if a theme or another plugin visibly conflicts with it - the fields still work normally as plain dropdowns either way. Only affects Classic Checkout; Block Checkout already has its own searchable ward field.', 'vn-address-for-woocommerce'); ?>
                                         </p>
                                     </td>
                                 </tr>

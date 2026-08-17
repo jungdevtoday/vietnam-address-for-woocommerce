@@ -4,7 +4,7 @@ Tags: woocommerce, vietnam, address, checkout, provinces
 Requires at least: 5.8
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,6 +21,7 @@ Vietnam Address for WooCommerce integrates the Vietnamese administrative address
   - Old structure (before 1 July 2025): 63 provinces with 3 levels (Province - District - Ward)
   - New structure (after 1 July 2025): 34 provinces with 2 levels (Province - Ward)
 * **Both Classic Checkout and Block Checkout supported**: see "Block Checkout support" below
+* **Searchable dropdowns**: Province/City, District, and Ward fields are searchable (type to filter) on Classic Checkout, using the Select2 library already bundled with WooCommerce - toggleable in settings if it ever conflicts with a theme
 * **Bundled data**: The full list of Provinces/Cities, Districts, and Wards (both structures) ships inside the plugin - works immediately after installation, no external API calls, no internet connection or API key required
 * **Central data server**: Defaults to `https://api.jungdev.com` to receive administrative changes as soon as they're published, without needing a plugin update. Can be pointed at a self-hosted server instead, or left blank to use only the bundled data - however it's configured, the plugin always automatically falls back to the bundled data if the server is unreachable, so checkout is never interrupted
 * **Automatic conversion**: Converts existing orders from the old address structure to the new one, using a bundled conversion table
@@ -124,6 +125,13 @@ Site owners who prefer not to connect to this service at all may run their own c
 
 == Changelog ==
 
+= 1.1.3 =
+* Added searchable dropdowns (type to filter) for Province/City, District, and Ward on Classic Checkout, using Select2 already bundled with WooCommerce - no extra scripts loaded. New setting to turn this off if it ever conflicts with a theme
+* Fixed a real Block Checkout display bug: on stores where the default country isn't Vietnam, WooCommerce's own Country/State/City/Postcode fields weren't being hidden and visibly overlapped this plugin's own Province/Ward fields. These are now always hidden regardless of the store's configured country
+* Fixed the Ward field on Block Checkout showing two overlapping pieces of text (its own label plus a redundant placeholder) in the empty state
+* Removed INSTALLATION.md - its content was already duplicated (and, in a few places, outdated) in this readme's Installation and FAQ sections
+* Verified checkout rendering across 10 of the most-used free WooCommerce themes (Storefront, Astra, OceanWP, GeneratePress, Neve, Kadence, Hello Elementor, Blocksy, Woostify, Sydney), on both Classic and Block Checkout and both address structures
+
 = 1.1.2 =
 * Fixed the "Convert Now" button staying stuck on "Converting..." after a conversion finished
 * Address conversion now runs in small batches (50 orders per request) instead of one single request, so stores with a very large number of orders can no longer hit a PHP timeout or memory limit during conversion; the progress bar now reflects real progress instead of a simulated animation
@@ -159,6 +167,9 @@ Site owners who prefer not to connect to this service at all may run their own c
 * HPOS (High-Performance Order Storage) compatible
 
 == Upgrade Notice ==
+
+= 1.1.3 =
+Adds searchable Classic Checkout dropdowns (toggleable), fixes a real Block Checkout display bug where the native Country/State/City/Postcode fields could overlap this plugin's own fields on stores not defaulting to Vietnam, and fixes an overlapping-text bug on the Block Checkout Ward field.
 
 = 1.1.2 =
 Fixes the "Convert Now" button getting stuck after conversion, makes address conversion safe for stores with very large order counts, and fixes several WordPress.org plugin-guideline items.

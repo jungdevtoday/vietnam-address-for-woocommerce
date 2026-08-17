@@ -5,6 +5,25 @@ jQuery(document).ready(function($) {
         return $('<div>').text(str == null ? '' : String(str)).html();
     }
 
+    /**
+     * Enhances a <select> with WooCommerce's own bundled selectWoo (a
+     * renamed Select2 fork WC already loads on checkout, so this adds no
+     * extra dependency). Destroy-then-reinit on every call rather than just
+     * refreshing, since these selects get their <option> list fully replaced
+     * via AJAX - re-initializing is the reliable way to keep the widget in
+     * sync with genuinely new option lists, not just a new selected value.
+     * No-ops entirely if selectWoo isn't available, leaving a plain <select>.
+     */
+    function enhanceSelect($select) {
+        if (!vnAddress.enableSelect2 || typeof $.fn.selectWoo === 'undefined' || !$select.length) {
+            return;
+        }
+        if ($select.data('select2')) {
+            $select.selectWoo('destroy');
+        }
+        $select.selectWoo({ width: '100%' });
+    }
+
     const VNAddress = {
         init: function() {
             // Check structure selector value first, fallback to default from settings
@@ -17,17 +36,35 @@ jQuery(document).ready(function($) {
             
             // Update display BEFORE loading data
             this.updateStructureDisplay();
-            
+
             // Load provinces
             this.loadProvinces();
-            
+
             // Bind events
             this.bindEvents();
+
+            if ($structureSelector.length) {
+                enhanceSelect($structureSelector);
+            }
+            // Enhance ward now too (placeholder-only until a province is
+            // picked), so every custom select is select2-styled from first
+            // paint rather than only the ones that already have real data.
+            enhanceSelect($('#billing_ward'));
+            enhanceSelect($('#shipping_ward'));
         },
         
         bindEvents: function() {
             const self = this;
-            
+
+            // Matches WooCommerce's own country/state fields: keeps keyboard
+            // focus on the field after a selection instead of losing it.
+            // Delegated once here (rather than bound inside enhanceSelect(),
+            // which runs repeatedly) so re-enhancing a field on every AJAX
+            // reload never piles up duplicate handlers.
+            $('body').on('select2:select', '#address_structure, #billing_province, #billing_district, #billing_ward, #shipping_province, #shipping_district, #shipping_ward', function() {
+                $(this).trigger('focus');
+            });
+
             // Structure selector change
             $('body').on('change', '#address_structure', function(e) {
                 e.preventDefault();
@@ -151,6 +188,10 @@ jQuery(document).ready(function($) {
                 $('#billing_district_field, #shipping_district_field').show();
                 $('#billing_district, #shipping_district').prop('disabled', false).prop('required', true);
                 $('.vn-address-old-only').addClass('show');
+                // Enhance now it's visible, so it's styled consistently even
+                // before a province is picked and real districts load in.
+                enhanceSelect($('#billing_district'));
+                enhanceSelect($('#shipping_district'));
                 
                 // Update label to show required
                 $('#billing_district_field label .optional').remove();
@@ -199,17 +240,23 @@ jQuery(document).ready(function($) {
         },
         
         resetDependentFields: function() {
-            
+
             // Reset province, district and ward
-            $('#billing_province, #shipping_province').val('');
-            
-            $('#billing_district, #shipping_district')
+            const $province = $('#billing_province, #shipping_province').val('');
+            enhanceSelect($province.filter('#billing_province'));
+            enhanceSelect($province.filter('#shipping_province'));
+
+            const $district = $('#billing_district, #shipping_district')
                 .html('<option value="">' + escapeHtml(vnAddress.i18n.select_district) + '</option>')
                 .val('');
+            enhanceSelect($district.filter('#billing_district'));
+            enhanceSelect($district.filter('#shipping_district'));
 
-            $('#billing_ward, #shipping_ward')
+            const $ward = $('#billing_ward, #shipping_ward')
                 .html('<option value="">' + escapeHtml(vnAddress.i18n.select_ward) + '</option>')
                 .val('');
+            enhanceSelect($ward.filter('#billing_ward'));
+            enhanceSelect($ward.filter('#shipping_ward'));
         },
         
         reloadProvinces: function() {
@@ -239,6 +286,8 @@ jQuery(document).ready(function($) {
 
                         $billingProvince.html(options + provinceOptions);
                         $shippingProvince.html(options + provinceOptions);
+                        enhanceSelect($billingProvince);
+                        enhanceSelect($shippingProvince);
                     } else {
                     }
                 },
@@ -287,6 +336,8 @@ jQuery(document).ready(function($) {
 
                         $billingProvince.html(options + provinceOptions);
                         $shippingProvince.html(options + provinceOptions);
+                        enhanceSelect($billingProvince);
+                        enhanceSelect($shippingProvince);
                     } else {
                     }
                 },
@@ -318,6 +369,7 @@ jQuery(document).ready(function($) {
                     $ward.html('<option value="">' + escapeHtml(vnAddress.i18n.select_ward) + '</option>')
                         .val('')
                         .prop('disabled', true);
+                    enhanceSelect($ward);
                 },
                 success: function(response) {
 
@@ -326,8 +378,9 @@ jQuery(document).ready(function($) {
                         const districtOptions = response.data.map(function(district) {
                             return '<option value="' + escapeHtml(district.code) + '">' + escapeHtml(district.type) + ' ' + escapeHtml(district.name) + '</option>';
                         }).join('');
-                        
+
                         $district.html(options + districtOptions).prop('disabled', false);
+                        enhanceSelect($district);
                     }
                 },
                 error: function(xhr, status, error) {
@@ -363,6 +416,7 @@ jQuery(document).ready(function($) {
                         }).join('');
                         
                         $ward.html(options + wardOptions).prop('disabled', false);
+                        enhanceSelect($ward);
                     }
                 },
                 error: function(xhr, status, error) {

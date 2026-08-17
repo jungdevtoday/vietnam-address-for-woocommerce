@@ -2,9 +2,23 @@
     display: none !important;
 }
 
-/* Hide country field */
+/* Hide country field (Classic Checkout) */
 #billing_country_field,
 #shipping_country_field {
+    display: none !important;
+}
+
+/* Hide country/state/city/postcode fields (Block Checkout). These fields
+   only get PHP-side hidden=>true treatment (in class-vn-address-blocks.php)
+   for state/city/postcode, and only for whatever country happens to be
+   selected - country itself has no such filter at all. This CSS hides all
+   four unconditionally, the same way Classic Checkout does above, so they
+   never visibly overlap our own Province/Ward fields regardless of which
+   country a store's checkout happens to have selected. */
+.wc-block-components-address-form__country,
+.wc-block-components-address-form__state,
+.wc-block-components-address-form__city,
+.wc-block-components-address-form__postcode {
     display: none !important;
 }
 
@@ -109,6 +123,59 @@ body:has(.vn-address-old-only.show) .vn-address-ward.form-row-last {
     background-color: #f5f5f5;
     cursor: not-allowed;
     opacity: 0.6;
+}
+
+/* Select2/selectWoo enhancement - scoped to only our own fields so we never
+   restyle other select2 instances a theme or another plugin puts on the
+   same page (e.g. WooCommerce's own country/state selects elsewhere). */
+.vn-address-province .select2-container,
+.vn-address-district .select2-container,
+.vn-address-ward .select2-container,
+.vn-address-structure-selector .select2-container {
+    width: 100% !important;
+}
+
+.vn-address-province .select2-container--default .select2-selection--single,
+.vn-address-district .select2-container--default .select2-selection--single,
+.vn-address-ward .select2-container--default .select2-selection--single,
+.vn-address-structure-selector .select2-container--default .select2-selection--single {
+    height: 42px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.vn-address-province .select2-container--default .select2-selection--single .select2-selection__rendered,
+.vn-address-district .select2-container--default .select2-selection--single .select2-selection__rendered,
+.vn-address-ward .select2-container--default .select2-selection--single .select2-selection__rendered,
+.vn-address-structure-selector .select2-container--default .select2-selection--single .select2-selection__rendered {
+    padding: 0 20px 0 0;
+    line-height: 24px;
+    color: inherit;
+}
+
+.vn-address-province .select2-container--default .select2-selection--single .select2-selection__arrow,
+.vn-address-district .select2-container--default .select2-selection--single .select2-selection__arrow,
+.vn-address-ward .select2-container--default .select2-selection--single .select2-selection__arrow,
+.vn-address-structure-selector .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 40px;
+}
+
+.vn-address-province .select2-container--default.select2-container--focus .select2-selection--single,
+.vn-address-district .select2-container--default.select2-container--focus .select2-selection--single,
+.vn-address-ward .select2-container--default.select2-container--focus .select2-selection--single,
+.vn-address-structure-selector .select2-container--default.select2-container--focus .select2-selection--single {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: none;
+}
+
+.vn-address-province .select2-container--default.select2-container--disabled .select2-selection--single,
+.vn-address-district .select2-container--default.select2-container--disabled .select2-selection--single,
+.vn-address-ward .select2-container--default.select2-container--disabled .select2-selection--single {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
 }
 
 /* Loading indicator - fixed vertical centering */
