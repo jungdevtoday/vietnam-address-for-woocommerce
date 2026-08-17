@@ -3,7 +3,7 @@
  * Plugin Name: Vietnam Address for WooCommerce
  * Plugin URI: https://jungdev.com/plugins/vn-address-for-woocommerce
  * Description: Integrates the latest Vietnamese administrative addresses into WooCommerce. Supports converting old addresses to new addresses.
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: jungdev
  * Author URI: https://jungdev.com
  * Text Domain: vn-address-for-woocommerce
@@ -22,12 +22,15 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('VN_ADDRESS_WC_VERSION', '1.1.1');
+define('VN_ADDRESS_WC_VERSION', '1.1.2');
 define('VN_ADDRESS_WC_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('VN_ADDRESS_WC_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('VN_ADDRESS_WC_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
-// Check if WooCommerce is active
+// Check if WooCommerce is active. 'active_plugins' here is WordPress core's
+// own filter (not one this plugin defines), read this way so network-active
+// and filter-modified plugin lists are accounted for correctly.
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
     add_action('admin_notices', 'vn_address_wc_woocommerce_missing_notice');
     return;
@@ -36,7 +39,7 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 function vn_address_wc_woocommerce_missing_notice() {
     ?>
     <div class="error">
-        <p><?php _e('Vietnam Address for WooCommerce requires WooCommerce to be installed and activated.', 'vn-address-for-woocommerce'); ?></p>
+        <p><?php esc_html_e('Vietnam Address for WooCommerce requires WooCommerce to be installed and activated.', 'vn-address-for-woocommerce'); ?></p>
     </div>
     <?php
 }
@@ -117,6 +120,14 @@ class VN_Address_WooCommerce {
         VN_Address_Data::get_instance()->warm_server_cache();
     }
     
+    /**
+     * load_plugin_textdomain() is unnecessary once hosted on WordPress.org
+     * (translations load automatically there), but this plugin is also
+     * distributed directly via GitHub, where that auto-loading doesn't
+     * apply - and the bundled .mo files are what default_to_vietnamese_mofile()
+     * below falls back to. Both need this call to keep working outside
+     * WordPress.org, so it's kept intentionally rather than dropped.
+     */
     public function load_textdomain() {
         add_filter('load_textdomain_mofile', array($this, 'default_to_vietnamese_mofile'), 10, 2);
         load_plugin_textdomain('vn-address-for-woocommerce', false, dirname(VN_ADDRESS_WC_PLUGIN_BASENAME) . '/languages');
@@ -154,7 +165,7 @@ class VN_Address_WooCommerce {
     public function ajax_get_provinces() {
         check_ajax_referer('vn_address_nonce', 'nonce');
 
-        $structure = isset($_POST['structure']) ? sanitize_text_field($_POST['structure']) : 'new';
+        $structure = isset($_POST['structure']) ? sanitize_text_field(wp_unslash($_POST['structure'])) : 'new';
         $provinces = VN_Address_Data::get_instance()->get_provinces($structure);
 
         wp_send_json_success($provinces);
@@ -163,7 +174,7 @@ class VN_Address_WooCommerce {
     public function ajax_get_districts() {
         check_ajax_referer('vn_address_nonce', 'nonce');
 
-        $province_code = isset($_POST['province_code']) ? sanitize_text_field($_POST['province_code']) : '';
+        $province_code = isset($_POST['province_code']) ? sanitize_text_field(wp_unslash($_POST['province_code'])) : '';
 
         if (empty($province_code)) {
             wp_send_json_error(array('message' => __('Province code is required', 'vn-address-for-woocommerce')));
@@ -177,8 +188,8 @@ class VN_Address_WooCommerce {
     public function ajax_get_wards() {
         check_ajax_referer('vn_address_nonce', 'nonce');
 
-        $structure = isset($_POST['structure']) ? sanitize_text_field($_POST['structure']) : 'new';
-        $parent_code = isset($_POST['parent_code']) ? sanitize_text_field($_POST['parent_code']) : '';
+        $structure = isset($_POST['structure']) ? sanitize_text_field(wp_unslash($_POST['structure'])) : 'new';
+        $parent_code = isset($_POST['parent_code']) ? sanitize_text_field(wp_unslash($_POST['parent_code'])) : '';
 
         if (empty($parent_code)) {
             wp_send_json_error(array('message' => __('Parent code is required', 'vn-address-for-woocommerce')));

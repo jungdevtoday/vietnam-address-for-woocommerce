@@ -60,6 +60,11 @@ class VN_Address_Converter {
 
     /**
      * Apply a resolved conversion result to an order's meta. Does not save().
+     *
+     * Every branch, including "not found", writes _converted_to_new_structure
+     * so the order stops matching the NOT-EXISTS eligibility query used by
+     * convert_batch(). Without a terminal state for unresolvable orders,
+     * repeated batches would keep re-selecting the same failed orders forever.
      */
     private function apply_resolution($order, $resolution) {
         if ($resolution['status'] === 'matched') {
@@ -75,15 +80,18 @@ class VN_Address_Converter {
             $order->update_meta_data('_converted_to_new_structure', 'ambiguous');
             $order->update_meta_data('_conversion_date', current_time('mysql'));
             $order->update_meta_data('_billing_ward_candidates_new', wp_json_encode($resolution['candidates']));
+        } else {
+            $order->update_meta_data('_converted_to_new_structure', 'failed');
+            $order->update_meta_data('_conversion_date', current_time('mysql'));
         }
     }
 
     /**
-     * Convert all eligible orders (old structure, not yet converted).
+     * Shared WC_Order_Query args identifying orders still eligible for
+     * conversion: old-structure billing address, not yet resolved.
      */
-    public function convert_all_orders() {
-        $args = array(
-            'limit' => -1,
+    private function eligible_orders_query_args() {
+        return array(
             'status' => array('any'),
             'meta_query' => array(
                 array(
@@ -100,18 +108,34 @@ class VN_Address_Converter {
                 ),
             ),
         );
+    }
 
-        $orders = wc_get_orders($args);
+    /**
+     * Count orders still eligible for conversion, without loading full order
+     * objects (used to size the progress bar before batching starts).
+     */
+    public function count_eligible_orders() {
+        $ids = wc_get_orders(array_merge($this->eligible_orders_query_args(), array(
+            'limit' => -1,
+            'return' => 'ids',
+        )));
 
-        if (empty($orders)) {
-            return array(
-                'success' => true,
-                'message' => __('No orders to convert', 'vn-address-for-woocommerce'),
-                'converted' => 0,
-                'ambiguous' => 0,
-                'failed' => 0,
-            );
-        }
+        return count($ids);
+    }
+
+    /**
+     * Convert one bounded batch of eligible orders.
+     *
+     * Called repeatedly (once per AJAX round-trip) until 'remaining' reaches
+     * 0. Bounding each call to $batch_size orders keeps a single request's
+     * time and memory use small and predictable regardless of how many
+     * orders a store has in total - a store with 50,000 old-structure orders
+     * is handled the same way as one with 5, just over more requests.
+     */
+    public function convert_batch($batch_size = 50) {
+        $orders = wc_get_orders(array_merge($this->eligible_orders_query_args(), array(
+            'limit' => $batch_size,
+        )));
 
         $converted = 0;
         $ambiguous = 0;
@@ -123,18 +147,25 @@ class VN_Address_Converter {
             $ward_code = $order->get_meta('_billing_ward', true);
 
             if (empty($ward_code)) {
+                $order->update_meta_data('_converted_to_new_structure', 'failed');
+                $order->update_meta_data('_conversion_date', current_time('mysql'));
+                $order->save();
                 $failed++;
+                $errors[] = sprintf(
+                    /* translators: %d: order ID. */
+                    __('Order #%d: missing address data', 'vn-address-for-woocommerce'),
+                    $order_id
+                );
                 continue;
             }
 
             $resolution = $this->resolve_new_ward($ward_code);
             $this->apply_resolution($order, $resolution);
+            $order->save();
 
             if ($resolution['status'] === 'matched') {
-                $order->save();
                 $converted++;
             } elseif ($resolution['status'] === 'ambiguous') {
-                $order->save();
                 $ambiguous++;
                 $errors[] = sprintf(
                     /* translators: %d: order ID. */
@@ -152,18 +183,15 @@ class VN_Address_Converter {
         }
 
         return array(
-            'success' => true,
-            'message' => sprintf(
-                /* translators: 1: number converted, 2: number needing manual review, 3: number failed. */
-                __('Conversion completed. Converted: %1$d, Needs review: %2$d, Failed: %3$d', 'vn-address-for-woocommerce'),
-                $converted,
-                $ambiguous,
-                $failed
-            ),
+            'processed' => count($orders),
             'converted' => $converted,
             'ambiguous' => $ambiguous,
             'failed' => $failed,
             'errors' => $errors,
+            // A batch full to $batch_size means more orders might remain;
+            // a partial batch means the eligible set is exhausted. Avoids
+            // an extra COUNT-style query on every single batch call.
+            'has_more' => count($orders) === $batch_size,
         );
     }
 
@@ -191,6 +219,7 @@ class VN_Address_Converter {
 
         $resolution = $this->resolve_new_ward($ward_code);
         $this->apply_resolution($order, $resolution);
+        $order->save();
 
         if ($resolution['status'] === 'not_found') {
             return array(
@@ -198,8 +227,6 @@ class VN_Address_Converter {
                 'message' => __('No matching ward found in the conversion table', 'vn-address-for-woocommerce'),
             );
         }
-
-        $order->save();
 
         if ($resolution['status'] === 'ambiguous') {
             return array(

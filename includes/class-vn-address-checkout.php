@@ -71,9 +71,12 @@ class VN_Address_Checkout {
     }
     
     public function modify_checkout_fields($fields) {
-        // Get structure from POST or use default from settings
+        // Get structure from POST or use default from settings. This only
+        // affects which fields are rendered for this request (old vs new
+        // structure); it never writes anything, so no nonce is needed here.
         $default_structure = get_option('vn_address_wc_structure', 'new');
-        $structure = isset($_POST['address_structure']) ? sanitize_text_field($_POST['address_structure']) : $default_structure;
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+        $structure = isset($_POST['address_structure']) ? sanitize_text_field(wp_unslash($_POST['address_structure'])) : $default_structure;
         
         // Remove unnecessary default fields
         $fields_to_remove = array(
@@ -249,49 +252,56 @@ class VN_Address_Checkout {
         return $fields;
     }
     
+    /**
+     * Hooked to woocommerce_checkout_update_order_meta, which only fires
+     * from inside WC_Checkout::process_checkout() after WooCommerce has
+     * already verified its own "woocommerce-process-checkout" nonce - so
+     * this deliberately doesn't duplicate that check.
+     */
     public function save_custom_fields($order_id) {
         $order = wc_get_order($order_id);
         if (!$order) {
             return;
         }
 
-        // Get structure from POST or use default
-        $structure = isset($_POST['address_structure']) ? sanitize_text_field($_POST['address_structure']) : get_option('vn_address_wc_structure', 'new');
+        // phpcs:disable WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+        $structure = isset($_POST['address_structure']) ? sanitize_text_field(wp_unslash($_POST['address_structure'])) : get_option('vn_address_wc_structure', 'new');
 
         // Save structure used
         $order->update_meta_data('_address_structure', $structure);
 
         // Billing address
         if (isset($_POST['billing_province'])) {
-            $order->update_meta_data('_billing_province', sanitize_text_field($_POST['billing_province']));
-            $order->update_meta_data('_billing_province_name', sanitize_text_field($_POST['billing_province_text'] ?? ''));
+            $order->update_meta_data('_billing_province', sanitize_text_field(wp_unslash($_POST['billing_province'])));
+            $order->update_meta_data('_billing_province_name', sanitize_text_field(wp_unslash($_POST['billing_province_text'] ?? '')));
         }
 
         if ($structure === 'old' && isset($_POST['billing_district'])) {
-            $order->update_meta_data('_billing_district', sanitize_text_field($_POST['billing_district']));
-            $order->update_meta_data('_billing_district_name', sanitize_text_field($_POST['billing_district_text'] ?? ''));
+            $order->update_meta_data('_billing_district', sanitize_text_field(wp_unslash($_POST['billing_district'])));
+            $order->update_meta_data('_billing_district_name', sanitize_text_field(wp_unslash($_POST['billing_district_text'] ?? '')));
         }
 
         if (isset($_POST['billing_ward'])) {
-            $order->update_meta_data('_billing_ward', sanitize_text_field($_POST['billing_ward']));
-            $order->update_meta_data('_billing_ward_name', sanitize_text_field($_POST['billing_ward_text'] ?? ''));
+            $order->update_meta_data('_billing_ward', sanitize_text_field(wp_unslash($_POST['billing_ward'])));
+            $order->update_meta_data('_billing_ward_name', sanitize_text_field(wp_unslash($_POST['billing_ward_text'] ?? '')));
         }
 
         // Shipping address
         if (isset($_POST['shipping_province'])) {
-            $order->update_meta_data('_shipping_province', sanitize_text_field($_POST['shipping_province']));
-            $order->update_meta_data('_shipping_province_name', sanitize_text_field($_POST['shipping_province_text'] ?? ''));
+            $order->update_meta_data('_shipping_province', sanitize_text_field(wp_unslash($_POST['shipping_province'])));
+            $order->update_meta_data('_shipping_province_name', sanitize_text_field(wp_unslash($_POST['shipping_province_text'] ?? '')));
         }
 
         if ($structure === 'old' && isset($_POST['shipping_district'])) {
-            $order->update_meta_data('_shipping_district', sanitize_text_field($_POST['shipping_district']));
-            $order->update_meta_data('_shipping_district_name', sanitize_text_field($_POST['shipping_district_text'] ?? ''));
+            $order->update_meta_data('_shipping_district', sanitize_text_field(wp_unslash($_POST['shipping_district'])));
+            $order->update_meta_data('_shipping_district_name', sanitize_text_field(wp_unslash($_POST['shipping_district_text'] ?? '')));
         }
 
         if (isset($_POST['shipping_ward'])) {
-            $order->update_meta_data('_shipping_ward', sanitize_text_field($_POST['shipping_ward']));
-            $order->update_meta_data('_shipping_ward_name', sanitize_text_field($_POST['shipping_ward_text'] ?? ''));
+            $order->update_meta_data('_shipping_ward', sanitize_text_field(wp_unslash($_POST['shipping_ward'])));
+            $order->update_meta_data('_shipping_ward_name', sanitize_text_field(wp_unslash($_POST['shipping_ward_text'] ?? '')));
         }
+        // phpcs:enable WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 
         $order->save();
     }

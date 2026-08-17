@@ -8,22 +8,30 @@ if (!defined('ABSPATH')) {
 }
 
 class VN_Address_Admin {
-    
+
+    /**
+     * Orders processed per convert_batch() AJAX round-trip. Kept small so a
+     * single request's execution time and memory footprint stay well under
+     * typical hosting limits regardless of total order count.
+     */
+    const CONVERT_BATCH_SIZE = 50;
+
     private static $instance = null;
-    
+
     public static function get_instance() {
         if (null === self::$instance) {
             self::$instance = new self();
         }
         return self::$instance;
     }
-    
+
     private function __construct() {
         add_action('admin_menu', array($this, 'add_admin_menu'));
         add_action('admin_init', array($this, 'register_settings'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
         add_action('admin_notices', array($this, 'maybe_show_block_checkout_notice'));
-        add_action('wp_ajax_vn_address_convert_orders', array($this, 'ajax_convert_orders'));
+        add_action('wp_ajax_vn_address_convert_count', array($this, 'ajax_convert_count'));
+        add_action('wp_ajax_vn_address_convert_batch', array($this, 'ajax_convert_batch'));
         add_action('wp_ajax_vn_address_test_server', array($this, 'ajax_test_server'));
         add_action('wp_ajax_vn_address_clear_server_cache', array($this, 'ajax_clear_server_cache'));
     }
@@ -83,10 +91,21 @@ class VN_Address_Admin {
     }
     
     public function register_settings() {
-        register_setting('vn_address_wc_settings', 'vn_address_wc_structure');
+        register_setting('vn_address_wc_settings', 'vn_address_wc_structure', array(
+            'sanitize_callback' => array($this, 'sanitize_structure'),
+            'default' => 'new',
+        ));
         register_setting('vn_address_wc_settings', 'vn_address_wc_server_url', array(
             'sanitize_callback' => 'esc_url_raw',
         ));
+    }
+
+    /**
+     * Only 'new' and 'old' are valid values for this setting; anything else
+     * (a tampered request, a stale form) falls back to 'new'.
+     */
+    public function sanitize_structure($value) {
+        return in_array($value, array('new', 'old'), true) ? $value : 'new';
     }
     
     public function enqueue_admin_scripts($hook) {
@@ -121,6 +140,7 @@ class VN_Address_Admin {
                 'failed' => __('Failed:', 'vn-address-for-woocommerce'),
                 'errors' => __('Errors:', 'vn-address-for-woocommerce'),
                 'conversion_failed' => __('Conversion failed. Please try again.', 'vn-address-for-woocommerce'),
+                'no_orders_to_convert' => __('No orders to convert.', 'vn-address-for-woocommerce'),
                 'convert_now' => __('Convert Now', 'vn-address-for-woocommerce'),
                 'testing' => __('Testing...', 'vn-address-for-woocommerce'),
                 'test_server' => __('Test Connection', 'vn-address-for-woocommerce'),
@@ -385,20 +405,38 @@ class VN_Address_Admin {
         ));
     }
 
-    public function ajax_convert_orders() {
+    /**
+     * Report how many orders still need conversion, so the client can size
+     * its progress bar before starting the batch loop.
+     */
+    public function ajax_convert_count() {
         check_ajax_referer('vn_address_admin_nonce', 'nonce');
-        
+
         if (!current_user_can('manage_woocommerce')) {
             wp_send_json_error(array('message' => __('Permission denied', 'vn-address-for-woocommerce')));
         }
-        
-        $converter = VN_Address_Converter::get_instance();
-        $result = $converter->convert_all_orders();
-        
-        if ($result['success']) {
-            wp_send_json_success($result);
-        } else {
-            wp_send_json_error($result);
+
+        $total = VN_Address_Converter::get_instance()->count_eligible_orders();
+
+        wp_send_json_success(array('total' => $total));
+    }
+
+    /**
+     * Convert one bounded batch of orders. The client calls this repeatedly
+     * until the response reports no orders remaining, so a single request
+     * never has to process more than BATCH_SIZE orders - this keeps the
+     * conversion safe from PHP execution-time and memory limits no matter
+     * how many old-structure orders a store has.
+     */
+    public function ajax_convert_batch() {
+        check_ajax_referer('vn_address_admin_nonce', 'nonce');
+
+        if (!current_user_can('manage_woocommerce')) {
+            wp_send_json_error(array('message' => __('Permission denied', 'vn-address-for-woocommerce')));
         }
+
+        $result = VN_Address_Converter::get_instance()->convert_batch(self::CONVERT_BATCH_SIZE);
+
+        wp_send_json_success($result);
     }
 }

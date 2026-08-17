@@ -252,6 +252,10 @@ class VN_Address_Data {
      */
     public function clear_server_cache() {
         global $wpdb;
+        // Bulk-deleting transients by name pattern has no dedicated WP
+        // function; this is the standard accepted pattern for it. Not
+        // cached since it's a one-time delete, not a repeated read.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $wpdb->query(
             $wpdb->prepare(
                 "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s",
