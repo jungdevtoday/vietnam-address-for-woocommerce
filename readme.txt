@@ -4,7 +4,7 @@ Tags: woocommerce, vietnam, address, checkout, provinces
 Requires at least: 5.8
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -125,6 +125,11 @@ Site owners who prefer not to connect to this service at all may run their own c
 
 == Changelog ==
 
+= 1.1.4 =
+* Fixed uninstall.php not removing the "Searchable Dropdowns" setting, left over from a plugin uninstall
+* Removed two unused converter methods left over from an earlier version of the admin UI (no behavior change - they were never called from anywhere)
+* Final pre-submission code review: fresh pass with the official Plugin Check tool, full manual read-through of every file for escaping/sanitization/nonces, and a check for leftover debug code - none found beyond what's already fixed above
+
 = 1.1.3 =
 * Added searchable dropdowns (type to filter) for Province/City, District, and Ward on Classic Checkout, using Select2 already bundled with WooCommerce - no extra scripts loaded. New setting to turn this off if it ever conflicts with a theme
 * Fixed a real Block Checkout display bug: on stores where the default country isn't Vietnam, WooCommerce's own Country/State/City/Postcode fields weren't being hidden and visibly overlapped this plugin's own Province/Ward fields. These are now always hidden regardless of the store's configured country
@@ -167,6 +172,9 @@ Site owners who prefer not to connect to this service at all may run their own c
 * HPOS (High-Performance Order Storage) compatible
 
 == Upgrade Notice ==
+
+= 1.1.4 =
+Minor cleanup: fixes uninstall.php missing one setting, removes unused code. No behavior change for existing sites.
 
 = 1.1.3 =
 Adds searchable Classic Checkout dropdowns (toggleable), fixes a real Block Checkout display bug where the native Country/State/City/Postcode fields could overlap this plugin's own fields on stores not defaulting to Vietnam, and fixes an overlapping-text bug on the Block Checkout Ward field.

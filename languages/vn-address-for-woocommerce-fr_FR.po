@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: VN Address for WooCommerce 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/vn-address-for-"
 "woocommerce\n"
-"POT-Creation-Date: 2026-08-17T20:02:41+00:00\n"
+"POT-Creation-Date: 2026-08-18T02:53:02+00:00\n"
 "PO-Revision-Date: 2026-08-16T07:30:43+00:00\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (France) <LL@li.org>\n"
@@ -547,30 +547,6 @@ msgid "Order #%d: no matching ward found in the conversion table"
 msgstr ""
 "Commande n°%d : aucune commune correspondante trouvée dans la table de "
 "conversion"
-
-#: includes/class-vn-address-converter.php:207
-msgid "Order not found"
-msgstr "Commande introuvable"
-
-#: includes/class-vn-address-converter.php:216
-msgid "Missing address data"
-msgstr "Données d'adresse manquantes"
-
-#: includes/class-vn-address-converter.php:227
-msgid "No matching ward found in the conversion table"
-msgstr "Aucune commune correspondante trouvée dans la table de conversion"
-
-#: includes/class-vn-address-converter.php:235
-msgid "Multiple possible new wards found; needs manual review"
-msgstr "Plusieurs nouvelles communes possibles ; vérification manuelle requise"
-
-#: includes/class-vn-address-converter.php:243
-msgid "Order converted successfully"
-msgstr "Commande convertie avec succès"
-
-#: includes/class-vn-address-converter.php:287
-msgid "No valid orders to convert"
-msgstr "Aucune commande valide à convertir"
 
 #: vn-address-woocommerce.php:42
 msgid ""

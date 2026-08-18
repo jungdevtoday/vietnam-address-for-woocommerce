@@ -15,6 +15,7 @@ global $wpdb;
 
 delete_option('vn_address_wc_structure');
 delete_option('vn_address_wc_server_url');
+delete_option('vn_address_wc_enable_select2');
 
 // Bulk-deleting transients by name pattern has no dedicated WP function;
 // this is the standard accepted pattern for it. Not cached since it's a

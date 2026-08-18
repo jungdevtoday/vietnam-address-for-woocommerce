@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: VN Address for WooCommerce 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/vn-address-for-"
 "woocommerce\n"
-"POT-Creation-Date: 2026-08-17T20:02:41+00:00\n"
+"POT-Creation-Date: 2026-08-18T02:53:02+00:00\n"
 "PO-Revision-Date: 2026-08-16T07:30:43+00:00\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Vietnamese <LL@li.org>\n"
@@ -529,30 +529,6 @@ msgstr "Đơn hàng #%d: có nhiều xã/phường mới khả dĩ, cần xem x�
 #, php-format
 msgid "Order #%d: no matching ward found in the conversion table"
 msgstr "Đơn hàng #%d: không tìm thấy xã/phường phù hợp trong bảng chuyển đổi"
-
-#: includes/class-vn-address-converter.php:207
-msgid "Order not found"
-msgstr "Không tìm thấy đơn hàng"
-
-#: includes/class-vn-address-converter.php:216
-msgid "Missing address data"
-msgstr "Thiếu dữ liệu địa chỉ"
-
-#: includes/class-vn-address-converter.php:227
-msgid "No matching ward found in the conversion table"
-msgstr "Không tìm thấy xã/phường phù hợp trong bảng chuyển đổi"
-
-#: includes/class-vn-address-converter.php:235
-msgid "Multiple possible new wards found; needs manual review"
-msgstr "Có nhiều xã/phường mới khả dĩ; cần xem xét thủ công"
-
-#: includes/class-vn-address-converter.php:243
-msgid "Order converted successfully"
-msgstr "Chuyển đổi đơn hàng thành công"
-
-#: includes/class-vn-address-converter.php:287
-msgid "No valid orders to convert"
-msgstr "Không có đơn hàng hợp lệ để chuyển đổi"
 
 #: vn-address-woocommerce.php:42
 msgid ""

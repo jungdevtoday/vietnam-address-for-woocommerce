@@ -204,28 +204,21 @@ class VN_Address_Data {
     }
 
     /**
-     * Candidate new-structure wards for a given old-structure ward code.
+     * Candidate new-structure wards for a given old-structure ward code, read
+     * directly from the bundled local file, never over the network.
      *
      * Returns a list of { province_code, province_name, ward_code, ward_name }.
      * Most old wards map to exactly one new ward (deterministic). A small
      * minority (~3%) were split across multiple new wards during the 1/7/2025
      * merger and have more than one candidate here - callers should treat
      * those as needing manual review rather than guessing.
-     */
-    public function get_ward_mapping($old_ward_code) {
-        return $this->fetch('/api/v1/ward-mapping/' . rawurlencode($old_ward_code), function () use ($old_ward_code) {
-            return $this->get_ward_mapping_local($old_ward_code);
-        });
-    }
-
-    /**
-     * Old-to-new ward mapping read directly from the bundled local file,
-     * never over the network. Used by the order converter: it's a bulk,
-     * one-shot batch job that may touch hundreds of distinct ward codes in
-     * a single run, so going through the server (and its per-key cache) for
-     * each one would be slow and puts avoidable load on the server for data
-     * that's a fixed historical snapshot anyway - it doesn't change after
-     * the fact the way current province/ward names occasionally might.
+     *
+     * Used by the order converter: it's a bulk, one-shot batch job that may
+     * touch hundreds of distinct ward codes in a single run, so going
+     * through the server (and its per-key cache) for each one would be slow
+     * and puts avoidable load on the server for data that's a fixed
+     * historical snapshot anyway - it doesn't change after the fact the way
+     * current province/ward names occasionally might.
      */
     public function get_ward_mapping_local($old_ward_code) {
         $mapping = $this->load_json('ward-mapping-old-to-new.json');
