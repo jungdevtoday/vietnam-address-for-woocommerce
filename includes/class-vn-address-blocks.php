@@ -99,7 +99,7 @@ class VN_Address_Blocks {
 
         woocommerce_register_additional_checkout_field(array(
             'id' => self::FIELD_PROVINCE,
-            'label' => __('Province/City', 'vn-address-for-woocommerce'),
+            'label' => __('Province/City', 'vietnam-address-for-woocommerce'),
             'location' => 'address',
             'type' => 'select',
             'required' => true,
@@ -108,7 +108,7 @@ class VN_Address_Blocks {
 
         woocommerce_register_additional_checkout_field(array(
             'id' => self::FIELD_WARD,
-            'label' => __('Ward/Commune', 'vn-address-for-woocommerce'),
+            'label' => __('Ward/Commune', 'vietnam-address-for-woocommerce'),
             'location' => 'address',
             'type' => 'text',
             'required' => true,
@@ -116,7 +116,7 @@ class VN_Address_Blocks {
 
         woocommerce_register_additional_checkout_field(array(
             'id' => self::FIELD_WARD_CODE,
-            'label' => __('Ward code', 'vn-address-for-woocommerce'),
+            'label' => __('Ward code', 'vietnam-address-for-woocommerce'),
             'location' => 'address',
             'type' => 'text',
             'required' => true,
@@ -141,7 +141,7 @@ class VN_Address_Blocks {
         if (empty($ward_name)) {
             $errors->add(
                 'vn_address_invalid_ward',
-                __('Please select a valid Ward/Commune from the list for the chosen Province/City.', 'vn-address-for-woocommerce')
+                __('Please select a valid Ward/Commune from the list for the chosen Province/City.', 'vietnam-address-for-woocommerce')
             );
         }
     }
@@ -175,8 +175,8 @@ class VN_Address_Blocks {
                 'wardCode' => self::FIELD_WARD_CODE,
             ),
             'i18n' => array(
-                'selectProvinceFirst' => __('Select a Province/City first', 'vn-address-for-woocommerce'),
-                'noResults' => __('No matches found', 'vn-address-for-woocommerce'),
+                'selectProvinceFirst' => __('Select a Province/City first', 'vietnam-address-for-woocommerce'),
+                'noResults' => __('No matches found', 'vietnam-address-for-woocommerce'),
             ),
         ));
     }

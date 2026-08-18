@@ -3,10 +3,10 @@
  * Plugin Name: Vietnam Address for WooCommerce
  * Plugin URI: https://jungdev.com/plugins/vn-address-for-woocommerce
  * Description: Integrates the latest Vietnamese administrative addresses into WooCommerce. Supports converting old addresses to new addresses.
- * Version: 1.1.4
+ * Version: 1.1.5
  * Author: jungdev
  * Author URI: https://jungdev.com
- * Text Domain: vn-address-for-woocommerce
+ * Text Domain: vietnam-address-for-woocommerce
  * Domain Path: /languages
  * Requires at least: 5.8
  * Requires PHP: 7.4
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('VN_ADDRESS_WC_VERSION', '1.1.4');
+define('VN_ADDRESS_WC_VERSION', '1.1.5');
 define('VN_ADDRESS_WC_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('VN_ADDRESS_WC_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('VN_ADDRESS_WC_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -39,7 +39,7 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 function vn_address_wc_woocommerce_missing_notice() {
     ?>
     <div class="error">
-        <p><?php esc_html_e('Vietnam Address for WooCommerce requires WooCommerce to be installed and activated.', 'vn-address-for-woocommerce'); ?></p>
+        <p><?php esc_html_e('Vietnam Address for WooCommerce requires WooCommerce to be installed and activated.', 'vietnam-address-for-woocommerce'); ?></p>
     </div>
     <?php
 }
@@ -100,7 +100,7 @@ class VN_Address_WooCommerce {
      * Adds a "Settings" link to the plugin's row on the Plugins screen.
      */
     public function plugin_action_links($links) {
-        $settings_link = '<a href="' . esc_url(admin_url('admin.php?page=vn-address-settings')) . '">' . esc_html__('Settings', 'vn-address-for-woocommerce') . '</a>';
+        $settings_link = '<a href="' . esc_url(admin_url('admin.php?page=vn-address-settings')) . '">' . esc_html__('Settings', 'vietnam-address-for-woocommerce') . '</a>';
         array_unshift($links, $settings_link);
         return $links;
     }
@@ -130,7 +130,7 @@ class VN_Address_WooCommerce {
      */
     public function load_textdomain() {
         add_filter('load_textdomain_mofile', array($this, 'default_to_vietnamese_mofile'), 10, 2);
-        load_plugin_textdomain('vn-address-for-woocommerce', false, dirname(VN_ADDRESS_WC_PLUGIN_BASENAME) . '/languages');
+        load_plugin_textdomain('vietnam-address-for-woocommerce', false, dirname(VN_ADDRESS_WC_PLUGIN_BASENAME) . '/languages');
     }
 
     /**
@@ -141,11 +141,11 @@ class VN_Address_WooCommerce {
      * that translation as normal.
      */
     public function default_to_vietnamese_mofile($mofile, $domain) {
-        if ('vn-address-for-woocommerce' !== $domain || file_exists($mofile)) {
+        if ('vietnam-address-for-woocommerce' !== $domain || file_exists($mofile)) {
             return $mofile;
         }
 
-        $vi_mofile = VN_ADDRESS_WC_PLUGIN_DIR . 'languages/vn-address-for-woocommerce-vi.mo';
+        $vi_mofile = VN_ADDRESS_WC_PLUGIN_DIR . 'languages/vietnam-address-for-woocommerce-vi.mo';
 
         return file_exists($vi_mofile) ? $vi_mofile : $mofile;
     }
@@ -177,7 +177,7 @@ class VN_Address_WooCommerce {
         $province_code = isset($_POST['province_code']) ? sanitize_text_field(wp_unslash($_POST['province_code'])) : '';
 
         if (empty($province_code)) {
-            wp_send_json_error(array('message' => __('Province code is required', 'vn-address-for-woocommerce')));
+            wp_send_json_error(array('message' => __('Province code is required', 'vietnam-address-for-woocommerce')));
         }
 
         $districts = VN_Address_Data::get_instance()->get_districts_old($province_code);
@@ -192,7 +192,7 @@ class VN_Address_WooCommerce {
         $parent_code = isset($_POST['parent_code']) ? sanitize_text_field(wp_unslash($_POST['parent_code'])) : '';
 
         if (empty($parent_code)) {
-            wp_send_json_error(array('message' => __('Parent code is required', 'vn-address-for-woocommerce')));
+            wp_send_json_error(array('message' => __('Parent code is required', 'vietnam-address-for-woocommerce')));
         }
 
         $wards = VN_Address_Data::get_instance()->get_wards($parent_code, $structure);

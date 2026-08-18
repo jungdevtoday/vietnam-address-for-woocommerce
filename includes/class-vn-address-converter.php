@@ -153,7 +153,7 @@ class VN_Address_Converter {
                 $failed++;
                 $errors[] = sprintf(
                     /* translators: %d: order ID. */
-                    __('Order #%d: missing address data', 'vn-address-for-woocommerce'),
+                    __('Order #%d: missing address data', 'vietnam-address-for-woocommerce'),
                     $order_id
                 );
                 continue;
@@ -169,14 +169,14 @@ class VN_Address_Converter {
                 $ambiguous++;
                 $errors[] = sprintf(
                     /* translators: %d: order ID. */
-                    __('Order #%d: multiple possible new wards, needs manual review', 'vn-address-for-woocommerce'),
+                    __('Order #%d: multiple possible new wards, needs manual review', 'vietnam-address-for-woocommerce'),
                     $order_id
                 );
             } else {
                 $failed++;
                 $errors[] = sprintf(
                     /* translators: %d: order ID. */
-                    __('Order #%d: no matching ward found in the conversion table', 'vn-address-for-woocommerce'),
+                    __('Order #%d: no matching ward found in the conversion table', 'vietnam-address-for-woocommerce'),
                     $order_id
                 );
             }

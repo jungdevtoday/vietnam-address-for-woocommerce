@@ -2,20 +2,20 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: VN Address for WooCommerce 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/vn-address-for-"
-"woocommerce\n"
-"POT-Creation-Date: 2026-08-18T02:53:02+00:00\n"
+"Project-Id-Version: Vietnam Address for WooCommerce 1.1.4\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/vietnam-address-"
+"for-woocommerce\n"
+"POT-Creation-Date: 2026-08-18T03:48:50+00:00\n"
 "PO-Revision-Date: 2026-08-16T07:30:43+00:00\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: German (Germany) <LL@li.org>\n"
-"Language: de_DE\n"
+"Language-Team: Japanese <LL@li.org>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: vn-address-for-woocommerce\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: vietnam-address-for-woocommerce\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Plugin Name of the plugin
 #: vn-address-woocommerce.php includes/class-vn-address-admin.php:85
@@ -33,8 +33,8 @@ msgid ""
 "Integrates the latest Vietnamese administrative addresses into WooCommerce. "
 "Supports converting old addresses to new addresses."
 msgstr ""
-"Integriert die neuesten vietnamesischen Verwaltungsadressen in WooCommerce. "
-"Unterstützt die Umwandlung alter Adressen in neue Adressen."
+"最新のベトナム行政住所をWooCommerceに統合します。旧住所から新住所への変換にも"
+"対応しています。"
 
 #. Author of the plugin
 #: vn-address-woocommerce.php
@@ -59,11 +59,10 @@ msgid ""
 "Update WooCommerce to 8.9+, or enable \"Cart and checkout shortcodes\" under "
 "%s to use the Classic Checkout instead."
 msgstr ""
-"Ihre Checkout-Seite verwendet den blockbasierten WooCommerce-Checkout, Ihre "
-"WooCommerce-Version ist jedoch zu alt für die Block-Checkout-Unterstützung "
-"dieses Plugins. Aktualisieren Sie WooCommerce auf 8.9 oder höher, oder "
-"aktivieren Sie \"Cart and checkout shortcodes\" unter %s, um den klassischen "
-"Checkout zu verwenden."
+"チェックアウトページはWooCommerceのブロックチェックアウトを使用していますが、"
+"WooCommerceのバージョンが古いため、このプラグインのブロックチェックアウトに対"
+"応していません。WooCommerceを8.9以上に更新するか、%s で「Cart and checkout "
+"shortcodes」を有効にしてクラシックチェックアウトを使用してください。"
 
 #: includes/class-vn-address-admin.php:74
 #: includes/class-vn-address-admin.php:181
@@ -76,76 +75,74 @@ msgstr "Vietnam Address"
 
 #: includes/class-vn-address-admin.php:148
 msgid "This will convert all orders with old address structure. Continue?"
-msgstr ""
-"Dadurch werden alle Bestellungen mit der alten Adressstruktur umgewandelt. "
-"Fortfahren?"
+msgstr "これにより、旧住所構造のすべての注文が変換されます。続行しますか?"
 
 #: includes/class-vn-address-admin.php:149
 msgid "Converting..."
-msgstr "Wird umgewandelt..."
+msgstr "変換中..."
 
 #: includes/class-vn-address-admin.php:150
 msgid "Conversion Results:"
-msgstr "Umwandlungsergebnisse:"
+msgstr "変換結果:"
 
 #: includes/class-vn-address-admin.php:151
 msgid "Converted:"
-msgstr "Umgewandelt:"
+msgstr "変換済み:"
 
 #: includes/class-vn-address-admin.php:152
 msgid "Needs review:"
-msgstr "Zu prüfen:"
+msgstr "要確認:"
 
 #: includes/class-vn-address-admin.php:153
 msgid "Failed:"
-msgstr "Fehlgeschlagen:"
+msgstr "失敗:"
 
 #: includes/class-vn-address-admin.php:154
 msgid "Errors:"
-msgstr "Fehler:"
+msgstr "エラー:"
 
 #: includes/class-vn-address-admin.php:155
 msgid "Conversion failed. Please try again."
-msgstr "Die Umwandlung ist fehlgeschlagen. Bitte versuchen Sie es erneut."
+msgstr "変換に失敗しました。もう一度お試しください。"
 
 #: includes/class-vn-address-admin.php:156
 msgid "No orders to convert."
-msgstr "Keine Bestellungen zu konvertieren."
+msgstr "変換対象の注文はありません。"
 
 #: includes/class-vn-address-admin.php:157
 #: includes/class-vn-address-admin.php:306
 msgid "Convert Now"
-msgstr "Jetzt umwandeln"
+msgstr "今すぐ変換"
 
 #: includes/class-vn-address-admin.php:158
 msgid "Testing..."
-msgstr "Wird getestet..."
+msgstr "テスト中..."
 
 #: includes/class-vn-address-admin.php:159
 #: includes/class-vn-address-admin.php:262
 msgid "Test Connection"
-msgstr "Verbindung testen"
+msgstr "接続をテスト"
 
 #: includes/class-vn-address-admin.php:160
 msgid "Connection error"
-msgstr "Verbindungsfehler"
+msgstr "接続エラー"
 
 #: includes/class-vn-address-admin.php:161
 msgid "Are you sure you want to clear the cached server data?"
-msgstr "Möchten Sie die zwischengespeicherten Serverdaten wirklich löschen?"
+msgstr "サーバーのキャッシュデータを消去してもよろしいですか?"
 
 #: includes/class-vn-address-admin.php:162
 msgid "Clearing..."
-msgstr "Wird gelöscht..."
+msgstr "消去中..."
 
 #: includes/class-vn-address-admin.php:163
 #: includes/class-vn-address-admin.php:265
 msgid "Clear Cache"
-msgstr "Cache leeren"
+msgstr "キャッシュをクリア"
 
 #: includes/class-vn-address-admin.php:164
 msgid "Error clearing cache"
-msgstr "Fehler beim Leeren des Caches"
+msgstr "キャッシュのクリア中にエラーが発生しました"
 
 #. translators: %s: link to WooCommerce Settings > Advanced > Features
 #: includes/class-vn-address-admin.php:180
@@ -156,10 +153,10 @@ msgid ""
 "Update WooCommerce to 8.9+, or enable \"Cart and checkout shortcodes\" under "
 "%s."
 msgstr ""
-"Ihre Checkout-Seite verwendet den blockbasierten WooCommerce-Checkout, Ihre "
-"WooCommerce-Version ist jedoch zu alt für die Block-Checkout-Unterstützung "
-"dieses Plugins. Aktualisieren Sie WooCommerce auf 8.9 oder höher, oder "
-"aktivieren Sie \"Cart and checkout shortcodes\" unter %s."
+"チェックアウトページはWooCommerceのブロックチェックアウトを使用していますが、"
+"WooCommerceのバージョンが古いため、このプラグインのブロックチェックアウトに対"
+"応していません。WooCommerceを8.9以上に更新するか、%s で「Cart and checkout "
+"shortcodes」を有効にしてください。"
 
 #: includes/class-vn-address-admin.php:189
 msgid ""
@@ -168,26 +165,26 @@ msgid ""
 "address structure. The legacy structure with District is only available on "
 "the Classic Checkout."
 msgstr ""
-"Ihre Checkout-Seite verwendet den blockbasierten WooCommerce-Checkout. "
-"Kunden sehen die Felder Provinz/Stadt und Gemeinde/Bezirk für die aktuelle "
-"Adressstruktur (nach dem 1.7.2025). Die alte Struktur mit Bezirk ist nur im "
-"klassischen Checkout verfügbar."
+"チェックアウトページはWooCommerceのブロックチェックアウトを使用しています。お"
+"客様には現行(2025年7月1日以降)の住所構造に基づく省/市および村/区の入力欄が表"
+"示されます。区を含む旧構造はクラシックチェックアウトでのみご利用いただけま"
+"す。"
 
 #: includes/class-vn-address-admin.php:203
 msgid "Address Settings"
-msgstr "Adresseinstellungen"
+msgstr "住所設定"
 
 #: includes/class-vn-address-admin.php:208
 msgid "Default Address Structure"
-msgstr "Standard-Adressstruktur"
+msgstr "デフォルトの住所構造"
 
 #: includes/class-vn-address-admin.php:213
 msgid "New structure (After 1/7/2025) - 34 provinces"
-msgstr "Neue Struktur (nach dem 1.7.2025) - 34 Provinzen"
+msgstr "新構造(2025年7月1日以降) - 34省"
 
 #: includes/class-vn-address-admin.php:216
 msgid "Old structure (Before 1/7/2025) - 63 provinces"
-msgstr "Alte Struktur (vor dem 1.7.2025) - 63 Provinzen"
+msgstr "旧構造(2025年7月1日以前) - 63省"
 
 #. translators: %s: "Learn more" link to the plugin homepage
 #: includes/class-vn-address-admin.php:223
@@ -196,24 +193,24 @@ msgid ""
 "Choose the default address structure for the checkout form. Customers can "
 "change it when placing an order. %s"
 msgstr ""
-"Wählen Sie die Standard-Adressstruktur für das Checkout-Formular. Kunden "
-"können sie bei der Bestellung ändern. %s"
+"チェックアウトフォームのデフォルトの住所構造を選択してください。お客様は注文"
+"時に変更できます。%s"
 
 #: includes/class-vn-address-admin.php:224
 msgid "Learn more"
-msgstr "Mehr erfahren"
+msgstr "詳細を見る"
 
 #: includes/class-vn-address-admin.php:233
 msgid "Searchable Dropdowns"
-msgstr "Durchsuchbare Auswahlfelder"
+msgstr "検索可能なドロップダウン"
 
 #: includes/class-vn-address-admin.php:243
 msgid ""
 "Make the Province/City, District, and Ward fields searchable (type to "
 "filter) on Classic Checkout"
 msgstr ""
-"Die Felder Provinz/Stadt, Bezirk und Gemeinde beim Classic Checkout "
-"durchsuchbar machen (Eingabe zum Filtern)"
+"クラシックチェックアウトの省・市、郡、区・村フィールドを検索可能にする(入力し"
+"て絞り込み)"
 
 #: includes/class-vn-address-admin.php:246
 msgid ""
@@ -223,16 +220,15 @@ msgid ""
 "as plain dropdowns either way. Only affects Classic Checkout; Block Checkout "
 "already has its own searchable ward field."
 msgstr ""
-"Verwendet die bereits in WooCommerce enthaltene Select2-Bibliothek, ohne "
-"zusätzliche Skripte, für eine gute Theme-Kompatibilität. Deaktivieren Sie "
-"diese Option, falls es zu sichtbaren Konflikten mit einem Theme oder einem "
-"anderen Plugin kommt - die Felder funktionieren dann weiterhin als normale "
-"Auswahlfelder. Betrifft nur den Classic Checkout; der Block Checkout verfügt "
-"bereits über ein eigenes durchsuchbares Gemeinde-Feld."
+"WooCommerceに既に同梱されているSelect2を使用するため、追加スクリプトなしで"
+"テーマとの互換性が高くなります。テーマや他のプラグインと表示上の競合が見られ"
+"る場合はこの設定をオフにしてください。フィールドは通常の選択欄として問題なく"
+"機能します。クラシックチェックアウトのみに影響し、ブロックチェックアウトには"
+"既に独自の検索可能な区・村フィールドがあります。"
 
 #: includes/class-vn-address-admin.php:253
 msgid "API Server"
-msgstr "API-Server"
+msgstr "APIサーバー"
 
 #: includes/class-vn-address-admin.php:269
 msgid ""
@@ -242,14 +238,14 @@ msgid ""
 "even if this is left blank or the server is temporarily unreachable - the "
 "plugin automatically falls back to the data bundled with the plugin."
 msgstr ""
-"Wir empfehlen, den Standard-API-Server des Plugins beizubehalten, um die "
-"neuesten Änderungen der vietnamesischen Verwaltungsadressen zu erhalten."
+"最新のベトナム行政住所の変更を受け取るため、プラグインのデフォルトAPIサーバー"
+"のままにしておくことをお勧めします。"
 
 #. translators: %s: link to the VietMap open data source
 #: includes/class-vn-address-admin.php:275
 #, php-format
 msgid "Administrative data provided by VietMap: %s."
-msgstr "Verwaltungsdaten bereitgestellt von VietMap: %s."
+msgstr "行政データはVietMapより提供されています: %s。"
 
 #. translators: %s: link to the self-hostable API server source code on GitHub
 #: includes/class-vn-address-admin.php:284
@@ -257,15 +253,15 @@ msgstr "Verwaltungsdaten bereitgestellt von VietMap: %s."
 msgid ""
 "Prefer to run your own copy instead of relying on ours? The server is open "
 "source: %s."
-msgstr "Open-Source-Code des API-Dienstes: %s."
+msgstr "APIサービスのオープンソースコード: %s。"
 
 #: includes/class-vn-address-admin.php:294
 msgid "Save Settings"
-msgstr "Einstellungen speichern"
+msgstr "設定を保存"
 
 #: includes/class-vn-address-admin.php:298
 msgid "Old-to-new address conversion tool"
-msgstr "Werkzeug zur Umwandlung alter in neue Adressen"
+msgstr "旧住所から新住所への変換ツール"
 
 #: includes/class-vn-address-admin.php:300
 msgid ""
@@ -279,73 +275,69 @@ msgid ""
 "the original address on every order stays exactly as submitted, and the "
 "converted result is saved alongside it."
 msgstr ""
-"Wandelt bestehende Bestellungen von der alten in die neue Adressstruktur um, "
-"indem jede Bestellung mit der mitgelieferten Alt-Neu-Umwandlungstabelle "
-"abgeglichen wird (basierend auf den von VietMap veröffentlichten "
-"Verwaltungszuordnungsdaten, kein Live-API-Aufruf - dies läuft vollständig "
-"auf Ihrem Server, ohne Netzwerkanfragen, selbst wenn oben ein API-Server "
-"konfiguriert ist). Die meisten Gemeinden werden automatisch umgewandelt; "
-"eine kleine Anzahl, die bei der Fusion auf mehrere neue Gemeinden aufgeteilt "
-"wurde, wird zur manuellen Prüfung markiert, anstatt geraten zu werden. "
-"Nichts wird überschrieben: Die ursprüngliche Adresse jeder Bestellung bleibt "
-"genau wie übermittelt erhalten, und das Umwandlungsergebnis wird zusätzlich "
-"gespeichert."
+"既存の注文を旧住所構造から新住所構造へ変換します。各注文を同梱の旧→新変換テー"
+"ブル(VietMapが公開した行政マッピングデータに基づくもので、ライブAPI呼び出しで"
+"はありません - 上でAPIサーバーを設定していても、この処理はすべてお使いのサー"
+"バー上でネットワークリクエストなしに実行されます)と照合します。ほとんどの村/"
+"区は自動的に変換されます。合併時に複数の新しい村/区に分割された一部のケース"
+"は、推測せずに手動確認の対象としてフラグが立てられます。何も上書きされませ"
+"ん: 各注文の元の住所は送信時のまま保持され、変換結果は別に保存されます。"
 
 #: includes/class-vn-address-admin.php:322
 msgid "Address Data"
-msgstr "Adressdaten"
+msgstr "住所データ"
 
 #. translators: %s: link to the VietMap data source
 #: includes/class-vn-address-admin.php:328
 #, php-format
 msgid "Bundled with the plugin, no external API required. Source: %s."
-msgstr "Im Plugin enthalten, keine externe API erforderlich. Quelle: %s."
+msgstr "プラグインに同梱されており、外部APIは不要です。データ提供元: %s。"
 
 #: includes/class-vn-address-admin.php:336
 msgid "Support"
-msgstr "Support"
+msgstr "サポート"
 
 #: includes/class-vn-address-admin.php:337
 msgid "Need help? Contact us."
-msgstr "Benötigen Sie Hilfe? Kontaktieren Sie uns."
+msgstr "お困りですか?お問い合わせください。"
 
 #: includes/class-vn-address-admin.php:339
 msgid "Contact Support"
-msgstr "Support kontaktieren"
+msgstr "サポートに問い合わせる"
 
 #: includes/class-vn-address-admin.php:344
 msgid "Plugin Information"
-msgstr "Plugin-Informationen"
+msgstr "プラグイン情報"
 
 #: includes/class-vn-address-admin.php:346
 msgid "Version:"
-msgstr "Version:"
+msgstr "バージョン:"
 
 #: includes/class-vn-address-admin.php:347
 msgid "Structure:"
-msgstr "Struktur:"
+msgstr "構造:"
 
 #: includes/class-vn-address-admin.php:347
 msgid "New (34 provinces)"
-msgstr "Neu (34 Provinzen)"
+msgstr "新(34省)"
 
 #: includes/class-vn-address-admin.php:347
 msgid "Old (63 provinces)"
-msgstr "Alt (63 Provinzen)"
+msgstr "旧(63省)"
 
 #: includes/class-vn-address-admin.php:348
 msgid "Author:"
-msgstr "Autor:"
+msgstr "作者:"
 
 #: includes/class-vn-address-admin.php:349
 msgid "Website:"
-msgstr "Website:"
+msgstr "ウェブサイト:"
 
 #. translators: 1: number of provinces, 2: number of wards
 #: includes/class-vn-address-admin.php:371
 #, php-format
 msgid "%1$d provinces, %2$d wards loaded (new structure)."
-msgstr "%1$d Provinzen, %2$d Gemeinden geladen (neue Struktur)."
+msgstr "%1$d の省、%2$d の村/区を読み込みました(新構造)。"
 
 #. translators: %s: configured server URL
 #: includes/class-vn-address-admin.php:381
@@ -353,214 +345,206 @@ msgstr "%1$d Provinzen, %2$d Gemeinden geladen (neue Struktur)."
 msgid ""
 "API Server: %s (falls back to bundled data automatically if unreachable)."
 msgstr ""
-"API-Server: %s (fällt automatisch auf mitgelieferte Daten zurück, falls "
-"nicht erreichbar)."
+"APIサーバー: %s(接続できない場合は自動的に同梱データにフォールバックします)。"
 
 #: includes/class-vn-address-admin.php:393
 #: includes/class-vn-address-admin.php:431
 #: includes/class-vn-address-admin.php:449
 #: includes/class-vn-address-admin.php:468
 msgid "Permission denied"
-msgstr "Zugriff verweigert"
+msgstr "権限がありません"
 
 #. translators: %d: HTTP status code
 #: includes/class-vn-address-admin.php:411
 #, php-format
 msgid "Server responded with HTTP %d"
-msgstr "Server antwortete mit HTTP %d"
+msgstr "サーバーがHTTP %d を返しました"
 
 #: includes/class-vn-address-admin.php:418
 msgid "Server responded, but not in the expected format"
-msgstr "Der Server hat geantwortet, aber nicht im erwarteten Format"
+msgstr "サーバーから応答がありましたが、想定した形式ではありません"
 
 #: includes/class-vn-address-admin.php:422
 msgid "Connection successful!"
-msgstr "Verbindung erfolgreich!"
+msgstr "接続に成功しました!"
 
 #: includes/class-vn-address-admin.php:437
 msgid "Cache cleared successfully!"
-msgstr "Cache erfolgreich geleert!"
+msgstr "キャッシュを正常にクリアしました!"
 
 #: includes/class-vn-address-blocks.php:102
 #: includes/class-vn-address-checkout.php:162
 #: includes/class-vn-address-checkout.php:208
 msgid "Province/City"
-msgstr "Provinz/Stadt"
+msgstr "省・市"
 
 #: includes/class-vn-address-blocks.php:111
 msgid "Ward/Commune"
-msgstr "Gemeinde/Bezirk"
+msgstr "村/区"
 
 #: includes/class-vn-address-blocks.php:119
 msgid "Ward code"
-msgstr "Gemeindecode"
+msgstr "村/区コード"
 
 #: includes/class-vn-address-blocks.php:144
 msgid ""
 "Please select a valid Ward/Commune from the list for the chosen Province/"
 "City."
-msgstr ""
-"Bitte wählen Sie eine gültige Gemeinde/Bezirk aus der Liste der ausgewählten "
-"Provinz/Stadt aus."
+msgstr "選択した省/市のリストから有効な村/区を選択してください。"
 
 #: includes/class-vn-address-blocks.php:178
 msgid "Select a Province/City first"
-msgstr "Bitte wählen Sie zuerst eine Provinz/Stadt"
+msgstr "先に省/市を選択してください"
 
 #: includes/class-vn-address-blocks.php:179
 msgid "No matches found"
-msgstr "Keine Treffer gefunden"
+msgstr "一致する結果が見つかりません"
 
 #: includes/class-vn-address-checkout.php:70
 #: includes/class-vn-address-checkout.php:166
 #: includes/class-vn-address-checkout.php:212
 msgid "Select Province/City"
-msgstr "Provinz/Stadt auswählen"
+msgstr "省・市を選択"
 
 #: includes/class-vn-address-checkout.php:71
 #: includes/class-vn-address-checkout.php:176
 #: includes/class-vn-address-checkout.php:221
 msgid "Select District"
-msgstr "Distrikt auswählen"
+msgstr "郡・区を選択"
 
 #: includes/class-vn-address-checkout.php:72
 #: includes/class-vn-address-checkout.php:186
 #: includes/class-vn-address-checkout.php:230
 msgid "Select Ward"
-msgstr "Gemeinde auswählen"
+msgstr "村・町を選択"
 
 #: includes/class-vn-address-checkout.php:73
 msgid "required"
-msgstr "erforderlich"
+msgstr "必須"
 
 #: includes/class-vn-address-checkout.php:118
 #: includes/class-vn-address-checkout.php:252
 msgid "Your Name"
-msgstr "Ihr Name"
+msgstr "お名前"
 
 #: includes/class-vn-address-checkout.php:119
 msgid "Enter your full name"
-msgstr "Geben Sie Ihren vollständigen Namen ein"
+msgstr "氏名を入力してください"
 
 #: includes/class-vn-address-checkout.php:130
 msgid "Phone Number"
-msgstr "Telefonnummer"
+msgstr "電話番号"
 
 #: includes/class-vn-address-checkout.php:131
 msgid "Enter your phone number"
-msgstr "Geben Sie Ihre Telefonnummer ein"
+msgstr "電話番号を入力してください"
 
 #: includes/class-vn-address-checkout.php:137
 msgid "Email"
-msgstr "E-Mail"
+msgstr "メールアドレス"
 
 #: includes/class-vn-address-checkout.php:138
 msgid "Enter your email address"
-msgstr "Geben Sie Ihre E-Mail-Adresse ein"
+msgstr "メールアドレスを入力してください"
 
 #: includes/class-vn-address-checkout.php:146
 msgid "Choose Address Entry Method"
-msgstr "Adresseingabemethode wählen"
+msgstr "住所の入力方法を選択"
 
 #: includes/class-vn-address-checkout.php:152
 msgid "New address (Province/City → Ward)"
-msgstr "Neue Adresse (Provinz/Stadt → Gemeinde)"
+msgstr "新住所(省・市 → 村・町)"
 
 #: includes/class-vn-address-checkout.php:153
 msgid "Old address (Province/City → District → Ward)"
-msgstr "Alte Adresse (Provinz/Stadt → Distrikt → Gemeinde)"
+msgstr "旧住所(省・市 → 郡・区 → 村・町)"
 
 #: includes/class-vn-address-checkout.php:172
 #: includes/class-vn-address-checkout.php:217
 msgid "District"
-msgstr "Distrikt"
+msgstr "郡・区"
 
 #: includes/class-vn-address-checkout.php:182
 #: includes/class-vn-address-checkout.php:226
 msgid "Ward"
-msgstr "Gemeinde"
+msgstr "村・町"
 
 #: includes/class-vn-address-checkout.php:191
 #: includes/class-vn-address-checkout.php:234
 msgid "Detailed Address"
-msgstr "Detaillierte Adresse"
+msgstr "詳細住所"
 
 #: includes/class-vn-address-checkout.php:192
 #: includes/class-vn-address-checkout.php:235
 msgid "House number, street name..."
-msgstr "Hausnummer, Straßenname..."
+msgstr "番地、通り名..."
 
 #: includes/class-vn-address-checkout.php:242
 msgid "Order Notes"
-msgstr "Bestellhinweise"
+msgstr "注文メモ"
 
 #: includes/class-vn-address-checkout.php:243
 msgid ""
 "Notes about your order, e.g. delivery time or more detailed delivery "
 "instructions."
-msgstr ""
-"Hinweise zu Ihrer Bestellung, z. B. Lieferzeit oder detailliertere "
-"Lieferanweisungen."
+msgstr "注文に関するメモ(配達時間や詳しい配達指示など)。"
 
 #: includes/class-vn-address-checkout.php:317
 msgid "Vietnamese Address Information"
-msgstr "Vietnamesische Adressinformationen"
+msgstr "ベトナム住所情報"
 
 #: includes/class-vn-address-checkout.php:320
 msgid "Billing Address"
-msgstr "Rechnungsadresse"
+msgstr "請求先住所"
 
 #: includes/class-vn-address-checkout.php:323
 #: includes/class-vn-address-checkout.php:335
 msgid "Province/City:"
-msgstr "Provinz/Stadt:"
+msgstr "省・市:"
 
 #: includes/class-vn-address-checkout.php:326
 #: includes/class-vn-address-checkout.php:338
 msgid "Ward:"
-msgstr "Gemeinde:"
+msgstr "村・町:"
 
 #: includes/class-vn-address-checkout.php:332
 msgid "Shipping Address"
-msgstr "Lieferadresse"
+msgstr "配送先住所"
 
 #. translators: %d: order ID.
 #: includes/class-vn-address-converter.php:156
 #, php-format
 msgid "Order #%d: missing address data"
-msgstr "Bestellung #%d: fehlende Adressdaten"
+msgstr "注文 #%d: 住所データがありません"
 
 #. translators: %d: order ID.
 #: includes/class-vn-address-converter.php:172
 #, php-format
 msgid "Order #%d: multiple possible new wards, needs manual review"
-msgstr ""
-"Bestellung #%d: mehrere mögliche neue Gemeinden, manuelle Prüfung "
-"erforderlich"
+msgstr "注文 #%d: 新しい村/区の候補が複数あるため、手動確認が必要です"
 
 #. translators: %d: order ID.
 #: includes/class-vn-address-converter.php:179
 #, php-format
 msgid "Order #%d: no matching ward found in the conversion table"
-msgstr ""
-"Bestellung #%d: keine passende Gemeinde in der Umwandlungstabelle gefunden"
+msgstr "注文 #%d: 変換テーブルに一致する村/区が見つかりません"
 
 #: vn-address-woocommerce.php:42
 msgid ""
 "Vietnam Address for WooCommerce requires WooCommerce to be installed and "
 "activated."
 msgstr ""
-"Vietnam Address for WooCommerce erfordert, dass WooCommerce installiert und "
-"aktiviert ist."
+"Vietnam Address for WooCommerceを使用するにはWooCommerceのインストールと有効"
+"化が必要です。"
 
 #: vn-address-woocommerce.php:103
 msgid "Settings"
-msgstr "Einstellungen"
+msgstr "設定"
 
 #: vn-address-woocommerce.php:180
 msgid "Province code is required"
-msgstr "Provinzcode ist erforderlich"
+msgstr "省コードが必要です"
 
 #: vn-address-woocommerce.php:195
 msgid "Parent code is required"
-msgstr "Übergeordneter Code ist erforderlich"
+msgstr "親コードが必要です"

@@ -4,7 +4,7 @@ Tags: woocommerce, vietnam, address, checkout, provinces
 Requires at least: 5.8
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,7 +66,7 @@ The plugin ships with: Vietnamese (default), English, Français, Deutsch, 日本
 = Manual =
 
 1. Download the plugin file
-2. Unzip and upload the `vn-address-for-woocommerce` folder to `/wp-content/plugins/`
+2. Unzip and upload the `vietnam-address-for-woocommerce` folder to `/wp-content/plugins/`
 3. Activate the plugin from WordPress Admin > Plugins
 4. Configure the plugin under WooCommerce > Vietnam Address
 
@@ -125,6 +125,10 @@ Site owners who prefer not to connect to this service at all may run their own c
 
 == Changelog ==
 
+= 1.1.5 =
+* Fixed a critical text domain mismatch: this plugin was renamed to "Vietnam Address for WooCommerce" in 1.1.0, but its Text Domain and translation files were never updated to match - WordPress.org derives the plugin's slug from the Plugin Name, which would have been `vietnam-address-for-woocommerce`, not the `vn-address-for-woocommerce` used everywhere in the code since. All translation calls, the Text Domain header, and the language files (.po/.mo/.pot) are now renamed to `vietnam-address-for-woocommerce` to match. This is required for translations to work correctly once hosted on WordPress.org
+* Fixed stale `Project-Id-Version` and `X-Domain` headers in the language files, left over from the very first 1.0.0 release under the old plugin name
+
 = 1.1.4 =
 * Fixed uninstall.php not removing the "Searchable Dropdowns" setting, left over from a plugin uninstall
 * Removed two unused converter methods left over from an earlier version of the admin UI (no behavior change - they were never called from anywhere)
@@ -172,6 +176,9 @@ Site owners who prefer not to connect to this service at all may run their own c
 * HPOS (High-Performance Order Storage) compatible
 
 == Upgrade Notice ==
+
+= 1.1.5 =
+Important internal fix: the plugin's text domain and translation files are renamed to match the current plugin name (required for WordPress.org translations to work). No visible change if you're using the English or Vietnamese fallback text - just update normally.
 
 = 1.1.4 =
 Minor cleanup: fixes uninstall.php missing one setting, removes unused code. No behavior change for existing sites.
