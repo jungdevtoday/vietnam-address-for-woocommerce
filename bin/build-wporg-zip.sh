@@ -20,7 +20,7 @@ mkdir -p "$OUT_DIR/$SLUG"
 cd "$REPO_ROOT"
 git archive HEAD | tar -x -C "$OUT_DIR/$SLUG"
 rm -rf "$OUT_DIR/$SLUG/bin"
-find "$OUT_DIR/$SLUG/languages" -name '*.po' -o -name '*.mo' | xargs -r rm -f
+find "$OUT_DIR/$SLUG/languages" \( -name '*.po' -o -name '*.mo' \) -print0 | xargs -0 rm -f
 
 cd "$OUT_DIR"
 ZIP_NAME="${SLUG}-${VERSION}-wporg.zip"
