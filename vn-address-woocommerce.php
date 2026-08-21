@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: OneStudio Vietnam Address for WooCommerce
- * Plugin URI: https://onestudio.vn
+ * Plugin URI: https://onestudio.vn/plugins/vietnam-address-woocommerce
  * Description: Integrates the latest Vietnamese administrative addresses into WooCommerce. Supports converting old addresses to new addresses.
  * Version: 1.1.6
  * Author: OneStudio
