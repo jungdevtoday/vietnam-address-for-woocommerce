@@ -233,7 +233,7 @@ class VN_Address_Admin {
                                             printf(
                                                 /* translators: %s: "Learn more" link to the plugin homepage */
                                                 esc_html__('Choose the default address structure for the checkout form. Customers can change it when placing an order. %s', 'onestudio-vietnam-address-for-woocommerce'),
-                                                '<a href="https://onestudio.vn/#vietnam-address-woocommerce" target="_blank" rel="noopener noreferrer">' . esc_html__('Learn more', 'onestudio-vietnam-address-for-woocommerce') . '</a>'
+                                                '<a href="https://onestudio.vn/plugins/vietnam-address-woocommerce" target="_blank" rel="noopener noreferrer">' . esc_html__('Learn more', 'onestudio-vietnam-address-for-woocommerce') . '</a>'
                                             );
                                             ?>
                                         </p>
