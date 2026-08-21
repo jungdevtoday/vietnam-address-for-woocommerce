@@ -1,10 +1,10 @@
-=== Vietnam Address for WooCommerce ===
-Contributors: jungdev
+=== OneStudio Vietnam Address for WooCommerce ===
+Contributors: onewpstudio
 Tags: woocommerce, vietnam, address, checkout, provinces
 Requires at least: 5.8
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,9 @@ Integrates the latest Vietnamese administrative addresses into WooCommerce. Supp
 
 == Description ==
 
-Vietnam Address for WooCommerce integrates the Vietnamese administrative address system into the WooCommerce checkout form. All Province/City, District, and Ward data is bundled with the plugin - no API key required, no dependency on an external service, no risk of interruption.
+OneStudio Vietnam Address for WooCommerce integrates the Vietnamese administrative address system into the WooCommerce checkout form. All Province/City, District, and Ward data is bundled with the plugin - no API key required, no dependency on an external service, no risk of interruption.
+
+This is an independent plugin, not affiliated with, endorsed by, or sponsored by WooCommerce or Automattic. WooCommerce is a trademark of Automattic Inc.
 
 = Key features =
 
@@ -23,7 +25,7 @@ Vietnam Address for WooCommerce integrates the Vietnamese administrative address
 * **Both Classic Checkout and Block Checkout supported**: see "Block Checkout support" below
 * **Searchable dropdowns**: Province/City, District, and Ward fields are searchable (type to filter) on Classic Checkout, using the Select2 library already bundled with WooCommerce - toggleable in settings if it ever conflicts with a theme
 * **Bundled data**: The full list of Provinces/Cities, Districts, and Wards (both structures) ships inside the plugin - works immediately after installation, no external API calls, no internet connection or API key required
-* **Central data server**: Defaults to `https://api.jungdev.com` to receive administrative changes as soon as they're published, without needing a plugin update. Can be pointed at a self-hosted server instead, or left blank to use only the bundled data - however it's configured, the plugin always automatically falls back to the bundled data if the server is unreachable, so checkout is never interrupted
+* **Central data server**: Defaults to `https://api.onestudio.vn` to receive administrative changes as soon as they're published, without needing a plugin update. Can be pointed at a self-hosted server instead, or left blank to use only the bundled data - however it's configured, the plugin always automatically falls back to the bundled data if the server is unreachable, so checkout is never interrupted
 * **Automatic conversion**: Converts existing orders from the old address structure to the new one, using a bundled conversion table
 * **Friendly interface**: A complete, easy-to-use settings page inside WooCommerce Admin
 * **Admin display**: View detailed address information on the order edit screen
@@ -60,13 +62,13 @@ The plugin ships with: Vietnamese (default), English, Français, Deutsch, 日本
 
 1. Log in to your WordPress Admin
 2. Go to Plugins > Add New
-3. Search for "Vietnam Address for WooCommerce"
+3. Search for "OneStudio Vietnam Address for WooCommerce"
 4. Click "Install Now" and then "Activate"
 
 = Manual =
 
 1. Download the plugin file
-2. Unzip and upload the `vietnam-address-for-woocommerce` folder to `/wp-content/plugins/`
+2. Unzip and upload the `onestudio-vietnam-address-for-woocommerce` folder to `/wp-content/plugins/`
 3. Activate the plugin from WordPress Admin > Plugins
 4. Configure the plugin under WooCommerce > Vietnam Address
 
@@ -100,13 +102,13 @@ The plugin is designed to be compatible with most WooCommerce themes. If you run
 
 = What is the "API Server" field on the settings page? =
 
-This is where continuously-updated Vietnamese administrative address data is served from, defaulting to `https://api.jungdev.com`. We recommend keeping this default so you receive administrative changes (renamings, province/ward mergers, etc.) as soon as they're published, without needing to update the plugin. Administrative data comes from VietMap (https://github.com/vietmap-company/vietnam_administrative_address).
+This is where continuously-updated Vietnamese administrative address data is served from, defaulting to `https://api.onestudio.vn`. We recommend keeping this default so you receive administrative changes (renamings, province/ward mergers, etc.) as soon as they're published, without needing to update the plugin. Administrative data comes from VietMap (https://github.com/vietmap-company/vietnam_administrative_address).
 
-This isn't a requirement: leaving this field blank, the plugin still works fully using the data bundled with the plugin, and if the server is unreachable for any reason, the plugin automatically falls back to the bundled data immediately - checkout is never interrupted because of this. If you'd rather be fully self-sufficient, you can self-host your own server based on the open-source code at https://github.com/jungdevtoday/vn-address-api-server and point the plugin at it.
+This isn't a requirement: leaving this field blank, the plugin still works fully using the data bundled with the plugin, and if the server is unreachable for any reason, the plugin automatically falls back to the bundled data immediately - checkout is never interrupted because of this. If you'd rather be fully self-sufficient, you can self-host your own server based on the open-source code at https://github.com/onestudiovn/onestudio-vietnam-address-api-server and point the plugin at it.
 
 == External services ==
 
-This plugin can optionally connect to a central data server, `https://api.jungdev.com`, operated by the plugin author (jungdev, https://jungdev.com), to fetch up-to-date Vietnamese administrative address data (provinces, wards, and old-to-new mapping tables) without requiring a plugin update whenever administrative boundaries change (renames, mergers, new codes).
+This plugin can optionally connect to a central data server, `https://api.onestudio.vn`, operated by the plugin author (OneStudio, https://onestudio.vn), to fetch up-to-date Vietnamese administrative address data (provinces, wards, and old-to-new mapping tables) without requiring a plugin update whenever administrative boundaries change (renames, mergers, new codes).
 
 What is sent: only administrative lookup codes (e.g. a province or ward code) as GET request query parameters. No personal data, customer information, or order data is ever sent to this service.
 
@@ -114,7 +116,10 @@ When it is used: when a customer loads the checkout page (to look up province/wa
 
 This connection is entirely optional. Leaving the "API Server" field blank, or if the server is temporarily unreachable, the plugin automatically and transparently falls back to the Vietnamese administrative address data bundled inside the plugin itself - checkout is never interrupted by this.
 
-Site owners who prefer not to connect to this service at all may run their own copy instead: the server is open source at https://github.com/jungdevtoday/vn-address-api-server.
+Site owners who prefer not to connect to this service at all may run their own copy instead: the server is open source at https://github.com/onestudiovn/onestudio-vietnam-address-api-server.
+
+Terms of Service: https://onestudio.vn/terms-of-service/
+Privacy Policy: https://onestudio.vn/privacy-policy/
 
 == Screenshots ==
 
@@ -124,6 +129,16 @@ Site owners who prefer not to connect to this service at all may run their own c
 4. Bulk address conversion tool
 
 == Changelog ==
+
+= 1.1.6 =
+* Renamed the plugin to "OneStudio Vietnam Address for WooCommerce" and updated the slug/Text Domain to `onestudio-vietnam-address-for-woocommerce`, per WordPress.org plugin review feedback that the previous name was too generic/descriptive to be sufficiently distinctive in the directory (an initial "OneWPStudio" choice was also rejected by the automated checker for containing the restricted term "wp")
+* Updated the Author/Author URI to OneStudio / https://onestudio.vn to match the new plugin identity
+* Fixed the "Tested up to" header, which had fallen behind the current WordPress version
+* Fixed the Contributors field, which listed a username that didn't match the actual WordPress.org account for this plugin
+* Scoped the Block Checkout compatibility notice to this plugin's settings page and the WooCommerce settings/Plugins screens only, instead of showing on every admin page
+* Limited the "WooCommerce is required" admin notice to users who can actually act on it (install/activate plugins), instead of showing it to every logged-in admin user on every screen
+* Moved translation loading from the `plugins_loaded` hook to `init`, per WordPress 6.7+ guidance (calling translation functions before `init` now triggers a `_doing_it_wrong()` notice)
+* The WordPress.org submission package no longer bundles compiled .po/.mo translation files (WordPress.org generates and serves these automatically via translate.wordpress.org); the .pot template is still included. The GitHub-distributed version is unaffected and still ships with all bundled translations
 
 = 1.1.5 =
 * Fixed a critical text domain mismatch: this plugin was renamed to "Vietnam Address for WooCommerce" in 1.1.0, but its Text Domain and translation files were never updated to match - WordPress.org derives the plugin's slug from the Plugin Name, which would have been `vietnam-address-for-woocommerce`, not the `vn-address-for-woocommerce` used everywhere in the code since. All translation calls, the Text Domain header, and the language files (.po/.mo/.pot) are now renamed to `vietnam-address-for-woocommerce` to match. This is required for translations to work correctly once hosted on WordPress.org
@@ -177,6 +192,9 @@ Site owners who prefer not to connect to this service at all may run their own c
 
 == Upgrade Notice ==
 
+= 1.1.6 =
+Plugin renamed to "OneStudio Vietnam Address for WooCommerce" (slug/text domain updated to match) per WordPress.org review feedback. No functional changes; just update normally.
+
 = 1.1.5 =
 Important internal fix: the plugin's text domain and translation files are renamed to match the current plugin name (required for WordPress.org translations to work). No visible change if you're using the English or Vietnamese fallback text - just update normally.
 
@@ -200,10 +218,10 @@ Initial release of the plugin.
 
 == Support ==
 
-If you need support, please visit https://jungdev.com
+If you need support, please visit https://onestudio.vn
 
 == Credits ==
 
-* Developed by jungdev (https://jungdev.com)
+* Developed by OneStudio (https://onestudio.vn)
 * Vietnamese administrative address data provided by VietMap (https://github.com/vietmap-company/vietnam_administrative_address), used under the VietMap Administrative Data License
 * Built for WooCommerce

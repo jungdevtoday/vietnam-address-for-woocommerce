@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Vietnam Address for WooCommerce
- * Plugin URI: https://jungdev.com/plugins/vn-address-for-woocommerce
+ * Plugin Name: OneStudio Vietnam Address for WooCommerce
+ * Plugin URI: https://onestudio.vn
  * Description: Integrates the latest Vietnamese administrative addresses into WooCommerce. Supports converting old addresses to new addresses.
- * Version: 1.1.5
- * Author: jungdev
- * Author URI: https://jungdev.com
- * Text Domain: vietnam-address-for-woocommerce
+ * Version: 1.1.6
+ * Author: OneStudio
+ * Author URI: https://onestudio.vn
+ * Text Domain: onestudio-vietnam-address-for-woocommerce
  * Domain Path: /languages
  * Requires at least: 5.8
  * Requires PHP: 7.4
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('VN_ADDRESS_WC_VERSION', '1.1.5');
+define('VN_ADDRESS_WC_VERSION', '1.1.6');
 define('VN_ADDRESS_WC_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('VN_ADDRESS_WC_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('VN_ADDRESS_WC_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -36,10 +36,18 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
     return;
 }
 
+/**
+ * Limited to users who can actually act on it (install/activate plugins),
+ * rather than every wp-admin user, per WordPress.org guidance that admin
+ * notices must be scoped and used with moderation.
+ */
 function vn_address_wc_woocommerce_missing_notice() {
+    if (!current_user_can('activate_plugins')) {
+        return;
+    }
     ?>
     <div class="error">
-        <p><?php esc_html_e('Vietnam Address for WooCommerce requires WooCommerce to be installed and activated.', 'vietnam-address-for-woocommerce'); ?></p>
+        <p><?php esc_html_e('Vietnam Address for WooCommerce requires WooCommerce to be installed and activated.', 'onestudio-vietnam-address-for-woocommerce'); ?></p>
     </div>
     <?php
 }
@@ -77,7 +85,11 @@ class VN_Address_WooCommerce {
     }
     
     private function init_hooks() {
-        add_action('plugins_loaded', array($this, 'load_textdomain'));
+        // Loaded on 'init' (not 'plugins_loaded') per WordPress 6.7+ guidance:
+        // translation functions called before 'init' now trigger a
+        // _doing_it_wrong() notice. Priority 5 so it runs before this
+        // class's own init() below, in case anything there needs strings.
+        add_action('init', array($this, 'load_textdomain'), 5);
         add_action('init', array($this, 'init'));
         add_filter('plugin_action_links_' . VN_ADDRESS_WC_PLUGIN_BASENAME, array($this, 'plugin_action_links'));
         add_action('update_option_vn_address_wc_server_url', array($this, 'schedule_cache_warmup'));
@@ -100,7 +112,7 @@ class VN_Address_WooCommerce {
      * Adds a "Settings" link to the plugin's row on the Plugins screen.
      */
     public function plugin_action_links($links) {
-        $settings_link = '<a href="' . esc_url(admin_url('admin.php?page=vn-address-settings')) . '">' . esc_html__('Settings', 'vietnam-address-for-woocommerce') . '</a>';
+        $settings_link = '<a href="' . esc_url(admin_url('admin.php?page=vn-address-settings')) . '">' . esc_html__('Settings', 'onestudio-vietnam-address-for-woocommerce') . '</a>';
         array_unshift($links, $settings_link);
         return $links;
     }
@@ -130,7 +142,7 @@ class VN_Address_WooCommerce {
      */
     public function load_textdomain() {
         add_filter('load_textdomain_mofile', array($this, 'default_to_vietnamese_mofile'), 10, 2);
-        load_plugin_textdomain('vietnam-address-for-woocommerce', false, dirname(VN_ADDRESS_WC_PLUGIN_BASENAME) . '/languages');
+        load_plugin_textdomain('onestudio-vietnam-address-for-woocommerce', false, dirname(VN_ADDRESS_WC_PLUGIN_BASENAME) . '/languages');
     }
 
     /**
@@ -141,11 +153,11 @@ class VN_Address_WooCommerce {
      * that translation as normal.
      */
     public function default_to_vietnamese_mofile($mofile, $domain) {
-        if ('vietnam-address-for-woocommerce' !== $domain || file_exists($mofile)) {
+        if ('onestudio-vietnam-address-for-woocommerce' !== $domain || file_exists($mofile)) {
             return $mofile;
         }
 
-        $vi_mofile = VN_ADDRESS_WC_PLUGIN_DIR . 'languages/vietnam-address-for-woocommerce-vi.mo';
+        $vi_mofile = VN_ADDRESS_WC_PLUGIN_DIR . 'languages/onestudio-vietnam-address-for-woocommerce-vi.mo';
 
         return file_exists($vi_mofile) ? $vi_mofile : $mofile;
     }
@@ -177,7 +189,7 @@ class VN_Address_WooCommerce {
         $province_code = isset($_POST['province_code']) ? sanitize_text_field(wp_unslash($_POST['province_code'])) : '';
 
         if (empty($province_code)) {
-            wp_send_json_error(array('message' => __('Province code is required', 'vietnam-address-for-woocommerce')));
+            wp_send_json_error(array('message' => __('Province code is required', 'onestudio-vietnam-address-for-woocommerce')));
         }
 
         $districts = VN_Address_Data::get_instance()->get_districts_old($province_code);
@@ -192,7 +204,7 @@ class VN_Address_WooCommerce {
         $parent_code = isset($_POST['parent_code']) ? sanitize_text_field(wp_unslash($_POST['parent_code'])) : '';
 
         if (empty($parent_code)) {
-            wp_send_json_error(array('message' => __('Parent code is required', 'vietnam-address-for-woocommerce')));
+            wp_send_json_error(array('message' => __('Parent code is required', 'onestudio-vietnam-address-for-woocommerce')));
         }
 
         $wards = VN_Address_Data::get_instance()->get_wards($parent_code, $structure);
@@ -216,7 +228,7 @@ function vn_address_wc_activate() {
         add_option('vn_address_wc_structure', 'new');
     }
     if (!get_option('vn_address_wc_server_url')) {
-        add_option('vn_address_wc_server_url', 'https://api.jungdev.com');
+        add_option('vn_address_wc_server_url', 'https://api.onestudio.vn');
     }
 }
 

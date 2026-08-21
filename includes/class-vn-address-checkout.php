@@ -67,10 +67,10 @@ class VN_Address_Checkout {
                 'structure' => get_option('vn_address_wc_structure', 'new'),
                 'enableSelect2' => 'yes' === get_option('vn_address_wc_enable_select2', 'yes'),
                 'i18n' => array(
-                    'select_province' => __('Select Province/City', 'vietnam-address-for-woocommerce'),
-                    'select_district' => __('Select District', 'vietnam-address-for-woocommerce'),
-                    'select_ward' => __('Select Ward', 'vietnam-address-for-woocommerce'),
-                    'required' => __('required', 'vietnam-address-for-woocommerce'),
+                    'select_province' => __('Select Province/City', 'onestudio-vietnam-address-for-woocommerce'),
+                    'select_district' => __('Select District', 'onestudio-vietnam-address-for-woocommerce'),
+                    'select_ward' => __('Select Ward', 'onestudio-vietnam-address-for-woocommerce'),
+                    'required' => __('required', 'onestudio-vietnam-address-for-woocommerce'),
                 ),
             ));
         }
@@ -115,8 +115,8 @@ class VN_Address_Checkout {
         
         // Update existing field labels and classes
         if (isset($fields['billing']['billing_first_name'])) {
-            $fields['billing']['billing_first_name']['label'] = __('Your Name', 'vietnam-address-for-woocommerce');
-            $fields['billing']['billing_first_name']['placeholder'] = esc_attr__('Enter your full name', 'vietnam-address-for-woocommerce');
+            $fields['billing']['billing_first_name']['label'] = __('Your Name', 'onestudio-vietnam-address-for-woocommerce');
+            $fields['billing']['billing_first_name']['placeholder'] = esc_attr__('Enter your full name', 'onestudio-vietnam-address-for-woocommerce');
             $fields['billing']['billing_first_name']['class'] = array('form-row-wide');
             $fields['billing']['billing_first_name']['priority'] = 10;
         }
@@ -127,15 +127,15 @@ class VN_Address_Checkout {
         }
 
         if (isset($fields['billing']['billing_phone'])) {
-            $fields['billing']['billing_phone']['label'] = __('Phone Number', 'vietnam-address-for-woocommerce');
-            $fields['billing']['billing_phone']['placeholder'] = esc_attr__('Enter your phone number', 'vietnam-address-for-woocommerce');
+            $fields['billing']['billing_phone']['label'] = __('Phone Number', 'onestudio-vietnam-address-for-woocommerce');
+            $fields['billing']['billing_phone']['placeholder'] = esc_attr__('Enter your phone number', 'onestudio-vietnam-address-for-woocommerce');
             $fields['billing']['billing_phone']['class'] = array('form-row-first');
             $fields['billing']['billing_phone']['priority'] = 20;
         }
 
         if (isset($fields['billing']['billing_email'])) {
-            $fields['billing']['billing_email']['label'] = __('Email', 'vietnam-address-for-woocommerce');
-            $fields['billing']['billing_email']['placeholder'] = esc_attr__('Enter your email address', 'vietnam-address-for-woocommerce');
+            $fields['billing']['billing_email']['label'] = __('Email', 'onestudio-vietnam-address-for-woocommerce');
+            $fields['billing']['billing_email']['placeholder'] = esc_attr__('Enter your email address', 'onestudio-vietnam-address-for-woocommerce');
             $fields['billing']['billing_email']['class'] = array('form-row-last');
             $fields['billing']['billing_email']['priority'] = 30;
         }
@@ -143,14 +143,14 @@ class VN_Address_Checkout {
         // Add structure selector
         $fields['billing']['address_structure'] = array(
             'type' => 'select',
-            'label' => __('Choose Address Entry Method', 'vietnam-address-for-woocommerce'),
+            'label' => __('Choose Address Entry Method', 'onestudio-vietnam-address-for-woocommerce'),
             'required' => false,
             'class' => array('form-row-wide', 'vn-address-structure-selector'),
             'priority' => 35,
             'default' => $default_structure,
             'options' => array(
-                'new' => __('New address (Province/City → Ward)', 'vietnam-address-for-woocommerce'),
-                'old' => __('Old address (Province/City → District → Ward)', 'vietnam-address-for-woocommerce'),
+                'new' => __('New address (Province/City → Ward)', 'onestudio-vietnam-address-for-woocommerce'),
+                'old' => __('Old address (Province/City → District → Ward)', 'onestudio-vietnam-address-for-woocommerce'),
             ),
         );
 
@@ -159,37 +159,37 @@ class VN_Address_Checkout {
             // Province
             $fields['billing']['billing_province'] = array(
                 'type' => 'select',
-                'label' => __('Province/City', 'vietnam-address-for-woocommerce'),
+                'label' => __('Province/City', 'onestudio-vietnam-address-for-woocommerce'),
                 'required' => true,
                 'class' => array('form-row-first', 'vn-address-province', 'update_totals_on_change'),
                 'priority' => 40,
-                'options' => array('' => __('Select Province/City', 'vietnam-address-for-woocommerce')),
+                'options' => array('' => __('Select Province/City', 'onestudio-vietnam-address-for-woocommerce')),
             );
 
             // District (for old structure)
             $fields['billing']['billing_district'] = array(
                 'type' => 'select',
-                'label' => __('District', 'vietnam-address-for-woocommerce'),
+                'label' => __('District', 'onestudio-vietnam-address-for-woocommerce'),
                 'required' => false, // Will be set to true via JS when old structure is selected
                 'class' => array('form-row-last', 'vn-address-district', 'vn-address-old-only', 'update_totals_on_change'),
                 'priority' => 50,
-                'options' => array('' => __('Select District', 'vietnam-address-for-woocommerce')),
+                'options' => array('' => __('Select District', 'onestudio-vietnam-address-for-woocommerce')),
             );
 
             // Ward
             $fields['billing']['billing_ward'] = array(
                 'type' => 'select',
-                'label' => __('Ward', 'vietnam-address-for-woocommerce'),
+                'label' => __('Ward', 'onestudio-vietnam-address-for-woocommerce'),
                 'required' => true,
                 'class' => array('form-row-last', 'vn-address-ward', 'update_totals_on_change'),
                 'priority' => 60,
-                'options' => array('' => __('Select Ward', 'vietnam-address-for-woocommerce')),
+                'options' => array('' => __('Select Ward', 'onestudio-vietnam-address-for-woocommerce')),
             );
 
             // Address 1
             if (isset($fields['billing']['billing_address_1'])) {
-                $fields['billing']['billing_address_1']['label'] = __('Detailed Address', 'vietnam-address-for-woocommerce');
-                $fields['billing']['billing_address_1']['placeholder'] = esc_attr__('House number, street name...', 'vietnam-address-for-woocommerce');
+                $fields['billing']['billing_address_1']['label'] = __('Detailed Address', 'onestudio-vietnam-address-for-woocommerce');
+                $fields['billing']['billing_address_1']['placeholder'] = esc_attr__('House number, street name...', 'onestudio-vietnam-address-for-woocommerce');
                 $fields['billing']['billing_address_1']['priority'] = 70;
             }
         }
@@ -205,42 +205,42 @@ class VN_Address_Checkout {
             
             $fields['shipping']['shipping_province'] = array(
                 'type' => 'select',
-                'label' => __('Province/City', 'vietnam-address-for-woocommerce'),
+                'label' => __('Province/City', 'onestudio-vietnam-address-for-woocommerce'),
                 'required' => true,
                 'class' => array('form-row-first', 'vn-address-province', 'update_totals_on_change'),
                 'priority' => 40,
-                'options' => array('' => __('Select Province/City', 'vietnam-address-for-woocommerce')),
+                'options' => array('' => __('Select Province/City', 'onestudio-vietnam-address-for-woocommerce')),
             );
 
             $fields['shipping']['shipping_district'] = array(
                 'type' => 'select',
-                'label' => __('District', 'vietnam-address-for-woocommerce'),
+                'label' => __('District', 'onestudio-vietnam-address-for-woocommerce'),
                 'required' => false, // Will be set to true via JS when old structure is selected
                 'class' => array('form-row-last', 'vn-address-district', 'vn-address-old-only', 'update_totals_on_change'),
                 'priority' => 50,
-                'options' => array('' => __('Select District', 'vietnam-address-for-woocommerce')),
+                'options' => array('' => __('Select District', 'onestudio-vietnam-address-for-woocommerce')),
             );
 
             $fields['shipping']['shipping_ward'] = array(
                 'type' => 'select',
-                'label' => __('Ward', 'vietnam-address-for-woocommerce'),
+                'label' => __('Ward', 'onestudio-vietnam-address-for-woocommerce'),
                 'required' => true,
                 'class' => array('form-row-last', 'vn-address-ward', 'update_totals_on_change'),
                 'priority' => 60,
-                'options' => array('' => __('Select Ward', 'vietnam-address-for-woocommerce')),
+                'options' => array('' => __('Select Ward', 'onestudio-vietnam-address-for-woocommerce')),
             );
 
             if (isset($fields['shipping']['shipping_address_1'])) {
-                $fields['shipping']['shipping_address_1']['label'] = __('Detailed Address', 'vietnam-address-for-woocommerce');
-                $fields['shipping']['shipping_address_1']['placeholder'] = esc_attr__('House number, street name...', 'vietnam-address-for-woocommerce');
+                $fields['shipping']['shipping_address_1']['label'] = __('Detailed Address', 'onestudio-vietnam-address-for-woocommerce');
+                $fields['shipping']['shipping_address_1']['placeholder'] = esc_attr__('House number, street name...', 'onestudio-vietnam-address-for-woocommerce');
                 $fields['shipping']['shipping_address_1']['priority'] = 70;
             }
         }
 
         // Order notes
         if (isset($fields['order']['order_comments'])) {
-            $fields['order']['order_comments']['label'] = __('Order Notes', 'vietnam-address-for-woocommerce');
-            $fields['order']['order_comments']['placeholder'] = esc_attr__('Notes about your order, e.g. delivery time or more detailed delivery instructions.', 'vietnam-address-for-woocommerce');
+            $fields['order']['order_comments']['label'] = __('Order Notes', 'onestudio-vietnam-address-for-woocommerce');
+            $fields['order']['order_comments']['placeholder'] = esc_attr__('Notes about your order, e.g. delivery time or more detailed delivery instructions.', 'onestudio-vietnam-address-for-woocommerce');
         }
         
         return $fields;
@@ -249,7 +249,7 @@ class VN_Address_Checkout {
     public function modify_billing_fields($fields) {
         // Change First Name label
         if (isset($fields['billing_first_name'])) {
-            $fields['billing_first_name']['label'] = __('Your Name', 'vietnam-address-for-woocommerce');
+            $fields['billing_first_name']['label'] = __('Your Name', 'onestudio-vietnam-address-for-woocommerce');
         }
         return $fields;
     }
@@ -314,28 +314,28 @@ class VN_Address_Checkout {
 
     public function display_custom_fields_in_admin($order) {
         echo '<div class="vn-address-order-meta">';
-        echo '<h3>' . esc_html__('Vietnamese Address Information', 'vietnam-address-for-woocommerce') . '</h3>';
+        echo '<h3>' . esc_html__('Vietnamese Address Information', 'onestudio-vietnam-address-for-woocommerce') . '</h3>';
 
         // Billing
-        echo '<h4>' . esc_html__('Billing Address', 'vietnam-address-for-woocommerce') . '</h4>';
+        echo '<h4>' . esc_html__('Billing Address', 'onestudio-vietnam-address-for-woocommerce') . '</h4>';
         echo '<p>';
         if ($province_name = $order->get_meta('_billing_province_name', true)) {
-            echo '<strong>' . esc_html__('Province/City:', 'vietnam-address-for-woocommerce') . '</strong> ' . esc_html($province_name) . '<br>';
+            echo '<strong>' . esc_html__('Province/City:', 'onestudio-vietnam-address-for-woocommerce') . '</strong> ' . esc_html($province_name) . '<br>';
         }
         if ($ward_name = $order->get_meta('_billing_ward_name', true)) {
-            echo '<strong>' . esc_html__('Ward:', 'vietnam-address-for-woocommerce') . '</strong> ' . esc_html($ward_name);
+            echo '<strong>' . esc_html__('Ward:', 'onestudio-vietnam-address-for-woocommerce') . '</strong> ' . esc_html($ward_name);
         }
         echo '</p>';
 
         // Shipping
         if ($order->has_shipping_address()) {
-            echo '<h4>' . esc_html__('Shipping Address', 'vietnam-address-for-woocommerce') . '</h4>';
+            echo '<h4>' . esc_html__('Shipping Address', 'onestudio-vietnam-address-for-woocommerce') . '</h4>';
             echo '<p>';
             if ($province_name = $order->get_meta('_shipping_province_name', true)) {
-                echo '<strong>' . esc_html__('Province/City:', 'vietnam-address-for-woocommerce') . '</strong> ' . esc_html($province_name) . '<br>';
+                echo '<strong>' . esc_html__('Province/City:', 'onestudio-vietnam-address-for-woocommerce') . '</strong> ' . esc_html($province_name) . '<br>';
             }
             if ($ward_name = $order->get_meta('_shipping_ward_name', true)) {
-                echo '<strong>' . esc_html__('Ward:', 'vietnam-address-for-woocommerce') . '</strong> ' . esc_html($ward_name);
+                echo '<strong>' . esc_html__('Ward:', 'onestudio-vietnam-address-for-woocommerce') . '</strong> ' . esc_html($ward_name);
             }
             echo '</p>';
         }

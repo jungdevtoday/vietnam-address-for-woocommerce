@@ -1,11 +1,11 @@
-# Copyright (C) 2026 jungdev
+# Copyright (C) 2026 OneStudio
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Vietnam Address for WooCommerce 1.1.4\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/vietnam-address-"
-"for-woocommerce\n"
-"POT-Creation-Date: 2026-08-18T03:48:50+00:00\n"
+"Project-Id-Version: OneStudio Vietnam Address for WooCommerce 1.1.6\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/onestudio-vietnam-"
+"address-for-woocommerce\n"
+"POT-Creation-Date: 2026-08-21T04:03:09+00:00\n"
 "PO-Revision-Date: 2026-08-16T07:30:43+00:00\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German (Germany) <LL@li.org>\n"
@@ -14,18 +14,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: vietnam-address-for-woocommerce\n"
+"X-Domain: onestudio-vietnam-address-for-woocommerce\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Plugin Name of the plugin
-#: vn-address-woocommerce.php includes/class-vn-address-admin.php:85
-msgid "Vietnam Address for WooCommerce"
-msgstr "Vietnam Address for WooCommerce"
+#: vn-address-woocommerce.php
+msgid "OneStudio Vietnam Address for WooCommerce"
+msgstr "OneStudio Vietnam Address for WooCommerce"
 
 #. Plugin URI of the plugin
+#. Author URI of the plugin
 #: vn-address-woocommerce.php
-msgid "https://jungdev.com/plugins/vn-address-for-woocommerce"
-msgstr "https://jungdev.com/plugins/vn-address-for-woocommerce"
+msgid "https://onestudio.vn"
+msgstr "https://onestudio.vn"
 
 #. Description of the plugin
 #: vn-address-woocommerce.php
@@ -38,20 +39,15 @@ msgstr ""
 
 #. Author of the plugin
 #: vn-address-woocommerce.php
-msgid "jungdev"
-msgstr "jungdev"
+msgid "OneStudio"
+msgstr "OneStudio"
 
-#. Author URI of the plugin
-#: vn-address-woocommerce.php
-msgid "https://jungdev.com"
-msgstr "https://jungdev.com"
-
-#: includes/class-vn-address-admin.php:69
+#: includes/class-vn-address-admin.php:81
 msgid "VN Address for WooCommerce"
 msgstr "VN Address for WooCommerce"
 
 #. translators: %s: link to WooCommerce Settings > Advanced > Features
-#: includes/class-vn-address-admin.php:73
+#: includes/class-vn-address-admin.php:85
 #, php-format
 msgid ""
 "Your Checkout page uses the WooCommerce block-based checkout, and your "
@@ -65,90 +61,94 @@ msgstr ""
 "aktivieren Sie \"Cart and checkout shortcodes\" unter %s, um den klassischen "
 "Checkout zu verwenden."
 
-#: includes/class-vn-address-admin.php:74
-#: includes/class-vn-address-admin.php:181
+#: includes/class-vn-address-admin.php:86
+#: includes/class-vn-address-admin.php:193
 msgid "WooCommerce > Settings > Advanced > Features"
 msgstr "WooCommerce > Settings > Advanced > Features"
 
-#: includes/class-vn-address-admin.php:86
+#: includes/class-vn-address-admin.php:97
+msgid "Vietnam Address for WooCommerce"
+msgstr "Vietnam Address for WooCommerce"
+
+#: includes/class-vn-address-admin.php:98
 msgid "Vietnam Address"
 msgstr "Vietnam Address"
 
-#: includes/class-vn-address-admin.php:148
+#: includes/class-vn-address-admin.php:160
 msgid "This will convert all orders with old address structure. Continue?"
 msgstr ""
 "Dadurch werden alle Bestellungen mit der alten Adressstruktur umgewandelt. "
 "Fortfahren?"
 
-#: includes/class-vn-address-admin.php:149
+#: includes/class-vn-address-admin.php:161
 msgid "Converting..."
 msgstr "Wird umgewandelt..."
 
-#: includes/class-vn-address-admin.php:150
+#: includes/class-vn-address-admin.php:162
 msgid "Conversion Results:"
 msgstr "Umwandlungsergebnisse:"
 
-#: includes/class-vn-address-admin.php:151
+#: includes/class-vn-address-admin.php:163
 msgid "Converted:"
 msgstr "Umgewandelt:"
 
-#: includes/class-vn-address-admin.php:152
+#: includes/class-vn-address-admin.php:164
 msgid "Needs review:"
 msgstr "Zu prüfen:"
 
-#: includes/class-vn-address-admin.php:153
+#: includes/class-vn-address-admin.php:165
 msgid "Failed:"
 msgstr "Fehlgeschlagen:"
 
-#: includes/class-vn-address-admin.php:154
+#: includes/class-vn-address-admin.php:166
 msgid "Errors:"
 msgstr "Fehler:"
 
-#: includes/class-vn-address-admin.php:155
+#: includes/class-vn-address-admin.php:167
 msgid "Conversion failed. Please try again."
 msgstr "Die Umwandlung ist fehlgeschlagen. Bitte versuchen Sie es erneut."
 
-#: includes/class-vn-address-admin.php:156
+#: includes/class-vn-address-admin.php:168
 msgid "No orders to convert."
 msgstr "Keine Bestellungen zu konvertieren."
 
-#: includes/class-vn-address-admin.php:157
-#: includes/class-vn-address-admin.php:306
+#: includes/class-vn-address-admin.php:169
+#: includes/class-vn-address-admin.php:318
 msgid "Convert Now"
 msgstr "Jetzt umwandeln"
 
-#: includes/class-vn-address-admin.php:158
+#: includes/class-vn-address-admin.php:170
 msgid "Testing..."
 msgstr "Wird getestet..."
 
-#: includes/class-vn-address-admin.php:159
-#: includes/class-vn-address-admin.php:262
+#: includes/class-vn-address-admin.php:171
+#: includes/class-vn-address-admin.php:274
 msgid "Test Connection"
 msgstr "Verbindung testen"
 
-#: includes/class-vn-address-admin.php:160
+#: includes/class-vn-address-admin.php:172
 msgid "Connection error"
 msgstr "Verbindungsfehler"
 
-#: includes/class-vn-address-admin.php:161
+#: includes/class-vn-address-admin.php:173
 msgid "Are you sure you want to clear the cached server data?"
 msgstr "Möchten Sie die zwischengespeicherten Serverdaten wirklich löschen?"
 
-#: includes/class-vn-address-admin.php:162
+#: includes/class-vn-address-admin.php:174
 msgid "Clearing..."
 msgstr "Wird gelöscht..."
 
-#: includes/class-vn-address-admin.php:163
-#: includes/class-vn-address-admin.php:265
+#: includes/class-vn-address-admin.php:175
+#: includes/class-vn-address-admin.php:277
 msgid "Clear Cache"
 msgstr "Cache leeren"
 
-#: includes/class-vn-address-admin.php:164
+#: includes/class-vn-address-admin.php:176
 msgid "Error clearing cache"
 msgstr "Fehler beim Leeren des Caches"
 
 #. translators: %s: link to WooCommerce Settings > Advanced > Features
-#: includes/class-vn-address-admin.php:180
+#: includes/class-vn-address-admin.php:192
 #, php-format
 msgid ""
 "Your Checkout page uses the WooCommerce block-based checkout, and your "
@@ -161,7 +161,7 @@ msgstr ""
 "dieses Plugins. Aktualisieren Sie WooCommerce auf 8.9 oder höher, oder "
 "aktivieren Sie \"Cart and checkout shortcodes\" unter %s."
 
-#: includes/class-vn-address-admin.php:189
+#: includes/class-vn-address-admin.php:201
 msgid ""
 "Your Checkout page uses the WooCommerce block-based checkout. Customers will "
 "see Province/City and Ward/Commune fields for the current (post 1/7/2025) "
@@ -173,24 +173,24 @@ msgstr ""
 "Adressstruktur (nach dem 1.7.2025). Die alte Struktur mit Bezirk ist nur im "
 "klassischen Checkout verfügbar."
 
-#: includes/class-vn-address-admin.php:203
+#: includes/class-vn-address-admin.php:215
 msgid "Address Settings"
 msgstr "Adresseinstellungen"
 
-#: includes/class-vn-address-admin.php:208
+#: includes/class-vn-address-admin.php:220
 msgid "Default Address Structure"
 msgstr "Standard-Adressstruktur"
 
-#: includes/class-vn-address-admin.php:213
+#: includes/class-vn-address-admin.php:225
 msgid "New structure (After 1/7/2025) - 34 provinces"
 msgstr "Neue Struktur (nach dem 1.7.2025) - 34 Provinzen"
 
-#: includes/class-vn-address-admin.php:216
+#: includes/class-vn-address-admin.php:228
 msgid "Old structure (Before 1/7/2025) - 63 provinces"
 msgstr "Alte Struktur (vor dem 1.7.2025) - 63 Provinzen"
 
 #. translators: %s: "Learn more" link to the plugin homepage
-#: includes/class-vn-address-admin.php:223
+#: includes/class-vn-address-admin.php:235
 #, php-format
 msgid ""
 "Choose the default address structure for the checkout form. Customers can "
@@ -199,15 +199,15 @@ msgstr ""
 "Wählen Sie die Standard-Adressstruktur für das Checkout-Formular. Kunden "
 "können sie bei der Bestellung ändern. %s"
 
-#: includes/class-vn-address-admin.php:224
+#: includes/class-vn-address-admin.php:236
 msgid "Learn more"
 msgstr "Mehr erfahren"
 
-#: includes/class-vn-address-admin.php:233
+#: includes/class-vn-address-admin.php:245
 msgid "Searchable Dropdowns"
 msgstr "Durchsuchbare Auswahlfelder"
 
-#: includes/class-vn-address-admin.php:243
+#: includes/class-vn-address-admin.php:255
 msgid ""
 "Make the Province/City, District, and Ward fields searchable (type to "
 "filter) on Classic Checkout"
@@ -215,7 +215,7 @@ msgstr ""
 "Die Felder Provinz/Stadt, Bezirk und Gemeinde beim Classic Checkout "
 "durchsuchbar machen (Eingabe zum Filtern)"
 
-#: includes/class-vn-address-admin.php:246
+#: includes/class-vn-address-admin.php:258
 msgid ""
 "Uses the Select2 dropdown already bundled with WooCommerce, so it works "
 "alongside your theme without adding extra scripts. Turn this off if a theme "
@@ -230,11 +230,11 @@ msgstr ""
 "Auswahlfelder. Betrifft nur den Classic Checkout; der Block Checkout verfügt "
 "bereits über ein eigenes durchsuchbares Gemeinde-Feld."
 
-#: includes/class-vn-address-admin.php:253
+#: includes/class-vn-address-admin.php:265
 msgid "API Server"
 msgstr "API-Server"
 
-#: includes/class-vn-address-admin.php:269
+#: includes/class-vn-address-admin.php:281
 msgid ""
 "Keep the default address filled in here to get administrative address "
 "changes (province/ward renames, boundary updates) as soon as they're "
@@ -246,28 +246,28 @@ msgstr ""
 "neuesten Änderungen der vietnamesischen Verwaltungsadressen zu erhalten."
 
 #. translators: %s: link to the VietMap open data source
-#: includes/class-vn-address-admin.php:275
+#: includes/class-vn-address-admin.php:287
 #, php-format
 msgid "Administrative data provided by VietMap: %s."
 msgstr "Verwaltungsdaten bereitgestellt von VietMap: %s."
 
 #. translators: %s: link to the self-hostable API server source code on GitHub
-#: includes/class-vn-address-admin.php:284
+#: includes/class-vn-address-admin.php:296
 #, php-format
 msgid ""
 "Prefer to run your own copy instead of relying on ours? The server is open "
 "source: %s."
 msgstr "Open-Source-Code des API-Dienstes: %s."
 
-#: includes/class-vn-address-admin.php:294
+#: includes/class-vn-address-admin.php:306
 msgid "Save Settings"
 msgstr "Einstellungen speichern"
 
-#: includes/class-vn-address-admin.php:298
+#: includes/class-vn-address-admin.php:310
 msgid "Old-to-new address conversion tool"
 msgstr "Werkzeug zur Umwandlung alter in neue Adressen"
 
-#: includes/class-vn-address-admin.php:300
+#: includes/class-vn-address-admin.php:312
 msgid ""
 "Converts existing orders from the old address structure to the new structure "
 "by matching each order against the bundled old-to-new conversion table (from "
@@ -291,64 +291,64 @@ msgstr ""
 "genau wie übermittelt erhalten, und das Umwandlungsergebnis wird zusätzlich "
 "gespeichert."
 
-#: includes/class-vn-address-admin.php:322
+#: includes/class-vn-address-admin.php:334
 msgid "Address Data"
 msgstr "Adressdaten"
 
 #. translators: %s: link to the VietMap data source
-#: includes/class-vn-address-admin.php:328
+#: includes/class-vn-address-admin.php:340
 #, php-format
 msgid "Bundled with the plugin, no external API required. Source: %s."
 msgstr "Im Plugin enthalten, keine externe API erforderlich. Quelle: %s."
 
-#: includes/class-vn-address-admin.php:336
+#: includes/class-vn-address-admin.php:348
 msgid "Support"
 msgstr "Support"
 
-#: includes/class-vn-address-admin.php:337
+#: includes/class-vn-address-admin.php:349
 msgid "Need help? Contact us."
 msgstr "Benötigen Sie Hilfe? Kontaktieren Sie uns."
 
-#: includes/class-vn-address-admin.php:339
+#: includes/class-vn-address-admin.php:351
 msgid "Contact Support"
 msgstr "Support kontaktieren"
 
-#: includes/class-vn-address-admin.php:344
+#: includes/class-vn-address-admin.php:356
 msgid "Plugin Information"
 msgstr "Plugin-Informationen"
 
-#: includes/class-vn-address-admin.php:346
+#: includes/class-vn-address-admin.php:358
 msgid "Version:"
 msgstr "Version:"
 
-#: includes/class-vn-address-admin.php:347
+#: includes/class-vn-address-admin.php:359
 msgid "Structure:"
 msgstr "Struktur:"
 
-#: includes/class-vn-address-admin.php:347
+#: includes/class-vn-address-admin.php:359
 msgid "New (34 provinces)"
 msgstr "Neu (34 Provinzen)"
 
-#: includes/class-vn-address-admin.php:347
+#: includes/class-vn-address-admin.php:359
 msgid "Old (63 provinces)"
 msgstr "Alt (63 Provinzen)"
 
-#: includes/class-vn-address-admin.php:348
+#: includes/class-vn-address-admin.php:360
 msgid "Author:"
 msgstr "Autor:"
 
-#: includes/class-vn-address-admin.php:349
+#: includes/class-vn-address-admin.php:361
 msgid "Website:"
 msgstr "Website:"
 
 #. translators: 1: number of provinces, 2: number of wards
-#: includes/class-vn-address-admin.php:371
+#: includes/class-vn-address-admin.php:383
 #, php-format
 msgid "%1$d provinces, %2$d wards loaded (new structure)."
 msgstr "%1$d Provinzen, %2$d Gemeinden geladen (neue Struktur)."
 
 #. translators: %s: configured server URL
-#: includes/class-vn-address-admin.php:381
+#: includes/class-vn-address-admin.php:393
 #, php-format
 msgid ""
 "API Server: %s (falls back to bundled data automatically if unreachable)."
@@ -356,28 +356,28 @@ msgstr ""
 "API-Server: %s (fällt automatisch auf mitgelieferte Daten zurück, falls "
 "nicht erreichbar)."
 
-#: includes/class-vn-address-admin.php:393
-#: includes/class-vn-address-admin.php:431
-#: includes/class-vn-address-admin.php:449
-#: includes/class-vn-address-admin.php:468
+#: includes/class-vn-address-admin.php:405
+#: includes/class-vn-address-admin.php:443
+#: includes/class-vn-address-admin.php:461
+#: includes/class-vn-address-admin.php:480
 msgid "Permission denied"
 msgstr "Zugriff verweigert"
 
 #. translators: %d: HTTP status code
-#: includes/class-vn-address-admin.php:411
+#: includes/class-vn-address-admin.php:423
 #, php-format
 msgid "Server responded with HTTP %d"
 msgstr "Server antwortete mit HTTP %d"
 
-#: includes/class-vn-address-admin.php:418
+#: includes/class-vn-address-admin.php:430
 msgid "Server responded, but not in the expected format"
 msgstr "Der Server hat geantwortet, aber nicht im erwarteten Format"
 
-#: includes/class-vn-address-admin.php:422
+#: includes/class-vn-address-admin.php:434
 msgid "Connection successful!"
 msgstr "Verbindung erfolgreich!"
 
-#: includes/class-vn-address-admin.php:437
+#: includes/class-vn-address-admin.php:449
 msgid "Cache cleared successfully!"
 msgstr "Cache erfolgreich geleert!"
 
@@ -553,14 +553,14 @@ msgstr ""
 "Vietnam Address for WooCommerce erfordert, dass WooCommerce installiert und "
 "aktiviert ist."
 
-#: vn-address-woocommerce.php:103
+#: vn-address-woocommerce.php:107
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: vn-address-woocommerce.php:180
+#: vn-address-woocommerce.php:184
 msgid "Province code is required"
 msgstr "Provinzcode ist erforderlich"
 
-#: vn-address-woocommerce.php:195
+#: vn-address-woocommerce.php:199
 msgid "Parent code is required"
 msgstr "Übergeordneter Code ist erforderlich"

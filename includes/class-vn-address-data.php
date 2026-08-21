@@ -24,7 +24,7 @@ class VN_Address_Data {
 
     const UNREACHABLE_CACHE_SECONDS = 300;
     const SUCCESS_CACHE_SECONDS = 86400; // 1 day
-    const DEFAULT_SERVER_URL = 'https://api.jungdev.com';
+    const DEFAULT_SERVER_URL = 'https://api.onestudio.vn';
 
     public static function get_instance() {
         if (null === self::$instance) {
